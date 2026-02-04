@@ -1,29 +1,35 @@
 import axios from "axios";
-import { useLocalStorage } from "@vueuse/core";
 
-/**Import API URL from .env */
+/** Import API URL from .env */
 const ROOT_URL = `${import.meta.env.VITE_API_URL}`;
 
-/**Capture the access token from local storage */
-const access_token = useLocalStorage("x-token", null);
-
-/**Create an axios instance */
+/** Create an axios instance */
 const axiosInstance = axios.create({
   baseURL: ROOT_URL,
+  headers: {
+    "Content-Type": "application/json", // Standard header
+  },
 });
 
-/**Create a request interceptor */
+/** Create a request interceptor */
 axiosInstance.interceptors.request.use(
   (config) => {
-    /** Add token to header if exists */
-    if (access_token) {
-      config.headers["Authorization"] = `Bearer ${access_token.value}`;
+    const token = localStorage.getItem("x-token");
+
+    if (token) {
+      /**Make sure the token isn't stored with extra quotes if useLocalStorage stringified it */
+      const actualToken =
+        token.startsWith('"') && token.endsWith('"')
+          ? JSON.parse(token)
+          : token;
+      config.headers["Authorization"] = `Bearer ${actualToken}`;
     }
 
     return config;
   },
   (error) => {
-    /**Do something with request error */
+    /** Do something with request error */
+    console.error("Request Error:", error);
     return Promise.reject(error);
   }
 );
@@ -34,26 +40,53 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log(error);
+    console.error("Response Error:", error);
+    const config = error.config; // Original request config
 
-    /** Handle 401 Unauthorized error */
-    if (error.response.status === 401) {
-      console.log("Unauthorized access. Logging out...");
-      /** Perform a dynamic import of store to avoid circular dependency */
-      const { useAuthStore } = await import("../../store/auth.store");
-      const authStore = useAuthStore();
-      /** Perform logout or redirect to the login page */
-      authStore.logout();
+    /**Check if error.response exists (network errors might not have it) */
+    if (error.response) {
+      const status = error.response.status;
+
+      /** Handle 401 Unauthorized error */
+      if (status === 401 /* && !config._retry */) {
+        // Add retry logic here if implementing token refresh
+        console.warn("Unauthorized access (401). Logging out...");
+        // Use dynamic import ONLY WHEN NEEDED inside the function
+        try {
+          const { useAuthStore } = await import("../../store/auth.store");
+          const authStore = useAuthStore();
+          /** Perform logout or redirect to the login page */
+          authStore.logout();
+        } catch (importError) {
+          console.error("Failed to import authStore for logout:", importError);
+        }
+      }
+
+      /** Handle 403 Forbidden error */
+      if (status === 403) {
+        console.warn("Access forbidden (403).");
+        // Maybe redirect to an 'access denied' page or show a message
+        // Depending on requirements, logout might not always be the desired action for 403.
+      }
+    } else if (error.request) {
+      console.error("Network error or no response received:", error.request);
+    } else {
+      console.error("Error setting up request:", error.message);
     }
 
-    /** Handle 403 Forbidden error */
-    if (error.response.status === 403) {
-      /** Perform logout or redirect to the login page */
-      console.log("Access forbidden. Logging out...");
-    }
-
+    /** Reject with the error so store actions can catch it */
     return Promise.reject(error);
   }
 );
 
-export default axiosInstance;
+/** Export wrapped methods for cleaner usage in stores/components */
+export default {
+  get: (url, config) => axiosInstance.get(url, config),
+  post: (url, data, config) => axiosInstance.post(url, data, config),
+  patch: (url, data, config) => axiosInstance.patch(url, data, config),
+  put: (url, data, config) => axiosInstance.put(url, data, config),
+  delete: (url, config) => axiosInstance.delete(url, config),
+};
+
+/** Export the axios instance for direct usage if needed */
+export { axiosInstance };
