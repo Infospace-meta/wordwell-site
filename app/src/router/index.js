@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import {
-  HomeView,
-  PostsView,
+  HomeView, 
   DetailsView,
   ApiTestView,
   LandingView,
@@ -13,8 +12,7 @@ const routes = [
   { path: "/", name: "app", component: LandingView },
   { path: "/home", name: "home", component: HomeView },
   { path: "/order", name: "order", component: OrderView },
-  { path: "/api", name: "api", component: ApiTestView },
-  { path: "/posts", name: "posts", component: PostsView },
+  { path: "/api", name: "api", component: ApiTestView }, 
   { path: "/posts/:id", name: "details", component: DetailsView, props: true },
 ];
 
