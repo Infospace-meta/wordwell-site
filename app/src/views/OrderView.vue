@@ -1,7 +1,9 @@
 <template>
-  <div class="mt-18">OrderView</div>
+  <div class="mt-18">
+    <OrderForm />
+  </div>
 </template>
 
-<script setup></script>
-
-<style lang="scss" scoped></style>
+<script setup>
+import OrderForm from "../components/OrderForm.vue";
+</script>
