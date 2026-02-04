@@ -4,6 +4,7 @@ import PostsView from "./PostsView.vue";
 import PiniaTest from "./PiniaTest.vue";
 import ApiTestView from "./ApiTestView.vue";
 import LandingView from "./LandingView.vue";
+import OrderView from "./OrderView.vue";
 
 export {
   HomeView,
@@ -12,4 +13,5 @@ export {
   PiniaTest,
   ApiTestView,
   LandingView,
+  OrderView,
 };
