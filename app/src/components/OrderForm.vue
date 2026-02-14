@@ -127,22 +127,86 @@
             <div
               class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center hover:border-indigo-500 transition"
             >
-              <input
-                type="file"
-                multiple
-                @change="handleFileSelection"
-                class="hidden"
-                id="fileUpload"
-              />
+              <!-- File Upload -->
+              <div class="m-4">
+                <input
+                  type="file"
+                  multiple
+                  @change="handleFileSelection"
+                  class="hidden"
+                  id="fileUpload"
+                />
+
+                <!-- FILE PREVIEW LIST -->
+                <ul v-if="selectedFiles.length > 0" class="mt-3 space-y-2">
+                  <li
+                    v-for="(file, index) in selectedFiles"
+                    :key="index"
+                    class="flex items-center justify-between p-2 bg-gray-50 rounded border border-gray-200 text-sm"
+                  >
+                    <div class="flex items-center space-x-2 truncate">
+                      <span class="text-blue-500">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-4 w-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
+                          />
+                        </svg>
+                      </span>
+                      <span class="truncate font-medium text-gray-700">{{
+                        file.name
+                      }}</span>
+                      <span class="text-xs text-gray-400"
+                        >({{ formatBytes(file.size) }})</span
+                      >
+                    </div>
+
+                    <!-- Remove button -->
+                    <button
+                      type="button"
+                      @click="removeFile(index)"
+                      class="text-red-400 hover:text-red-600 p-1"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                </ul>
+
+                <p
+                  v-if="uploading"
+                  class="text-blue-500 text-xs mt-2 animate-pulse font-bold"
+                >
+                  🚀 Uploading files to Supabase...
+                </p>
+              </div>
+
+              <!-- File upload label -->
               <label for="fileUpload" class="cursor-pointer text-slate-500">
                 Drag & drop files or
                 <span class="text-indigo-600 font-medium">browse</span>
               </label>
             </div>
-
-            <p v-if="uploading" class="text-indigo-500 text-sm">
-              Uploading files...
-            </p>
           </div>
 
           <!-- SUBMIT -->
@@ -219,7 +283,23 @@ const totalCost = computed(() => form.value.pages * 15);
 /**FUNCTIONS */
 /**Function to handle file selection */
 const handleFileSelection = (event) => {
-  selectedFiles.value = Array.from(event.target.files);
+  const newFiles = Array.from(event.target.files);
+  selectedFiles.value = [...selectedFiles.value, ...newFiles];
+};
+
+/**Function to remove a file from the list before uploading */
+const removeFile = (index) => {
+  selectedFiles.value.splice(index, 1);
+};
+
+/**Helper to make file sizes readable (KB/MB) */
+const formatBytes = (bytes, decimals = 2) => {
+  if (!bytes) return "0 Bytes";
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ["Bytes", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 };
 
 /**Function to handle file upload */
