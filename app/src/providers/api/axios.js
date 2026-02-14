@@ -40,8 +40,8 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.error("Response Error:", error);
-    const config = error.config; // Original request config
+    // console.error("Response Error:", error);
+    // const config = error.config; // Original request config
 
     /**Check if error.response exists (network errors might not have it) */
     if (error.response) {
