@@ -189,6 +189,7 @@
 import { ref, computed } from "vue";
 import { useOrdersStore } from "../store/order.store";
 import { storeToRefs } from "pinia";
+import { supabase } from "../helpers/supabase";
 
 /**VARIABLES */
 /**Initialize the store */
@@ -224,10 +225,25 @@ const handleFileSelection = (event) => {
 /**Function to handle file upload */
 const uploadFiles = async () => {
   const uploadedFiles = [];
+
+  /**Upload each selected file */
   for (const file of selectedFiles.value) {
     const fileName = `${Date.now()}-${file.name}`;
-    ///////////
+    const { data, error } = await supabase.storage
+      .from("order-attachments")
+      .upload(fileName, file);
+
+    if (error) throw error;
+
+    /**Get public URL */
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from("order-attachments").getPublicUrl(fileName);
+
+    uploadedFiles.push({ file_url: publicUrl, file_name: file.name });
   }
+
+  return uploadedFiles;
 };
 
 /**Functio to handle submission */
