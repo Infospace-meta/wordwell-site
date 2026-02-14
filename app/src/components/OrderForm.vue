@@ -340,10 +340,7 @@ const handleSubmit = async () => {
 
     /**Handle response based on what store returns */
     if (apiError) {
-      alert(
-        "Error submitting order: " +
-          (apiError.data?.message || "Check console"),
-      );
+      alert("Error submitting order: " + (apiError || "Check console"));
       return;
     }
 
