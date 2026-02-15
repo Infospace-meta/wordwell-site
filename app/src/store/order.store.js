@@ -7,19 +7,19 @@ export const useOrdersStore = defineStore("orders", () => {
   /**STATE */
   const orders = ref([]);
   const loading = ref(false);
-  const orderForm = ref(useLocalStorage("orderForm", null));
+  const pendingOrder = ref(useLocalStorage("pendingOrder", null));
   const error = ref(null);
 
   /**ACTIONS */
   /**Set order form data */
-  function setFormData(newFormData) {
-    console.log(newFormData);
-    orderForm.value = JSON.stringify(newFormData);
+  function setPendingOrder(data) {
+    console.log(data);
+    pendingOrder.value = JSON.stringify(data);
   }
 
   /**Clear form data */
-  function clearFormData() {
-    orderForm.value = null;
+  function clearPendingOrder() {
+    pendingOrder.value = null;
   }
 
   /**Add a new order */
@@ -48,5 +48,13 @@ export const useOrdersStore = defineStore("orders", () => {
     }
   }
 
-  return { orders, loading, error, addOrder };
+  return {
+    orders,
+    loading,
+    error,
+    pendingOrder,
+    setPendingOrder,
+    clearPendingOrder,
+    addOrder,
+  };
 });
