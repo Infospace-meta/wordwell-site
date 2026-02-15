@@ -118,6 +118,20 @@
             </div>
           </div>
 
+          <!-- Email Field -->
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-600"
+              >Your Email (To receive the finished work)</label
+            >
+            <input
+              v-model="form.email"
+              type="email"
+              required
+              placeholder="email@example.com"
+              class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 transition"
+            />
+          </div>
+
           <!-- SECTION 3 -->
           <div class="space-y-6">
             <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
@@ -260,7 +274,9 @@ import { supabase } from "../helpers/supabase";
 const ordersStore = useOrdersStore();
 const { loading: isAddingOrder } = storeToRefs(ordersStore);
 
+/**Order Form */
 const form = ref({
+  email: "",
   service_type: "Essay",
   academic_level: "Undergraduate",
   subject: "",
@@ -331,9 +347,33 @@ const handleSubmit = async () => {
   try {
     uploading.value = true;
 
-    /**Upload files to supabase first */
+    /**Check if user is already logged in */
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    /**Upload files to supabase first (save them before redirect) */
     const fileMetadata = await uploadFiles();
     form.value.files = fileMetadata;
+
+    if (!user) {
+      /**If not logged in, save order data to local storage and trigger Magic Link  */
+      ordersStore.setPendingOrder(form.value);
+
+      const { error: authError } = await supabase.auth.signInWithOtp({
+        email: form.value.email,
+        options: {
+          emailRedirectTo: window.location.origin + "/confirm-order",
+        },
+      });
+
+      if (authError) throw authError;
+
+      alert(
+        "Magic link sent! Check your email to verify and complete your order.",
+      );
+      return;
+    }
 
     /**Send payload to server */
     const { data, error: apiError } = await ordersStore.addOrder(form.value);
