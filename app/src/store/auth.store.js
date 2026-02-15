@@ -9,6 +9,7 @@ const baseUrl = `${import.meta.env.VITE_API_URL}`;
 const mode = `${import.meta.env.VITE_MODE}`;
 
 export const useAuthStore = defineStore("auth", () => {
+  /**VARIABLES */
   const user = ref(useLocalStorage("user", null));
   const access_token = ref(useLocalStorage("x-token", null));
   const returnUrl = ref(null);
@@ -16,6 +17,7 @@ export const useAuthStore = defineStore("auth", () => {
   const isLoginModalOpen = ref(false);
   let login;
 
+  /**ACTIONS */
   /**Login method for local instance */
   async function login_local(formData) {
     const username = formData.email;

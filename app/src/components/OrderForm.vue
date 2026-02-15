@@ -364,6 +364,10 @@ const handleSubmit = async () => {
         email: form.value.email,
         options: {
           emailRedirectTo: window.location.origin + "/confirm-order",
+          data: {
+            full_name: form.value.full_name,
+            whatsapp_no: form.value.whatsapp_no,
+          },
         },
       });
 
