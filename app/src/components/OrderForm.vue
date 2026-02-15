@@ -325,19 +325,22 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { useOrdersStore } from "../store/order.store";
+import { ref, computed, onMounted } from "vue";
+import { useOrdersStore, useAuthStore } from "../store";
 import { storeToRefs } from "pinia";
 import { supabase } from "../helpers/supabase";
 
 /**VARIABLES */
 /**Initialize the store */
 const ordersStore = useOrdersStore();
+const authStore = useAuthStore();
 const { loading: isAddingOrder } = storeToRefs(ordersStore);
 
 /**Order Form */
 const form = ref({
+  full_name: "",
   email: "",
+  whatsapp_no: "",
   service_type: "Essay",
   academic_level: "Undergraduate",
   subject: "",
@@ -358,6 +361,19 @@ const estimatedWords = computed(() => form.value.pages * 275);
 const totalCost = computed(() => form.value.pages * 15);
 
 /**FUNCTIONS */
+/** */
+onMounted(async () => {
+  await authStore.fetchUser();
+
+  /**If user is logged in, pre-populate the form object so the backend
+   * receives the correct data even when form is hidden */
+  if (authStore.isLoggedIn) {
+    form.value.full_name = authStore.profile?.full_name;
+    form.value.email = authStore.user?.email;
+    form.value.whatsapp_no = authStore.profile?.whatsapp_no;
+  }
+});
+
 /**Function to handle file selection */
 const handleFileSelection = (event) => {
   const newFiles = Array.from(event.target.files);

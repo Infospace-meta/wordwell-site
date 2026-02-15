@@ -11,7 +11,8 @@ const mode = `${import.meta.env.VITE_MODE}`;
 
 export const useAuthStore = defineStore("auth", () => {
   /**VARIABLES */
-  const user = ref(useLocalStorage("user", null));
+  const user = ref(null);
+  // const user = ref(useLocalStorage("user", null));
   const access_token = ref(useLocalStorage("x-token", null));
   const returnUrl = ref(null);
   const error = ref(null);
@@ -129,6 +130,7 @@ export const useAuthStore = defineStore("auth", () => {
 
   return {
     user,
+    profile,
     returnUrl,
     error,
     isLoginModalOpen,
