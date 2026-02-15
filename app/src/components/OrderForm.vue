@@ -14,6 +14,67 @@
         </div>
 
         <form @submit.prevent="handleSubmit" class="space-y-10">
+          <!-- SECTION: Identity (Only show for Guests) -->
+          <div v-if="!authStore.isLoggedIn" class="space-y-6">
+            <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
+              Your Identity
+            </h3>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-600"
+                  >Full Name</label
+                >
+                <input
+                  v-model="form.full_name"
+                  type="text"
+                  required
+                  class="w-full rounded-xl border ..."
+                />
+              </div>
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-600">Email</label>
+                <input
+                  v-model="form.email"
+                  type="email"
+                  required
+                  class="w-full rounded-xl border ..."
+                />
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-600"
+                >WhatsApp Number</label
+              >
+              <input
+                v-model="form.whatsapp_no"
+                type="text"
+                placeholder="+254..."
+                class="w-full rounded-xl border ..."
+              />
+            </div>
+          </div>
+
+          <!-- Welcome Message for Authenticated Users -->
+          <div
+            v-else
+            class="p-4 bg-indigo-50 rounded-xl border border-indigo-100 flex items-center justify-between"
+          >
+            <div>
+              <p class="text-sm text-indigo-700">
+                Ordering as <strong>{{ authStore.profile?.full_name }}</strong>
+              </p>
+              <p class="text-xs text-indigo-500">{{ authStore.user?.email }}</p>
+            </div>
+            <button
+              @click="handleLogout"
+              class="text-xs text-red-500 hover:underline"
+            >
+              Not you? Log out
+            </button>
+          </div>
+
           <!-- SECTION 1 -->
           <div class="space-y-6">
             <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
