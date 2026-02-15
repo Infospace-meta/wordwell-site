@@ -5,6 +5,7 @@ import HomeView from "./HomeView.vue";
 import ApiTestView from "./ApiTestView.vue";
 import LandingView from "./LandingView.vue";
 import OrderView from "./OrderView.vue";
+import OrdersView from "./OrdersView.vue";
 
 export {
   HomeView,
@@ -14,4 +15,5 @@ export {
   ApiTestView,
   LandingView,
   OrderView,
+  OrdersView,
 };

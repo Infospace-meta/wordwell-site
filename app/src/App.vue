@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-white">
+  <div class="bg-white min-h-screen">
     <Header />
     <div class="mt-4">
       <RouterView />
@@ -10,7 +10,7 @@
         id="login-form"
         @click="closeModal()"
       >
-        <div class="modal-content max-w-7xl" @click.stop>
+        <div class="max-w-7xl modal-content" @click.stop>
           <LoginEmail />
         </div>
       </div>
