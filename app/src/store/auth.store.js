@@ -1,9 +1,10 @@
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { defineStore } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
 import { fetchWrapper } from "../helpers";
 import { post, get } from "../providers/api/main";
 import router from "../router";
+import { supabase } from "../helpers/supabase";
 
 const baseUrl = `${import.meta.env.VITE_API_URL}`;
 const mode = `${import.meta.env.VITE_MODE}`;
@@ -16,8 +17,28 @@ export const useAuthStore = defineStore("auth", () => {
   const error = ref(null);
   const isLoginModalOpen = ref(false);
   let login;
+  const profile = ref(null);
 
   /**ACTIONS */
+  /**Function to fetch user */
+  async function fetchUser() {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    user.value = session?.user || null;
+
+    if (user.value) {
+      /**Fetch the extra details from public.Profile table */
+      const { data } = await supabase
+        .from("Profile")
+        .select("*")
+        .eq("id", user.value.id)
+        .single();
+
+      profile.value = data;
+    }
+  }
+
   /**Login method for local instance */
   async function login_local(formData) {
     const username = formData.email;
@@ -106,5 +127,15 @@ export const useAuthStore = defineStore("auth", () => {
     login = login_remote;
   }
 
-  return { user, returnUrl, error, isLoginModalOpen, test, login, logout };
+  return {
+    user,
+    returnUrl,
+    error,
+    isLoginModalOpen,
+    test,
+    login,
+    logout,
+    fetchUser,
+    isLoggedIn: computed(() => !!user.value),
+  };
 });
