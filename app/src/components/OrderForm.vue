@@ -180,7 +180,7 @@
           </div>
 
           <!-- Email Field -->
-          <div class="space-y-2">
+          <!-- <div class="space-y-2">
             <label class="text-sm font-medium text-slate-600"
               >Your Email (To receive the finished work)</label
             >
@@ -191,7 +191,7 @@
               placeholder="email@example.com"
               class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 transition"
             />
-          </div>
+          </div> -->
 
           <!-- SECTION 3 -->
           <div class="space-y-6">
@@ -347,7 +347,7 @@ const form = ref({
   deadline: "",
   pages: 1,
   instructions: "",
-  user_id: "client-uuid-456", // Matches seeder ID
+  // user_id: "client-uuid-456", // Matches seeder ID
   files: [],
 });
 
@@ -361,7 +361,8 @@ const estimatedWords = computed(() => form.value.pages * 275);
 const totalCost = computed(() => form.value.pages * 15);
 
 /**FUNCTIONS */
-/** */
+
+/**Fetch user on mount */
 onMounted(async () => {
   await authStore.fetchUser();
 
@@ -424,17 +425,13 @@ const handleSubmit = async () => {
   try {
     uploading.value = true;
 
-    /**Check if user is already logged in */
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
     /**Upload files to supabase first (save them before redirect) */
     const fileMetadata = await uploadFiles();
     form.value.files = fileMetadata;
 
-    if (!user) {
-      /**If not logged in, save order data to local storage and trigger Magic Link  */
+    /**If not logged in */
+    if (!authStore.isLoggedIn) {
+      /**Save order data to local storage and trigger Magic Link  */
       ordersStore.setPendingOrder(form.value);
 
       const { error: authError } = await supabase.auth.signInWithOtp({
@@ -457,7 +454,8 @@ const handleSubmit = async () => {
     }
 
     /**Send payload to server */
-    const { data, error: apiError } = await ordersStore.addOrder(form.value);
+    const payload = { ...form.value, user_id: authStore.user.id };
+    const { data, error: apiError } = await ordersStore.addOrder(payload);
 
     /**Handle response based on what store returns */
     if (apiError) {
