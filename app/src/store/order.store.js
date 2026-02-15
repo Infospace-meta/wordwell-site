@@ -1,15 +1,22 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import api from "../providers/api/axios";
+import { useLocalStorage } from "@vueuse/core";
 
 export const useOrdersStore = defineStore("orders", () => {
   /**STATE */
   const orders = ref([]);
   const loading = ref(false);
-  //    const addOrderForm = ref(useLocalStorage("addOrderForm", null));
+  const orderForm = ref(useLocalStorage("orderForm", null));
   const error = ref(null);
 
   /**ACTIONS */
+  /**Set order form data */
+  function setFormData(newFormData) {
+    console.log(newFormData);
+    orderForm.value = JSON.stringify(newFormData);
+  }
+
   /**Add a new order */
   async function addOrder(orderFormData) {
     /**Local variables */
