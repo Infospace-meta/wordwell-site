@@ -17,6 +17,11 @@ export const useOrdersStore = defineStore("orders", () => {
     orderForm.value = JSON.stringify(newFormData);
   }
 
+  /**Clear form data */
+  function clearFormData() {
+    orderForm.value = null;
+  }
+
   /**Add a new order */
   async function addOrder(orderFormData) {
     /**Local variables */
