@@ -152,22 +152,22 @@
 <script setup>
 const posts = [
   {
-    category: 'Casino',
+
     title: 'Zažijte vzrušení Ludios Casino: Bonus 2 750 € & 9 000+ her',
-   
+
   },
   {
-    category: 'Sports Betting',
+    
     title: 'Ervaar de Ultieme Sensatie bij Casinolab: Een Hub voor Sports Betting en Online Casino Games',
    
   },
   {
-    category: 'Strategy',
+    
     title: 'Experience the Thrill of 30Bet: Where Luck Meets Strategy',
    
   },
   {
-    category: 'Casino',
+    
     title: 'BDM Bet Login: Descubre el Mundo de Juegos de Casino de Alta Octanaje',
    
   },
