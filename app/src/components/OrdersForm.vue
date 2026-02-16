@@ -245,189 +245,222 @@
 </template>
 
 <script>
-import useVuelidate from '@vuelidate/core'
-import { required, email, minLength, helpers } from '@vuelidate/validators'
+import { useOrdersStore, useAuthStore } from "../store";
+import { storeToRefs } from "pinia";
+import { supabase } from "../helpers/supabase";
 
 export default {
-  name: 'OrderForm2',
-
-  setup() {
-    return { v$: useVuelidate() }
-  },
+  name: "OrderForm2",
 
   data() {
     return {
       form: {
-        fullName: '',
-        phone: '',
-        email: '',
-        service: '',
-        academicLevel: '',
-        subject: '',
-        instructions: '',
-        pages: '1',
-        deadline: ''
+        fullName: "",
+        phone: "",
+        email: "",
+        service: "",
+        academicLevel: "",
+        subject: "",
+        instructions: "",
+        pages: "1",
+        deadline: ""
       },
       uploadedFiles: [],
       isSubmitting: false,
-      basePrice: 12
-    }
-  },
-
-  /* ✅ VALIDATION RULES */
-  validations() {
-    const phoneRegex = helpers.regex(/^[0-9+ ]{7,15}$/)
-
-    return {
-      form: {
-        fullName: {
-          required,
-          minLength: minLength(3)
-        },
-        phone: {
-          required,
-          phoneRegex
-        },
-        email: {
-          required,
-          email
-        },
-        service: {
-          required
-        },
-        academicLevel: {
-          required
-        },
-        subject: {
-          required
-        },
-        instructions: {
-          required,
-          minLength: minLength(10)
-        },
-        pages: {
-          required
-        }
-      }
-    }
+      basePrice: 15,
+      minDate: new Date().toISOString().split("T")[0]
+    };
   },
 
   computed: {
     formattedPrice() {
-      const pages = parseInt(this.form.pages) || 1
-      const price = pages * this.basePrice
-      return `$${price.toFixed(2)}`
+      const pages = parseInt(this.form.pages) || 1;
+      const price = pages * this.basePrice;
+      return `$${price.toFixed(2)}`;
+    }
+  },
+
+  async mounted() {
+    this.ordersStore = useOrdersStore();
+    this.authStore = useAuthStore();
+
+    const { loading } = storeToRefs(this.ordersStore);
+    this.isAddingOrder = loading;
+
+    await this.authStore.fetchUser();
+
+    if (this.authStore.isLoggedIn) {
+      this.form.fullName = this.authStore.profile?.full_name || "";
+      this.form.email = this.authStore.user?.email || "";
+      this.form.phone = this.authStore.profile?.whatsapp_no || "";
     }
   },
 
   methods: {
-    calculatePrice() {
-      // Price handled by computed
-    },
+    calculatePrice() {},
 
     triggerFileUpload() {
-      this.$refs.fileInput.click()
+      this.$refs.fileInput.click();
     },
 
     handleFileSelect(event) {
-      const files = Array.from(event.target.files)
-      this.addFiles(files)
+      const files = Array.from(event.target.files);
+      this.addFiles(files);
     },
 
     handleFileDrop(event) {
-      const files = Array.from(event.dataTransfer.files)
-      this.addFiles(files)
+      const files = Array.from(event.dataTransfer.files);
+      this.addFiles(files);
     },
 
     addFiles(files) {
+      const validTypes = [
+        "application/pdf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "text/plain",
+        "application/rtf"
+      ];
+
       const validFiles = files.filter(file => {
-        const validTypes = [
-          'application/pdf',
-          'application/msword',
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-          'text/plain',
-          'application/rtf'
-        ]
-
-        const isValidType = validTypes.includes(file.type)
-        const isValidSize = file.size <= 10 * 1024 * 1024
-
-        if (!isValidType) {
-          alert(`Invalid file type: ${file.name}`)
-          return false
+        if (!validTypes.includes(file.type)) {
+          alert(`Invalid file type: ${file.name}`);
+          return false;
         }
 
-        if (!isValidSize) {
-          alert(`File too large: ${file.name} (Max 10MB)`)
-          return false
+        if (file.size > 10 * 1024 * 1024) {
+          alert(`File too large: ${file.name} (Max 10MB)`);
+          return false;
         }
 
-        return true
-      })
+        return true;
+      });
 
-      const remainingSlots = 5 - this.uploadedFiles.length
-      const filesToAdd = validFiles.slice(0, remainingSlots)
+      const remainingSlots = 5 - this.uploadedFiles.length;
+      const filesToAdd = validFiles.slice(0, remainingSlots);
 
       if (filesToAdd.length < validFiles.length) {
-        alert('Maximum 5 files allowed')
+        alert("Maximum 5 files allowed");
       }
 
-      this.uploadedFiles = [...this.uploadedFiles, ...filesToAdd]
+      this.uploadedFiles = [...this.uploadedFiles, ...filesToAdd];
     },
 
     removeFile(index) {
-      this.uploadedFiles.splice(index, 1)
+      this.uploadedFiles.splice(index, 1);
     },
 
-    /* ✅ UPDATED SUBMIT WITH VALIDATION */
-    async handleSubmit() {
-      const isValid = await this.v$.$validate()
+    async uploadFilesToSupabase() {
+      const uploaded = [];
 
-      if (!isValid) {
-        alert('Please fill all required fields correctly.')
-        return
+      for (const file of this.uploadedFiles) {
+        const fileName = `${Date.now()}-${file.name}`;
+
+        const { error } = await supabase.storage
+          .from("order-attachments")
+          .upload(fileName, file);
+
+        if (error) throw error;
+
+        const {
+          data: { publicUrl }
+        } = supabase.storage
+          .from("order-attachments")
+          .getPublicUrl(fileName);
+
+        uploaded.push({
+          file_url: publicUrl,
+          file_name: file.name
+        });
       }
 
-      this.isSubmitting = true
+      return uploaded;
+    },
+
+    async handleSubmit() {
+      this.isSubmitting = true;
 
       try {
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        // 1️⃣ Upload files first
+        const fileMetadata = await this.uploadFilesToSupabase();
 
-        const orderData = {
-          ...this.form,
-          files: this.uploadedFiles,
-          price: this.formattedPrice
+        const payload = {
+          full_name: this.form.fullName,
+          email: this.form.email,
+          whatsapp_no: this.form.phone,
+          service_type: this.form.service,
+          academic_level: this.form.academicLevel,
+          subject: this.form.subject,
+          deadline: this.form.deadline,
+          pages: parseInt(this.form.pages),
+          instructions: this.form.instructions,
+          files: fileMetadata
+        };
+
+        // 2️⃣ If NOT logged in → trigger magic link
+        if (!this.authStore.isLoggedIn) {
+          this.ordersStore.setPendingOrder(payload);
+
+          const { error } = await supabase.auth.signInWithOtp({
+            email: this.form.email,
+            options: {
+              emailRedirectTo:
+                window.location.origin + "/confirm-order",
+              data: {
+                full_name: this.form.fullName,
+                whatsapp_no: this.form.phone
+              }
+            }
+          });
+
+          if (error) throw error;
+
+          alert(
+            "Magic link sent! Check your email to verify and complete your order."
+          );
+
+          return;
         }
 
-        console.log('Order submitted:', orderData)
+        // 3️⃣ Logged in → send to backend
+        const finalPayload = {
+          ...payload,
+          user_id: this.authStore.user.id
+        };
 
-        alert('Order placed successfully! We will contact you soon.')
+        const { data, error } =
+          await this.ordersStore.addOrder(finalPayload);
 
-        this.resetForm()
-        this.v$.$reset()
+        if (error) {
+          alert("Error submitting order.");
+          return;
+        }
 
-      } catch (error) {
-        console.error('Error submitting order:', error)
-        alert('There was an error submitting your order.')
+        alert("Order created successfully! Order #" + data.order_number);
+
+        this.resetForm();
+      } catch (err) {
+        console.error("Order submission failed:", err);
+        alert("Error submitting order.");
       } finally {
-        this.isSubmitting = false
+        this.isSubmitting = false;
       }
     },
 
     resetForm() {
       this.form = {
-        fullName: '',
-        phone: '',
-        email: '',
-        service: '',
-        academicLevel: '',
-        subject: '',
-        instructions: '',
-        pages: '1'
-      }
-      this.uploadedFiles = []
+        fullName: "",
+        phone: "",
+        email: "",
+        service: "",
+        academicLevel: "",
+        subject: "",
+        instructions: "",
+        pages: "1",
+        deadline: ""
+      };
+      this.uploadedFiles = [];
     }
   }
-}
+};
 </script>
-
