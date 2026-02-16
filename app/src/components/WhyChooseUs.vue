@@ -27,7 +27,7 @@
         <!-- ── Right Cards Grid ── -->
         <div class="gap-4 grid grid-cols-2 lg:w-2/3">
           <div
-            v-for="(card, index) in cards"
+            v-for="(card) in cards"
             :key="card.title"
             :class="[
               'bg-white/[0.07] border border-white/10 rounded-xl p-7',

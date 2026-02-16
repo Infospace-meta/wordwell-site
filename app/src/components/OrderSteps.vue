@@ -22,7 +22,7 @@
         <div class="top-0 bottom-0 left-1/2 z-0 absolute bg-gray-200 w-px -translate-x-1/2"></div>
 
         <div
-          v-for="(step, index) in steps"
+          v-for="(step) in steps"
           :key="step.id"
           class="relative flex items-start mb-12 last:mb-0"
           :class="step.side === 'left' ? 'flex-row' : 'flex-row-reverse'"
@@ -43,7 +43,7 @@
             <div
               class="flex justify-center items-center bg-white shadow-sm border-2 border-orange-400 rounded-full w-12 h-12"
             >
-              <component :is="'span'" class="text-orange-500 text-xl" v-html="step.icon"></component>
+              <span class="text-orange-500 text-xl" v-html="step.icon"></span>
             </div>
           </div>
 

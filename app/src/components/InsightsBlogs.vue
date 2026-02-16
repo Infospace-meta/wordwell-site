@@ -1,4 +1,5 @@
 <template>
+  <div>
     <!-- Privacy & Security Banner section-->
     <section class="bg-[#f0f4ff] px-6 md:px-12 lg:px-20 py-14">
       <div class="mx-auto max-w-4xl">
@@ -70,8 +71,7 @@
 
   <section
     class="bg-[#f0f4ff] px-6 md:px-12 lg:px-20 py-16 overflow-hidden"
-    style="background-image: radial-gradient(circle at 90% 50%, rgba(255,255,255,0.05) 0%, transparent 60%);"
-  >
+    style="background-image: radial-gradient(circle at 90% 50%, rgba(255,255,255,0.05) 0%, transparent 60%);">
     <div class="mx-auto max-w-7xl">
 
       <!-- ── Header ── -->
@@ -82,15 +82,13 @@
           </p>
           <h2
             class="font-extrabold text-[#2d3f7b]text-3xl md:text-4xl leading-tight"
-            style="font-family: 'Merriweather', serif;"
-          >
+            style="font-family: 'Merriweather', serif;">
             Your Go-To Resource for <br class="hidden md:block" />Academic Success
           </h2>
         </div>
         <a
           href="#"
-          class="inline-flex items-center self-start md:self-auto gap-2 hover:bg-[#e8722a] px-5 py-2 border border-[#e8722a]/40 rounded-full font-semibold text-[#e8722a] hover:text-white text-sm whitespace-nowrap transition-all duration-300"
-        >
+          class="inline-flex items-center self-start md:self-auto gap-2 hover:bg-[#e8722a] px-5 py-2 border border-[#e8722a]/40 rounded-full font-semibold text-[#e8722a] hover:text-white text-sm whitespace-nowrap transition-all duration-300">
           View All Posts
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -103,8 +101,7 @@
         <article
           v-for="(post, index) in posts"
           :key="index"
-          class="group flex flex-col bg-white shadow-lg hover:shadow-2xl rounded-2xl overflow-hidden transition-all hover:-translate-y-2 duration-300 cursor-pointer"
-        >
+          class="group flex flex-col bg-white shadow-lg hover:shadow-2xl rounded-2xl overflow-hidden transition-all hover:-translate-y-2 duration-300 cursor-pointer">
           <!-- Animated top bar -->
           <div class="bg-[#e8722a] w-full h-[3px] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
 
@@ -119,8 +116,7 @@
             <!-- Title (original language kept) -->
             <h3
               class="flex-1 mb-4 font-bold text-[#2d3f7b] text-[0.95rem] group-hover:text-[#e8722a] leading-snug transition-colors duration-300"
-              style="font-family: 'Merriweather', serif;"
-            >
+              style="font-family: 'Merriweather', serif;">
               {{ post.title }}
             </h3>
 
@@ -129,14 +125,12 @@
               <span class="text-[0.68rem] text-gray-400">{{ post.date }}</span>
               <a
                 href="#"
-                class="inline-flex items-center gap-1 font-bold text-[#2d3f7b] group-hover:text-[#e8722a] text-xs transition-colors duration-300"
-              >
+                class="inline-flex items-center gap-1 font-bold text-[#2d3f7b] group-hover:text-[#e8722a] text-xs transition-colors duration-300">
                 Read More
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 duration-300"
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"
-                >
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </a>
@@ -147,28 +141,29 @@
 
     </div>
   </section>
+</div>
 </template>
 
 <script setup>
 const posts = [
   {
 
-    title: 'Zažijte vzrušení Ludios Casino: Bonus 2 750 € & 9 000+ her',
+    title: 'Ybets Casino: Un Centro en Línea en Auge para Experiencias de Gaming de Alta Velocidad',
 
   },
   {
     
-    title: 'Ervaar de Ultieme Sensatie bij Casinolab: Een Hub voor Sports Betting en Online Casino Games',
+    title: 'Gransino Casino: Explorando la Experiencia de Juego Definitiva',
    
   },
   {
     
-    title: 'Experience the Thrill of 30Bet: Where Luck Meets Strategy',
+    title: 'Cosmic Slot Casino Italia: Un’esperienza di Gioco Elevata con Giochi e Bonus',
    
   },
   {
     
-    title: 'BDM Bet Login: Descubre el Mundo de Juegos de Casino de Alta Octanaje',
+    title: 'Wildsino Casino: Ein Zufluchtsort für intensive Slot-Spiel-Sessions',
    
   },
 ]
