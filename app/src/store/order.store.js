@@ -7,8 +7,8 @@ export const useOrdersStore = defineStore("orders", () => {
   /**STATE */
   const orders = ref([]);
   const loading = ref(false);
-  const pendingOrder = ref(useLocalStorage("pendingOrder", null));
   const error = ref(null);
+  const pendingOrder = ref(useLocalStorage("pendingOrder", null));
 
   /**ACTIONS */
   /**Set order form data */
