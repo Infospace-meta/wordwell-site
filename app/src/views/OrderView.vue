@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import OrdersForm from "../components/OrdersForm.vue";
+import OrdersForm from "../components/OrderForm.vue";
 import OrdersHero from "../components/OrdersHero.vue";
 import OrderSteps from "../components/OrderSteps.vue";
 import WhyChooseUs from "../components/WhyChooseUs.vue";
