@@ -80,6 +80,25 @@
             </div>
           </div>
 
+          <!-- Welcome Message for Authenticated Users -->
+          <div
+            v-else
+            class="p-4 bg-indigo-50 rounded-xl border border-indigo-100 flex items-center justify-between"
+          >
+            <div>
+              <p class="text-sm text-indigo-700">
+                Ordering as <strong>{{ authStore.profile?.full_name }}</strong>
+              </p>
+              <p class="text-xs text-indigo-500">{{ authStore.user?.email }}</p>
+            </div>
+            <button
+              @click="handleLogout"
+              class="text-xs text-red-500 hover:underline"
+            >
+              Not you? Log out
+            </button>
+          </div>
+
           <!-- SECTION 2: (Service Details) -->
           <div>
             <h3 class="text-lg font-semibold text-slate-700 pb-2 mb-2">
@@ -170,7 +189,6 @@
                 type="date"
                 id="deadline"
                 v-model="form.deadline"
-                :min="minDate"
                 class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200"
                 required
               />
@@ -503,7 +521,16 @@ const handleSubmit = async () => {
     }
 
     /**Send payload to server */
-    const payload = { ...form.value, user_id: authStore.user.id };
+    const payload = {
+      service_type: form.service_type,
+      academic_level: form.academic_level,
+      subject: form.subject,
+      deadline: form.deadline,
+      pages: form.pages,
+      instructions: form.instructions,
+      files: form.files,
+      user_id: authStore.user.id,
+    };
     const { data, error: apiError } = await ordersStore.addOrder(payload);
 
     /**Handle response based on what store returns */
