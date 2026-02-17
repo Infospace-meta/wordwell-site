@@ -19,10 +19,14 @@
         class="bg-white shadow-lg p-4 md:p-6 border border-gray-100 rounded-xl"
       >
         <form @submit.prevent="handleSubmit" class="space-y-4">
-          <!-- SECTION: Identity (Only show for Guests) -->
+          <!-- SECTION 1: Identity (Only show for Guests) -->
           <div v-if="!authStore.isLoggedIn">
+            <h3 class="text-lg font-semibold text-slate-700 pb-2 mb-2">
+              Your Identity
+            </h3>
+
             <!-- Full Name -->
-            <div>
+            <div class="py-2">
               <label
                 for="fullName"
                 class="block mb-2 font-semibold text-gray-800 text-sm"
@@ -40,7 +44,7 @@
             </div>
 
             <!-- Email Address -->
-            <div>
+            <div class="py-2">
               <label
                 for="email"
                 class="block mb-2 font-semibold text-gray-800 text-sm"
@@ -58,7 +62,7 @@
             </div>
 
             <!-- Phone Number -->
-            <div>
+            <div class="py-2">
               <label
                 for="phone"
                 class="block mb-2 font-semibold text-gray-800 text-sm"
@@ -76,11 +80,13 @@
             </div>
           </div>
 
-          <!-- SECTION 1 (Service Details) -->
-          <div class="">
-            <h3>Service Details</h3>
+          <!-- SECTION 2: (Service Details) -->
+          <div>
+            <h3 class="text-lg font-semibold text-slate-700 pb-2 mb-2">
+              Service Details
+            </h3>
             <!-- Select Service -->
-            <div>
+            <div class="py-2">
               <label
                 for="service"
                 class="block mb-2 font-semibold text-gray-800 text-sm"
@@ -107,7 +113,7 @@
             </div>
 
             <!-- Academic Level -->
-            <div>
+            <div class="py-2">
               <label
                 for="academicLevel"
                 class="block mb-2 font-semibold text-gray-800 text-sm"
@@ -129,11 +135,13 @@
           </div>
 
           <!-- SECTION 2 (Assignment Info) -->
-          <div class="">
-            <h3>Assignment Info</h3>
+          <div>
+            <h3 class="text-lg font-semibold text-slate-700 pb-2 mb-2">
+              Assignment Info
+            </h3>
 
             <!-- Subject/Course -->
-            <div>
+            <div class="py-2">
               <label
                 for="subject"
                 class="block mb-2 font-semibold text-gray-800 text-sm"
@@ -151,7 +159,7 @@
             </div>
 
             <!-- Deadline -->
-            <div>
+            <div class="py-2">
               <label
                 for="deadline"
                 class="block mb-2 font-semibold text-gray-800 text-sm"
@@ -172,7 +180,7 @@
             </div>
 
             <!-- Number of Pages/Words -->
-            <div>
+            <div class="py-2">
               <label
                 for="pages"
                 class="block mb-2 font-semibold text-gray-800 text-sm"
@@ -189,7 +197,7 @@
               />
             </div>
 
-            <div class="space-y-2">
+            <div class="py-2">
               <label class="text-sm font-medium text-slate-600"
                 >Estimated Words</label
               >
@@ -201,7 +209,7 @@
             </div>
 
             <!-- Instructions -->
-            <div>
+            <div class="py-2">
               <label
                 for="instructions"
                 class="block mb-2 font-semibold text-gray-800 text-sm"
@@ -226,9 +234,9 @@
             </label>
             <div class="flex justify-between items-center">
               <span class="text-gray-600 text-sm">Total Price:</span>
-              <span class="font-bold text-orange-600 text-xl">{{
-                formattedPrice
-              }}</span>
+              <span class="font-bold text-orange-600 text-xl"
+                >${{ totalCost }}</span
+              >
             </div>
             <p class="mt-1 text-gray-500 text-xs">
               Base price: ${{ basePrice }} per page
@@ -237,7 +245,7 @@
 
           <!-- SECTION 3 (Attachments) -->
           <div class="space-y-6">
-            <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
+            <h3 class="text-lg font-semibold text-slate-700 pb-2">
               Attachments
             </h3>
 
@@ -359,504 +367,179 @@
             </button>
           </div>
         </form>
-        <form @submit.prevent="handleSubmit" class="space-y-10">
-          <!-- SECTION: Identity (Only show for Guests) -->
-          <div v-if="!authStore.isLoggedIn" class="space-y-6">
-            <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
-              Your Identity
-            </h3>
-
-            <div class="grid md:grid-cols-2 gap-6">
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Full Name</label
-                >
-                <input
-                  v-model="form.full_name"
-                  type="text"
-                  required
-                  class="w-full rounded-xl border ..."
-                />
-              </div>
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600">Email</label>
-                <input
-                  v-model="form.email"
-                  type="email"
-                  required
-                  class="w-full rounded-xl border ..."
-                />
-              </div>
-            </div>
-
-            <div class="space-y-2">
-              <label class="text-sm font-medium text-slate-600"
-                >WhatsApp Number</label
-              >
-              <input
-                v-model="form.whatsapp_no"
-                type="text"
-                placeholder="+254..."
-                class="w-full rounded-xl border ..."
-              />
-            </div>
-          </div>
-
-          <!-- Welcome Message for Authenticated Users -->
-          <div
-            v-else
-            class="p-4 bg-indigo-50 rounded-xl border border-indigo-100 flex items-center justify-between"
-          >
-            <div>
-              <p class="text-sm text-indigo-700">
-                Ordering as <strong>{{ authStore.profile?.full_name }}</strong>
-              </p>
-              <p class="text-xs text-indigo-500">{{ authStore.user?.email }}</p>
-            </div>
-            <button
-              @click="handleLogout"
-              class="text-xs text-red-500 hover:underline"
-            >
-              Not you? Log out
-            </button>
-          </div>
-
-          <!-- SECTION 1 -->
-          <div class="space-y-6">
-            <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
-              Service Details
-            </h3>
-
-            <div class="grid md:grid-cols-2 gap-6">
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Service Type</label
-                >
-                <select
-                  v-model="form.service_type"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                >
-                  <option value="Essay">Essay</option>
-                  <option value="Research Paper">Research Paper</option>
-                  <option value="Thesis">Thesis</option>
-                </select>
-              </div>
-
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Academic Level</label
-                >
-                <select
-                  v-model="form.academic_level"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                >
-                  <option value="Undergraduate">Undergraduate</option>
-                  <option value="Masters">Masters</option>
-                  <option value="PhD">PhD</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- SECTION 2 -->
-          <div class="space-y-6">
-            <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
-              Assignment Info
-            </h3>
-
-            <div class="grid md:grid-cols-2 gap-6">
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Subject</label
-                >
-                <input
-                  v-model="form.subject"
-                  type="text"
-                  required
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                />
-              </div>
-
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Deadline</label
-                >
-                <input
-                  v-model="form.deadline"
-                  type="datetime-local"
-                  required
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                />
-              </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6">
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600">Pages</label>
-                <input
-                  v-model.number="form.pages"
-                  type="number"
-                  min="1"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                />
-              </div>
-
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Estimated Words</label
-                >
-                <div
-                  class="w-full rounded-xl bg-slate-100 px-4 py-3 text-slate-700"
-                >
-                  {{ estimatedWords }} words
-                </div>
-              </div>
-            </div>
-
-            <div class="space-y-2">
-              <label class="text-sm font-medium text-slate-600"
-                >Instructions</label
-              >
-              <textarea
-                v-model="form.instructions"
-                rows="4"
-                class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition resize-none"
-              ></textarea>
-            </div>
-          </div>
-
-          <!-- Email Field -->
-          <!-- <div class="space-y-2">
-            <label class="text-sm font-medium text-slate-600"
-              >Your Email (To receive the finished work)</label
-            >
-            <input
-              v-model="form.email"
-              type="email"
-              required
-              placeholder="email@example.com"
-              class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 transition"
-            />
-          </div> -->
-
-          <!-- SECTION 3 -->
-          <div class="space-y-6">
-            <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
-              Attachments
-            </h3>
-
-            <div
-              class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center hover:border-indigo-500 transition"
-            >
-              <!-- File Upload -->
-              <div class="m-4">
-                <input
-                  type="file"
-                  multiple
-                  @change="handleFileSelection"
-                  class="hidden"
-                  id="fileUpload"
-                />
-
-                <!-- FILE PREVIEW LIST -->
-                <ul v-if="selectedFiles.length > 0" class="mt-3 space-y-2">
-                  <li
-                    v-for="(file, index) in selectedFiles"
-                    :key="index"
-                    class="flex items-center justify-between p-2 bg-gray-50 rounded border border-gray-200 text-sm"
-                  >
-                    <div class="flex items-center space-x-2 truncate">
-                      <span class="text-blue-500">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-4 w-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
-                          />
-                        </svg>
-                      </span>
-                      <span class="truncate font-medium text-gray-700">{{
-                        file.name
-                      }}</span>
-                      <span class="text-xs text-gray-400"
-                        >({{ formatBytes(file.size) }})</span
-                      >
-                    </div>
-
-                    <!-- Remove button -->
-                    <button
-                      type="button"
-                      @click="removeFile(index)"
-                      class="text-red-400 hover:text-red-600 p-1"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-4 w-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-                  </li>
-                </ul>
-
-                <p
-                  v-if="uploading"
-                  class="text-blue-500 text-xs mt-2 animate-pulse font-bold"
-                >
-                  🚀 Uploading files to Supabase...
-                </p>
-              </div>
-
-              <!-- File upload label -->
-              <label for="fileUpload" class="cursor-pointer text-slate-500">
-                Drag & drop files or
-                <span class="text-indigo-600 font-medium">browse</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- SUBMIT -->
-          <button
-            type="submit"
-            :disabled="uploading"
-            class="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold py-4 rounded-xl disabled:bg-slate-400"
-          >
-            {{ uploading ? "Processing..." : "Submit Order" }}
-          </button>
-        </form>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from "vue";
 import { useOrdersStore, useAuthStore } from "../store";
 import { storeToRefs } from "pinia";
 import { supabase } from "../helpers/supabase";
 
-export default {
-  name: "OrderForm2",
+/**VARIABLES */
+/**Initialize the store */
+const ordersStore = useOrdersStore();
+const authStore = useAuthStore();
+const { loading: isAddingOrder } = storeToRefs(ordersStore);
+const basePrice = 15;
 
-  data() {
-    return {
-      form: {
-        fullName: "",
-        phone: "",
-        email: "",
-        service: "",
-        academicLevel: "",
-        subject: "",
-        instructions: "",
-        pages: "1",
-        deadline: "",
-      },
-      uploadedFiles: [],
-      isSubmitting: false,
-      basePrice: 15,
-      minDate: new Date().toISOString().split("T")[0],
-    };
-  },
+/**Order Form */
+const form = ref({
+  full_name: "",
+  email: "",
+  whatsapp_no: "",
+  service_type: "Essay",
+  academic_level: "Undergraduate",
+  subject: "",
+  deadline: "",
+  pages: 1,
+  instructions: "",
+  // user_id: "client-uuid-456", // Matches seeder ID
+  files: [],
+});
 
-  computed: {
-    formattedPrice() {
-      const pages = parseInt(this.form.pages) || 1;
-      const price = pages * this.basePrice;
-      return `$${price.toFixed(2)}`;
-    },
-  },
+const selectedFiles = ref([]);
+const uploading = ref(false);
 
-  async mounted() {
-    this.ordersStore = useOrdersStore();
-    this.authStore = useAuthStore();
+/**Logic of 275 words per page */
+const estimatedWords = computed(() => form.value.pages * 275);
 
-    const { loading } = storeToRefs(this.ordersStore);
-    this.isAddingOrder = loading;
+/**Logic for $15 per page (should match backend pricing) */
+const totalCost = computed(() => form.value.pages * 15);
 
-    await this.authStore.fetchUser();
+/**FUNCTIONS */
 
-    if (this.authStore.isLoggedIn) {
-      this.form.fullName = this.authStore.profile?.full_name || "";
-      this.form.email = this.authStore.user?.email || "";
-      this.form.phone = this.authStore.profile?.whatsapp_no || "";
-    }
-  },
+/**Fetch user on mount */
+onMounted(async () => {
+  await authStore.fetchUser();
 
-  methods: {
-    calculatePrice() {},
+  /**If user is logged in, pre-populate the form object so the backend
+   * receives the correct data even when form is hidden */
+  if (authStore.isLoggedIn) {
+    form.value.full_name = authStore.profile?.full_name;
+    form.value.email = authStore.user?.email;
+    form.value.whatsapp_no = authStore.profile?.whatsapp_no;
+  }
+});
 
-    triggerFileUpload() {
-      this.$refs.fileInput.click();
-    },
+/**Function to handle file selection */
+const handleFileSelection = (event) => {
+  const newFiles = Array.from(event.target.files);
+  selectedFiles.value = [...selectedFiles.value, ...newFiles];
+};
 
-    handleFileSelect(event) {
-      const files = Array.from(event.target.files);
-      this.addFiles(files);
-    },
+/**Function to remove a file from the list before uploading */
+const removeFile = (index) => {
+  selectedFiles.value.splice(index, 1);
+};
 
-    handleFileDrop(event) {
-      const files = Array.from(event.dataTransfer.files);
-      this.addFiles(files);
-    },
+/**Helper to make file sizes readable (KB/MB) */
+const formatBytes = (bytes, decimals = 2) => {
+  if (!bytes) return "0 Bytes";
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ["Bytes", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+};
 
-    addFiles(files) {
-      const validTypes = [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "text/plain",
-        "application/rtf",
-      ];
+/**Function to handle file upload */
+const uploadFiles = async () => {
+  const uploadedFiles = [];
 
-      const validFiles = files.filter((file) => {
-        if (!validTypes.includes(file.type)) {
-          alert(`Invalid file type: ${file.name}`);
-          return false;
-        }
+  /**Upload each selected file */
+  for (const file of selectedFiles.value) {
+    const fileName = `${Date.now()}-${file.name}`;
+    const { data, error } = await supabase.storage
+      .from("order-attachments")
+      .upload(fileName, file);
 
-        if (file.size > 10 * 1024 * 1024) {
-          alert(`File too large: ${file.name} (Max 10MB)`);
-          return false;
-        }
+    if (error) throw error;
 
-        return true;
+    /**Get public URL */
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from("order-attachments").getPublicUrl(fileName);
+
+    uploadedFiles.push({ file_url: publicUrl, file_name: file.name });
+  }
+
+  return uploadedFiles;
+};
+
+/**Functio to handle submission */
+const handleSubmit = async () => {
+  try {
+    uploading.value = true;
+
+    /**Upload files to supabase first (save them before redirect) */
+    const fileMetadata = await uploadFiles();
+    form.value.files = fileMetadata;
+
+    /**If not logged in */
+    if (!authStore.isLoggedIn) {
+      /**Save order data to local storage and trigger Magic Link  */
+      ordersStore.setPendingOrder(form.value);
+
+      const { error: authError } = await supabase.auth.signInWithOtp({
+        email: form.value.email,
+        options: {
+          emailRedirectTo: window.location.origin + "/confirm-order",
+          data: {
+            full_name: form.value.full_name,
+            whatsapp_no: form.value.whatsapp_no,
+          },
+        },
       });
 
-      const remainingSlots = 5 - this.uploadedFiles.length;
-      const filesToAdd = validFiles.slice(0, remainingSlots);
+      if (authError) throw authError;
 
-      if (filesToAdd.length < validFiles.length) {
-        alert("Maximum 5 files allowed");
-      }
+      alert(
+        "Magic link sent! Check your email to verify and complete your order.",
+      );
+      return;
+    }
 
-      this.uploadedFiles = [...this.uploadedFiles, ...filesToAdd];
-    },
+    /**Send payload to server */
+    const payload = { ...form.value, user_id: authStore.user.id };
+    const { data, error: apiError } = await ordersStore.addOrder(payload);
 
-    removeFile(index) {
-      this.uploadedFiles.splice(index, 1);
-    },
+    /**Handle response based on what store returns */
+    if (apiError) {
+      alert("Error submitting order: " + (apiError || "Check console"));
+      return;
+    }
 
-    async uploadFilesToSupabase() {
-      const uploaded = [];
+    /**Success logic */
+    alert("Order created successfully! Order #" + data.order_number);
+    console.log("Backend Response:", data);
 
-      for (const file of this.uploadedFiles) {
-        const fileName = `${Date.now()}-${file.name}`;
+    // Optional: Reset form here if successful
+    // form.value = { ...initialValue };
+  } catch (err) {
+    /**Catch errors from uploadFiles() or unexpected logic crashes */
+    console.error("Order Submission Failed:", err);
+    alert("Error submitting order. Check console.");
+  } finally {
+    uploading.value = false;
+  }
+};
 
-        const { error } = await supabase.storage
-          .from("order-attachments")
-          .upload(fileName, file);
-
-        if (error) throw error;
-
-        const {
-          data: { publicUrl },
-        } = supabase.storage.from("order-attachments").getPublicUrl(fileName);
-
-        uploaded.push({
-          file_url: publicUrl,
-          file_name: file.name,
-        });
-      }
-
-      return uploaded;
-    },
-
-    async handleSubmit() {
-      this.isSubmitting = true;
-
-      try {
-        // 1️⃣ Upload files first
-        const fileMetadata = await this.uploadFilesToSupabase();
-
-        const payload = {
-          full_name: this.form.fullName,
-          email: this.form.email,
-          whatsapp_no: this.form.phone,
-          service_type: this.form.service,
-          academic_level: this.form.academicLevel,
-          subject: this.form.subject,
-          deadline: this.form.deadline,
-          pages: parseInt(this.form.pages),
-          instructions: this.form.instructions,
-          files: fileMetadata,
-        };
-
-        // 2️⃣ If NOT logged in → trigger magic link
-        if (!this.authStore.isLoggedIn) {
-          this.ordersStore.setPendingOrder(payload);
-
-          const { error } = await supabase.auth.signInWithOtp({
-            email: this.form.email,
-            options: {
-              emailRedirectTo: window.location.origin + "/confirm-order",
-              data: {
-                full_name: this.form.fullName,
-                whatsapp_no: this.form.phone,
-              },
-            },
-          });
-
-          if (error) throw error;
-
-          alert(
-            "Magic link sent! Check your email to verify and complete your order.",
-          );
-
-          return;
-        }
-
-        // 3️⃣ Logged in → send to backend
-        const finalPayload = {
-          ...payload,
-          user_id: this.authStore.user.id,
-        };
-
-        const { data, error } = await this.ordersStore.addOrder(finalPayload);
-
-        if (error) {
-          alert("Error submitting order.");
-          return;
-        }
-
-        alert("Order created successfully! Order #" + data.order_number);
-
-        this.resetForm();
-      } catch (err) {
-        console.error("Order submission failed:", err);
-        alert("Error submitting order.");
-      } finally {
-        this.isSubmitting = false;
-      }
-    },
-
-    resetForm() {
-      this.form = {
-        fullName: "",
-        phone: "",
-        email: "",
-        service: "",
-        academicLevel: "",
-        subject: "",
-        instructions: "",
-        pages: "1",
-        deadline: "",
-      };
-      this.uploadedFiles = [];
-    },
-  },
+/**Function  to reset form */
+const resetForm = () => {
+  this.form = {
+    fullName: "",
+    phone: "",
+    email: "",
+    service: "",
+    academicLevel: "",
+    subject: "",
+    instructions: "",
+    pages: "1",
+    deadline: "",
+  };
+  this.uploadedFiles = [];
 };
 </script>
