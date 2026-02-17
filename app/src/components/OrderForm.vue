@@ -529,7 +529,7 @@ const handleSubmit = async () => {
       files: form.value.files,
       user_id: authStore.user.id,
     };
-    console.log(payload);
+
     const { data, error: apiError } = await ordersStore.addOrder(payload);
 
     /**Handle response based on what store returns */
