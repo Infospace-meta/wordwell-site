@@ -36,7 +36,7 @@
               <input
                 type="text"
                 id="fullName"
-                v-model="form.fullName"
+                v-model="form.full_name"
                 placeholder="Your Name"
                 class="px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200"
                 required
@@ -118,7 +118,6 @@
                 class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200 appearance-none"
                 required
               >
-                <option value="">Select Service</option>
                 <option value="essay">Essay Writing</option>
                 <option value="research">Research Paper</option>
                 <option value="thesis">Thesis & Dissertation</option>
@@ -145,7 +144,6 @@
                 class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200 appearance-none"
                 required
               >
-                <option value="">Academic Level</option>
                 <option value="undergraduate">Undergraduate</option>
                 <option value="masters">Masters</option>
                 <option value="PHD">PhD</option>
@@ -522,15 +520,16 @@ const handleSubmit = async () => {
 
     /**Send payload to server */
     const payload = {
-      service_type: form.service_type,
-      academic_level: form.academic_level,
-      subject: form.subject,
-      deadline: form.deadline,
-      pages: form.pages,
-      instructions: form.instructions,
-      files: form.files,
+      service_type: form.value.service_type,
+      academic_level: form.value.academic_level,
+      subject: form.value.subject,
+      deadline: form.value.deadline,
+      pages: form.value.pages,
+      instructions: form.value.instructions,
+      files: form.value.files,
       user_id: authStore.user.id,
     };
+    console.log(payload);
     const { data, error: apiError } = await ordersStore.addOrder(payload);
 
     /**Handle response based on what store returns */
@@ -556,17 +555,18 @@ const handleSubmit = async () => {
 
 /**Function  to reset form */
 const resetForm = () => {
-  this.form = {
-    fullName: "",
-    phone: "",
+  form.value = {
+    full_name: "",
     email: "",
-    service: "",
-    academicLevel: "",
+    whatsapp_no: "",
+    service_type: "essay",
+    academic_level: "undergraduate",
     subject: "",
-    instructions: "",
-    pages: "1",
     deadline: "",
+    pages: 1,
+    instructions: "",
+    files: [],
   };
-  this.uploadedFiles = [];
+  selectedFiles.value = [];
 };
 </script>
