@@ -1,12 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { HomeView, ApiTestView, LandingView, OrderView } from "../views";
+import { OrderView } from "../views";
 import { useAuthStore } from "../store";
 
 const routes = [
-  { path: "/", name: "app", component: LandingView },
-  { path: "/home", name: "home", component: HomeView },
+  { path: "/", redirect: { name: "order" } },
   { path: "/order", name: "order", component: OrderView },
-  { path: "/api", name: "api", component: ApiTestView },
 ];
 
 /**Initialize here */
