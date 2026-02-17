@@ -1,201 +1,251 @@
 <template>
-  <div class="min-h-screen bg-slate-50 py-16 px-6">
-    <div class="max-w-6xl mx-auto grid lg:grid-cols-3 gap-10">
-      <!-- LEFT SIDE (FORM) -->
-      <div
-        class="lg:col-span-2 bg-white rounded-2xl shadow-md border border-slate-200 p-10"
-      >
-        <!-- Header -->
-        <div class="mb-10">
-          <h2 class="text-3xl font-bold text-slate-800">Place Your Order</h2>
-          <p class="text-slate-500 mt-2 text-sm">
-            Fill in the details below to submit your request.
-          </p>
-        </div>
+  <div class="bg-gray-50 px-4 py-6 min-h-screen">
+    <div class="mx-auto max-w-2xl">
+      <!-- Header -->
+      <div class="mb-6 text-center">
+        <p
+          class="mb-3 font-bold text-blue-800 text-xl uppercase tracking-widest"
+        >
+          Essay Writing & Assignment Help Experts
+        </p>
+        <p class="text-gray-600 text-sm">
+          Ace Your Assignments with Real Experts! Skilled writers are standing
+          by to deliver plagiarism-free, tailored solutions.
+        </p>
+      </div>
 
-        <form @submit.prevent="handleSubmit" class="space-y-10">
-          <!-- SECTION: Identity (Only show for Guests) -->
-          <div v-if="!authStore.isLoggedIn" class="space-y-6">
-            <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
+      <!-- Form Container -->
+      <div
+        class="bg-white shadow-lg p-4 md:p-6 border border-gray-100 rounded-xl"
+      >
+        <form @submit.prevent="handleSubmit" class="space-y-4">
+          <!-- SECTION 1: Identity (Only show for Guests) -->
+          <div v-if="!authStore.isLoggedIn">
+            <h3 class="text-lg font-semibold text-slate-700 pb-2 mb-2">
               Your Identity
             </h3>
 
-            <div class="grid md:grid-cols-2 gap-6">
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Full Name</label
-                >
-                <input
-                  v-model="form.full_name"
-                  type="text"
-                  required
-                  class="w-full rounded-xl border ..."
-                />
-              </div>
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600">Email</label>
-                <input
-                  v-model="form.email"
-                  type="email"
-                  required
-                  class="w-full rounded-xl border ..."
-                />
-              </div>
+            <!-- Full Name -->
+            <div class="py-2">
+              <label
+                for="fullName"
+                class="block mb-2 font-semibold text-gray-800 text-sm"
+              >
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="fullName"
+                v-model="form.fullName"
+                placeholder="Your Name"
+                class="px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200"
+                required
+              />
             </div>
 
-            <div class="space-y-2">
-              <label class="text-sm font-medium text-slate-600"
-                >WhatsApp Number</label
+            <!-- Email Address -->
+            <div class="py-2">
+              <label
+                for="email"
+                class="block mb-2 font-semibold text-gray-800 text-sm"
               >
+                Your Email Address
+              </label>
               <input
+                type="email"
+                id="email"
+                v-model="form.email"
+                placeholder="E.g. john@wordwellwriters.com"
+                class="px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200"
+                required
+              />
+            </div>
+
+            <!-- Phone Number -->
+            <div class="py-2">
+              <label
+                for="phone"
+                class="block mb-2 font-semibold text-gray-800 text-sm"
+              >
+                WhatsApp Number
+              </label>
+              <input
+                type="tel"
+                id="phone"
                 v-model="form.whatsapp_no"
-                type="text"
-                placeholder="+254..."
-                class="w-full rounded-xl border ..."
+                placeholder="E.g. +1 563 343 3372"
+                class="px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200"
+                required
               />
             </div>
           </div>
 
-          <!-- Welcome Message for Authenticated Users -->
-          <div
-            v-else
-            class="p-4 bg-indigo-50 rounded-xl border border-indigo-100 flex items-center justify-between"
-          >
-            <div>
-              <p class="text-sm text-indigo-700">
-                Ordering as <strong>{{ authStore.profile?.full_name }}</strong>
-              </p>
-              <p class="text-xs text-indigo-500">{{ authStore.user?.email }}</p>
-            </div>
-            <button
-              @click="handleLogout"
-              class="text-xs text-red-500 hover:underline"
-            >
-              Not you? Log out
-            </button>
-          </div>
-
-          <!-- SECTION 1 -->
-          <div class="space-y-6">
-            <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
+          <!-- SECTION 2: (Service Details) -->
+          <div>
+            <h3 class="text-lg font-semibold text-slate-700 pb-2 mb-2">
               Service Details
             </h3>
+            <!-- Select Service -->
+            <div class="py-2">
+              <label
+                for="service"
+                class="block mb-2 font-semibold text-gray-800 text-sm"
+              >
+                Select Service
+              </label>
+              <select
+                id="service"
+                v-model="form.service_type"
+                class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200 appearance-none"
+                required
+              >
+                <option value="">Select Service</option>
+                <option value="essay">Essay Writing</option>
+                <option value="research">Research Paper</option>
+                <option value="thesis">Thesis & Dissertation</option>
+                <option value="article">Homework Help</option>
+                <option value="assignment">Assignment Help</option>
+                <option value="case-study">Litrature Report</option>
+                <option value="lab-report">Editing and Proofreading</option>
+                <option value="presentation">Presentation and Reports</option>
+                <option value="presentation">Addmission Essays</option>
+              </select>
+            </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Service Type</label
-                >
-                <select
-                  v-model="form.service_type"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                >
-                  <option value="Essay">Essay</option>
-                  <option value="Research Paper">Research Paper</option>
-                  <option value="Thesis">Thesis</option>
-                </select>
-              </div>
-
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Academic Level</label
-                >
-                <select
-                  v-model="form.academic_level"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                >
-                  <option value="Undergraduate">Undergraduate</option>
-                  <option value="Masters">Masters</option>
-                  <option value="PhD">PhD</option>
-                </select>
-              </div>
+            <!-- Academic Level -->
+            <div class="py-2">
+              <label
+                for="academicLevel"
+                class="block mb-2 font-semibold text-gray-800 text-sm"
+              >
+                Academic Level
+              </label>
+              <select
+                id="academicLevel"
+                v-model="form.academic_level"
+                class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200 appearance-none"
+                required
+              >
+                <option value="">Academic Level</option>
+                <option value="undergraduate">Undergraduate</option>
+                <option value="masters">Masters</option>
+                <option value="PHD">PhD</option>
+              </select>
             </div>
           </div>
 
-          <!-- SECTION 2 -->
-          <div class="space-y-6">
-            <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
+          <!-- SECTION 2 (Assignment Info) -->
+          <div>
+            <h3 class="text-lg font-semibold text-slate-700 pb-2 mb-2">
               Assignment Info
             </h3>
 
-            <div class="grid md:grid-cols-2 gap-6">
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Subject</label
-                >
-                <input
-                  v-model="form.subject"
-                  type="text"
-                  required
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                />
-              </div>
-
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Deadline</label
-                >
-                <input
-                  v-model="form.deadline"
-                  type="datetime-local"
-                  required
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                />
-              </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6">
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600">Pages</label>
-                <input
-                  v-model.number="form.pages"
-                  type="number"
-                  min="1"
-                  class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                />
-              </div>
-
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-slate-600"
-                  >Estimated Words</label
-                >
-                <div
-                  class="w-full rounded-xl bg-slate-100 px-4 py-3 text-slate-700"
-                >
-                  {{ estimatedWords }} words
-                </div>
-              </div>
-            </div>
-
-            <div class="space-y-2">
-              <label class="text-sm font-medium text-slate-600"
-                >Instructions</label
+            <!-- Subject/Course -->
+            <div class="py-2">
+              <label
+                for="subject"
+                class="block mb-2 font-semibold text-gray-800 text-sm"
               >
+                Subject / Course
+              </label>
+              <input
+                type="text"
+                id="subject"
+                v-model="form.subject"
+                placeholder="E.g. English Literature"
+                class="px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200"
+                required
+              />
+            </div>
+
+            <!-- Deadline -->
+            <div class="py-2">
+              <label
+                for="deadline"
+                class="block mb-2 font-semibold text-gray-800 text-sm"
+              >
+                Deadline
+              </label>
+              <input
+                type="date"
+                id="deadline"
+                v-model="form.deadline"
+                :min="minDate"
+                class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200"
+                required
+              />
+              <p class="mt-1 text-gray-500 text-xs">
+                Select your preferred deadline date
+              </p>
+            </div>
+
+            <!-- Number of Pages/Words -->
+            <div class="py-2">
+              <label
+                for="pages"
+                class="block mb-2 font-semibold text-gray-800 text-sm"
+              >
+                Number of Pages/Words
+              </label>
+              <input
+                v-model="form.pages"
+                type="number"
+                min="1"
+                id="pages"
+                class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200 appearance-none"
+                required
+              />
+            </div>
+
+            <div class="py-2">
+              <label class="text-sm font-medium text-slate-600"
+                >Estimated Words</label
+              >
+              <div
+                class="w-full rounded-xl bg-slate-100 px-4 py-3 text-slate-700"
+              >
+                {{ estimatedWords }} words
+              </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="py-2">
+              <label
+                for="instructions"
+                class="block mb-2 font-semibold text-gray-800 text-sm"
+              >
+                Instructions
+              </label>
               <textarea
+                id="instructions"
                 v-model="form.instructions"
-                rows="4"
-                class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition resize-none"
+                placeholder="Add specific requirements and guidelines..."
+                rows="3"
+                class="px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200 resize-y"
+                required
               ></textarea>
             </div>
           </div>
 
-          <!-- Email Field -->
-          <!-- <div class="space-y-2">
-            <label class="text-sm font-medium text-slate-600"
-              >Your Email (To receive the finished work)</label
-            >
-            <input
-              v-model="form.email"
-              type="email"
-              required
-              placeholder="email@example.com"
-              class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-indigo-500 transition"
-            />
-          </div> -->
+          <!-- Order Summary -->
+          <div class="p-4 border border-orange-200 rounded-lg">
+            <label class="block mb-2 font-semibold text-gray-800 text-sm">
+              Order Summary
+            </label>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 text-sm">Total Price:</span>
+              <span class="font-bold text-orange-600 text-xl"
+                >${{ totalCost }}</span
+              >
+            </div>
+            <p class="mt-1 text-gray-500 text-xs">
+              Base price: ${{ basePrice }} per page
+            </p>
+          </div>
 
-          <!-- SECTION 3 -->
+          <!-- SECTION 3 (Attachments) -->
           <div class="space-y-6">
-            <h3 class="text-lg font-semibold text-slate-700 border-b pb-2">
+            <h3 class="text-lg font-semibold text-slate-700 pb-2">
               Attachments
             </h3>
 
@@ -284,41 +334,39 @@
             </div>
           </div>
 
-          <!-- SUBMIT -->
-          <button
-            type="submit"
-            :disabled="uploading"
-            class="w-full bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold py-4 rounded-xl disabled:bg-slate-400"
-          >
-            {{ uploading ? "Processing..." : "Submit Order" }}
-          </button>
+          <!-- Submit Button -->
+          <div class="pt-2">
+            <button
+              type="submit"
+              :disabled="uploading"
+              class="flex justify-center items-center bg-linear-to-r from-orange-400 hover:from-orange-500 disabled:from-gray-400 to-orange-600 hover:to-orange-700 disabled:to-gray-500 shadow-md hover:shadow-lg px-6 py-3 rounded-lg w-full font-semibold text-white text-sm transition-all duration-200"
+            >
+              <span v-if="!uploading">Place My Order</span>
+              <span v-else class="flex items-center">
+                <svg
+                  class="mr-3 -ml-1 w-5 h-5 text-white animate-spin"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Processing...
+              </span>
+            </button>
+          </div>
         </form>
-      </div>
-
-      <!-- RIGHT SIDE (SUMMARY) -->
-      <div
-        class="bg-white rounded-2xl shadow-md border border-slate-200 p-8 h-fit sticky top-10"
-      >
-        <h3 class="text-lg font-semibold text-slate-700 mb-6">Order Summary</h3>
-
-        <div class="space-y-4 text-sm text-slate-600">
-          <div class="flex justify-between">
-            <span>Pages</span>
-            <span>{{ form.pages }}</span>
-          </div>
-
-          <div class="flex justify-between">
-            <span>Price per page</span>
-            <span>$15</span>
-          </div>
-
-          <div
-            class="border-t pt-4 flex justify-between font-bold text-lg text-slate-800"
-          >
-            <span>Total</span>
-            <span>${{ totalCost }}</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -335,6 +383,7 @@ import { supabase } from "../helpers/supabase";
 const ordersStore = useOrdersStore();
 const authStore = useAuthStore();
 const { loading: isAddingOrder } = storeToRefs(ordersStore);
+const basePrice = 15;
 
 /**Order Form */
 const form = ref({
@@ -437,7 +486,7 @@ const handleSubmit = async () => {
       const { error: authError } = await supabase.auth.signInWithOtp({
         email: form.value.email,
         options: {
-          emailRedirectTo: window.location.origin + "/confirm-order",
+          emailRedirectTo: window.location.origin + "/order",
           data: {
             full_name: form.value.full_name,
             whatsapp_no: form.value.whatsapp_no,
@@ -476,5 +525,21 @@ const handleSubmit = async () => {
   } finally {
     uploading.value = false;
   }
+};
+
+/**Function  to reset form */
+const resetForm = () => {
+  this.form = {
+    fullName: "",
+    phone: "",
+    email: "",
+    service: "",
+    academicLevel: "",
+    subject: "",
+    instructions: "",
+    pages: "1",
+    deadline: "",
+  };
+  this.uploadedFiles = [];
 };
 </script>
