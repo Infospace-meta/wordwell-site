@@ -8,7 +8,7 @@ export const useOrdersStore = defineStore("orders", () => {
   const orders = ref([]);
   const loading = ref(false);
   const error = ref(null);
-  const pendingOrder = ref(useLocalStorage("pendingOrder", null));
+  const pendingOrder = useLocalStorage("pendingOrder", {});
 
   /**ACTIONS */
   /**Set order form data */
@@ -19,7 +19,7 @@ export const useOrdersStore = defineStore("orders", () => {
 
   /**Clear form data */
   function clearPendingOrder() {
-    pendingOrder.value = null;
+    pendingOrder.value = {};
   }
 
   /**Add a new order */

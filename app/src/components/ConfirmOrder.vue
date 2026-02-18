@@ -29,6 +29,8 @@ onMounted(async () => {
     data: { user },
   } = await supabase.auth.getUser();
 
+  console.log("Actual Data:", ordersStore.pendingOrder);
+
   if (user && ordersStore.pendingOrder) {
     const payload = {
       ...ordersStore.pendingOrder,
