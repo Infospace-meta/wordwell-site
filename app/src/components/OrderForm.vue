@@ -503,7 +503,7 @@ const uploadFiles = async () => {
   return uploadedFiles;
 };
 
-/**Functio to handle submission */
+/**Function to handle submission */
 const handleSubmit = async () => {
   try {
     uploading.value = true;
@@ -559,8 +559,14 @@ const handleSubmit = async () => {
     alert("Order created successfully! Order #" + data.order_number);
     console.log("Backend Response:", data);
 
-    // Optional: Reset form here if successful
-    // form.value = { ...initialValue };
+    /**clear store */
+    ordersStore.clearPendingOrder();
+
+    /**reset form */
+    resetForm();
+
+    /**Redirect to dashboard */
+    router.push("/dashboard");
   } catch (err) {
     /**Catch errors from uploadFiles() or unexpected logic crashes */
     console.error("Order Submission Failed:", err);
