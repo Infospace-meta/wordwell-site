@@ -85,17 +85,31 @@
             v-else
             class="p-4 bg-indigo-50 rounded-xl border border-indigo-100 flex items-center justify-between"
           >
-            <div>
-              <p class="text-sm text-indigo-700">
-                Ordering as <strong>{{ authStore.profile?.full_name }}</strong>
-              </p>
-              <p class="text-xs text-indigo-500">{{ authStore.user?.email }}</p>
+            <div class="flex items-center space-x-3">
+              <!-- User Avatar / Icon -->
+              <div
+                class="h-10 w-10 rounded-full bg-blue-800 flex items-center justify-center text-white font-bold"
+              >
+                {{
+                  authStore.profile?.full_name?.charAt(0).toUpperCase() || "U"
+                }}
+              </div>
+              <div>
+                <p class="text-sm text-indigo-900 font-semibold">
+                  Ordering as {{ authStore.profile?.full_name }}
+                </p>
+                <p class="text-xs text-indigo-500">
+                  {{ authStore.user?.email }}
+                </p>
+              </div>
             </div>
+
             <button
               @click="handleLogout"
-              class="text-xs text-red-500 hover:underline"
+              type="button"
+              class="text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 px-3 py-2 rounded-lg transition cursor-pointer"
             >
-              Not you? Log out
+              Logout / Switch Account
             </button>
           </div>
 
@@ -550,6 +564,33 @@ const handleSubmit = async () => {
     alert("Error submitting order. Check console.");
   } finally {
     uploading.value = false;
+  }
+};
+
+/**Function to logout */
+const handleLogout = async () => {
+  /**Confirmation dialog */
+  const confirmed = confirm(
+    "Are you sure you want to log out? Any unsaved progress may be lost.",
+  );
+
+  if (confirmed) {
+    const { error } = await authStore.logout();
+
+    if (!error) {
+      /**Reset identity part of the form */
+      form.value.full_name = "";
+      form.value.email = "";
+      form.value.whatsapp_no = "";
+
+      /**clear pending order in the orderStore */
+      ordersStore.clearPendingOrder();
+
+      /**alert user */
+      alert("Logged out successfully");
+    } else {
+      alert("Logout failed. Please try again.");
+    }
   }
 };
 
