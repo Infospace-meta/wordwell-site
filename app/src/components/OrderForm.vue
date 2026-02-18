@@ -203,7 +203,7 @@
                 Deadline
               </label>
               <input
-                type="date"
+                type="datetime-local"
                 id="deadline"
                 v-model="form.deadline"
                 class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200"
