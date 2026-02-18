@@ -28,10 +28,25 @@ export const useAuthStore = defineStore("auth", () => {
     }
   }
 
+  /**Function to logout */
+  async function logout() {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error("Error logging out:", error.message);
+      return { error };
+    }
+
+    /**Reset local state */
+    user.value = null;
+    profile.value = null;
+    return { error: null };
+  }
+
   return {
     user,
     profile,
     fetchUser,
+    logout,
     isLoggedIn: computed(() => !!user.value),
   };
 });

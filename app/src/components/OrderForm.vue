@@ -502,7 +502,7 @@ const handleSubmit = async () => {
       const { error: authError } = await supabase.auth.signInWithOtp({
         email: form.value.email,
         options: {
-          emailRedirectTo: window.location.origin + "/order",
+          emailRedirectTo: window.location.origin + "/confirm-order",
           data: {
             full_name: form.value.full_name,
             whatsapp_no: form.value.whatsapp_no,
