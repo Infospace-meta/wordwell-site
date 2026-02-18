@@ -14,7 +14,7 @@ export const useOrdersStore = defineStore("orders", () => {
   /**Set order form data */
   function setPendingOrder(data) {
     console.log(data);
-    pendingOrder.value = JSON.stringify(data);
+    pendingOrder.value = data;
   }
 
   /**Clear form data */

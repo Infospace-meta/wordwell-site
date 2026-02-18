@@ -1,11 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { OrderView, DashboardView } from "../views";
+import ConfirmOrder from "../components/ConfirmOrder.vue";
 import { useAuthStore } from "../store";
 
 const routes = [
   { path: "/", redirect: { name: "order" } },
   { path: "/order", name: "order", component: OrderView },
   { path: "/dashboard", name: "dashboard", component: DashboardView },
+  { path: "/confirm-order", name: "confirm-order", component: ConfirmOrder },
 ];
 
 /**Initialize here */

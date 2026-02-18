@@ -133,14 +133,18 @@
                 required
               >
                 <option value="essay">Essay Writing</option>
-                <option value="research">Research Paper</option>
-                <option value="thesis">Thesis & Dissertation</option>
-                <option value="article">Homework Help</option>
-                <option value="assignment">Assignment Help</option>
-                <option value="case-study">Litrature Report</option>
-                <option value="lab-report">Editing and Proofreading</option>
-                <option value="presentation">Presentation and Reports</option>
-                <option value="presentation">Addmission Essays</option>
+                <option value="assignment help">Assignment Help</option>
+                <option value="research paper">Research Paper</option>
+                <option value="homework help">Homework Help</option>
+                <option value="thesis/dissertation">Thesis/Dissertation</option>
+                <option value="editing and proofreading">
+                  Editing and Proofreading
+                </option>
+                <option value="literature review">Literature Review</option>
+                <option value="presentation and reports">
+                  Presentation and Reports
+                </option>
+                <option value="admission essays">Admission Essays</option>
               </select>
             </div>
 
@@ -158,6 +162,7 @@
                 class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200 appearance-none"
                 required
               >
+                <option value="high school">High School</option>
                 <option value="undergraduate">Undergraduate</option>
                 <option value="masters">Masters</option>
                 <option value="PHD">PhD</option>
