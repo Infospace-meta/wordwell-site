@@ -40,7 +40,7 @@ onMounted(async () => {
     if (!error) {
       ordersStore.clearPendingOrder();
       /**Redirect to order page - make it dashboard */
-      router.push("/order");
+      router.push("/dashboard");
     } else {
       alert("Something went wrong finalizing your order.");
       router.push("/order");
