@@ -1,3 +1,4 @@
 import OrderView from "./OrderView.vue";
+import DashboardView from "./DashboardView.vue";
 
-export { OrderView };
+export { OrderView, DashboardView };

@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { OrderView } from "../views";
+import { OrderView, DashboardView } from "../views";
 import { useAuthStore } from "../store";
 
 const routes = [
   { path: "/", redirect: { name: "order" } },
   { path: "/order", name: "order", component: OrderView },
+  { path: "/dashboard", name: "dashboard", component: DashboardView },
 ];
 
 /**Initialize here */
