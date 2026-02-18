@@ -431,7 +431,6 @@ const form = ref({
   deadline: "",
   pages: 1,
   instructions: "",
-  // user_id: "client-uuid-456", // Matches seeder ID
   files: [],
 });
 
@@ -514,29 +513,25 @@ const handleSubmit = async () => {
     form.value.files = fileMetadata;
 
     /**Set payload for order */
-    const payload = {
-      service_type: form.value.service_type,
-      academic_level: form.value.academic_level,
-      subject: form.value.subject,
-      deadline: form.value.deadline,
-      pages: form.value.pages,
-      instructions: form.value.instructions,
-      files: form.value.files,
-    };
+    // const payload = {
+    //   service_type: form.value.service_type,
+    //   academic_level: form.value.academic_level,
+    //   subject: form.value.subject,
+    //   deadline: form.value.deadline,
+    //   pages: form.value.pages,
+    //   instructions: form.value.instructions,
+    //   files: form.value.files,
+    // };
 
     /**If not logged in */
     if (!authStore.isLoggedIn) {
       /**Save order data to local storage and trigger Magic Link  */
-      ordersStore.setPendingOrder(payload);
+      ordersStore.setPendingOrder(form.value);
 
       const { error: authError } = await supabase.auth.signInWithOtp({
         email: form.value.email,
         options: {
           emailRedirectTo: window.location.origin + "/confirm-order",
-          data: {
-            full_name: form.value.full_name,
-            whatsapp_no: form.value.whatsapp_no,
-          },
         },
       });
 
@@ -550,7 +545,7 @@ const handleSubmit = async () => {
 
     /**Post order to db */
     const { data, error: apiError } = await ordersStore.addOrder({
-      ...payload,
+      ...form.value,
       user_id: authStore.user.id,
     });
 
