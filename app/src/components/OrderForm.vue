@@ -508,10 +508,21 @@ const handleSubmit = async () => {
     const fileMetadata = await uploadFiles();
     form.value.files = fileMetadata;
 
+    /**Set payload for order */
+    const payload = {
+      service_type: form.value.service_type,
+      academic_level: form.value.academic_level,
+      subject: form.value.subject,
+      deadline: form.value.deadline,
+      pages: form.value.pages,
+      instructions: form.value.instructions,
+      files: form.value.files,
+    };
+
     /**If not logged in */
     if (!authStore.isLoggedIn) {
       /**Save order data to local storage and trigger Magic Link  */
-      ordersStore.setPendingOrder(form.value);
+      ordersStore.setPendingOrder(payload);
 
       const { error: authError } = await supabase.auth.signInWithOtp({
         email: form.value.email,
@@ -532,19 +543,11 @@ const handleSubmit = async () => {
       return;
     }
 
-    /**Send payload to server */
-    const payload = {
-      service_type: form.value.service_type,
-      academic_level: form.value.academic_level,
-      subject: form.value.subject,
-      deadline: form.value.deadline,
-      pages: form.value.pages,
-      instructions: form.value.instructions,
-      files: form.value.files,
+    /**Post order to db */
+    const { data, error: apiError } = await ordersStore.addOrder({
+      ...payload,
       user_id: authStore.user.id,
-    };
-
-    const { data, error: apiError } = await ordersStore.addOrder(payload);
+    });
 
     /**Handle response based on what store returns */
     if (apiError) {
