@@ -412,6 +412,7 @@ import { ref, computed, onMounted } from "vue";
 import { useOrdersStore, useAuthStore } from "../store";
 import { storeToRefs } from "pinia";
 import { supabase } from "../helpers/supabase";
+import router from "../router";
 
 /**VARIABLES */
 /**Initialize the store */
