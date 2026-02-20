@@ -37,10 +37,15 @@ onMounted(async () => {
       user_id: user.id,
     };
 
+    /**Post order to api */
     const { data, error } = await ordersStore.addOrder(payload);
 
     if (!error) {
       ordersStore.clearPendingOrder();
+
+      /**Success logic */
+      alert("Order created successfully! Order #" + data.order_number);
+
       /**Redirect to dashboard */
       router.push("/dashboard");
     } else {
