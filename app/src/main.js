@@ -7,10 +7,6 @@ import App from "./App.vue";
 // import "./style.css";
 import "./assets/tailwind.css"; //tailwind
 
-/**setup fake backend */
-import { fakeBackend } from "./helpers";
-fakeBackend();
-
 const app = createApp(App);
 const pinia = createPinia();
 

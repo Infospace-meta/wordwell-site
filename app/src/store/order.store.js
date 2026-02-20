@@ -1,15 +1,27 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import api from "../providers/api/axios";
+import { useLocalStorage } from "@vueuse/core";
 
 export const useOrdersStore = defineStore("orders", () => {
   /**STATE */
   const orders = ref([]);
   const loading = ref(false);
-  //    const addOrderForm = ref(useLocalStorage("addOrderForm", null));
   const error = ref(null);
+  const pendingOrder = useLocalStorage("pendingOrder", {});
 
   /**ACTIONS */
+  /**Set order form data */
+  function setPendingOrder(data) {
+    console.log(data);
+    pendingOrder.value = data;
+  }
+
+  /**Clear form data */
+  function clearPendingOrder() {
+    pendingOrder.value = {};
+  }
+
   /**Add a new order */
   async function addOrder(orderFormData) {
     /**Local variables */
@@ -36,5 +48,13 @@ export const useOrdersStore = defineStore("orders", () => {
     }
   }
 
-  return { orders, loading, error, addOrder };
+  return {
+    orders,
+    loading,
+    error,
+    pendingOrder,
+    setPendingOrder,
+    clearPendingOrder,
+    addOrder,
+  };
 });
