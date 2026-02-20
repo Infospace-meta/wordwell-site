@@ -294,7 +294,7 @@
                   multiple
                   @change="handleFileSelection"
                   class="hidden"
-                  id="fileUpload"
+                  id="fileUpload"                  
                 />
 
                 <!-- FILE PREVIEW LIST -->
@@ -352,6 +352,14 @@
                     </button>
                   </li>
                 </ul>
+
+                <!-- Error Message -->
+                <p
+                  v-if="formError"
+                  class="text-red-500 text-sm mt-2 font-semibold"
+                >
+                  ⚠️ Please upload at least one attachment.
+                </p>
 
                 <p
                   v-if="uploading"
@@ -419,6 +427,7 @@ import router from "../router";
 const ordersStore = useOrdersStore();
 const authStore = useAuthStore();
 const { loading: isAddingOrder } = storeToRefs(ordersStore);
+const formError = ref(false);
 const basePrice = 15;
 
 /**Order Form */
@@ -463,6 +472,10 @@ onMounted(async () => {
 const handleFileSelection = (event) => {
   const newFiles = Array.from(event.target.files);
   selectedFiles.value = [...selectedFiles.value, ...newFiles];
+  /**Clear error when files are added */
+  if (selectedFiles.value.length > 0) {
+    formError.value = false;
+  }
 };
 
 /**Function to remove a file from the list before uploading */
@@ -506,6 +519,12 @@ const uploadFiles = async () => {
 
 /**Function to handle submission */
 const handleSubmit = async () => {
+  /**Check for files */
+  if (selectedFiles.value.length === 0) {
+    formError.value = true;
+    return;
+  }
+
   try {
     uploading.value = true;
 
