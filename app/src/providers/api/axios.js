@@ -16,8 +16,10 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("x-token");
 
-    if (token) {
-      /**Make sure the token isn't stored with extra quotes if useLocalStorage stringified it */
+    if (token && token !== "null" && token !== "undefined") {
+      /**Make sure the token isn't stored with extra quotes if useLocalStorage
+       * stringified it
+       * */
       const actualToken =
         token.startsWith('"') && token.endsWith('"')
           ? JSON.parse(token)
@@ -31,7 +33,7 @@ axiosInstance.interceptors.request.use(
     /** Do something with request error */
     console.error("Request Error:", error);
     return Promise.reject(error);
-  }
+  },
 );
 
 /** Handle Forbidden and Unauthorized errors */
@@ -76,7 +78,7 @@ axiosInstance.interceptors.response.use(
 
     /** Reject with the error so store actions can catch it */
     return Promise.reject(error);
-  }
+  },
 );
 
 /** Export wrapped methods for cleaner usage in stores/components */

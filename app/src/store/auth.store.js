@@ -11,9 +11,17 @@ export const useAuthStore = defineStore("auth", () => {
   /**ACTIONS */
   /**Function to fetch user */
   async function fetchUser() {
+    /**Get session from supabase */
     const {
       data: { session },
     } = await supabase.auth.getSession();
+
+    /**Set access token to local storage */
+    session
+      ? localStorage.setItem("x-token", session.access_token)
+      : localStorage.removeItem("x-token");
+
+    /**Set user */
     user.value = session?.user || null;
 
     if (user.value) {
