@@ -294,7 +294,7 @@
                   multiple
                   @change="handleFileSelection"
                   class="hidden"
-                  id="fileUpload"                  
+                  id="fileUpload"
                 />
 
                 <!-- FILE PREVIEW LIST -->
