@@ -497,9 +497,16 @@ const formatBytes = (bytes, decimals = 2) => {
 const uploadFiles = async () => {
   const uploadedFiles = [];
 
+  /**Generate a random folder prefix for this session if guest
+   * Use userId if logged in
+   */
+  const folderPrefix = authStore.user
+    ? authStore.user.id
+    : `incoming/${Math.random().toString(36).substring(7)}`;
+
   /**Upload each selected file */
   for (const file of selectedFiles.value) {
-    const fileName = `${Date.now()}-${file.name}`;
+    const fileName = `${user.id}/${Date.now()}-${file.name}`;
     const { data, error } = await supabase.storage
       .from("order-attachments")
       .upload(fileName, file);
