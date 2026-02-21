@@ -506,19 +506,19 @@ const uploadFiles = async () => {
 
   /**Upload each selected file */
   for (const file of selectedFiles.value) {
-    const fileName = `${user.id}/${Date.now()}-${file.name}`;
+    const filePath = `${folderPrefix}/${Date.now()}-${file.name}`;
     const { data, error } = await supabase.storage
       .from("order-attachments")
-      .upload(fileName, file);
+      .upload(filePath, file);
 
     if (error) throw error;
 
-    /**Get public URL */
-    const {
-      data: { publicUrl },
-    } = supabase.storage.from("order-attachments").getPublicUrl(fileName);
+    /**Get public URL */ //WITH RLS SECURITY THIS IS NOT POSSIBLE
+    // const {
+    //   data: { publicUrl },
+    // } = supabase.storage.from("order-attachments").getPublicUrl(fileName);
 
-    uploadedFiles.push({ file_url: publicUrl, file_name: file.name });
+    uploadedFiles.push({ file_url: filePath, file_name: file.name });
   }
 
   return uploadedFiles;
