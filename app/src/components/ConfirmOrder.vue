@@ -24,7 +24,7 @@ const ordersStore = useOrdersStore();
 
 /**FUNCTIONS */
 onMounted(async () => {
-  /**Supabase automatically sets the session upon redirecting from emal */
+  /**Supabase automatically sets the session upon redirecting from email */
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -41,6 +41,9 @@ onMounted(async () => {
     const { data, error } = await ordersStore.addOrder(payload);
 
     if (!error) {
+      /**REFRESH SESSION: This pulls the new 'app_metadata' into the local JWT */
+      await supabase.auth.refreshSession();
+
       ordersStore.clearPendingOrder();
 
       /**Success logic */
