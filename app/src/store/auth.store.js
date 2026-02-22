@@ -9,6 +9,14 @@ export const useAuthStore = defineStore("auth", () => {
   const profile = ref(null);
 
   /**ACTIONS */
+  /**Helper function to sync token */
+  const syncToken = (session) => {
+    /**Set access token to local storage */
+    session
+      ? localStorage.setItem("x-token", session.access_token)
+      : localStorage.removeItem("x-token");
+  };
+
   /**Function to fetch user */
   async function fetchUser() {
     /**Get session from supabase */
@@ -16,13 +24,11 @@ export const useAuthStore = defineStore("auth", () => {
       data: { session },
     } = await supabase.auth.getSession();
 
-    /**Set access token to local storage */
-    session
-      ? localStorage.setItem("x-token", session.access_token)
-      : localStorage.removeItem("x-token");
-
     /**Set user */
     user.value = session?.user || null;
+
+    /**sync token */
+    syncToken(session);
 
     if (user.value) {
       /**Fetch the extra details from public.Profile table */
@@ -34,6 +40,37 @@ export const useAuthStore = defineStore("auth", () => {
 
       profile.value = data;
     }
+  }
+
+  /**Function to refresh session */
+  async function refreshSession() {
+    /**refresh session */
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.refreshSession();
+
+    /**handle error */
+    if (error) {
+      console.error("Session refresh failed:", error.message);
+      return { error };
+    }
+
+    /**Update local state */
+    user.value = session?.user || null;
+    syncToken(session); // Vital for Axios Interceptor!
+
+    /**Update profile (in case role/metadata changed) */
+    if (user.value) {
+      const { data } = await supabase
+        .from("Profile")
+        .select("*")
+        .eq("id", user.value.id)
+        .single();
+      profile.value = data;
+    }
+
+    return { user: user.value, error: null };
   }
 
   /**Function to logout */
@@ -54,6 +91,7 @@ export const useAuthStore = defineStore("auth", () => {
     user,
     profile,
     fetchUser,
+    refreshSession,
     logout,
     isLoggedIn: computed(() => !!user.value),
   };

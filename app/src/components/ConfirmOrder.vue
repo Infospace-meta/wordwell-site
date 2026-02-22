@@ -16,25 +16,24 @@
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useOrdersStore } from "../store/order.store";
-import { supabase } from "../helpers/supabase";
+import { useAuthStore } from "../store";
 
 /**VARIABLES */
 const router = useRouter();
 const ordersStore = useOrdersStore();
+const authStore = useAuthStore();
 
 /**FUNCTIONS */
 onMounted(async () => {
-  /**Supabase automatically sets the session upon redirecting from email */
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  /**Fetch user */
+  await authStore.fetchUser();
 
   console.log("Actual Data:", ordersStore.pendingOrder);
 
-  if (user && ordersStore.pendingOrder) {
+  if (authStore.user && ordersStore.pendingOrder) {
     const payload = {
       ...ordersStore.pendingOrder,
-      user_id: user.id,
+      user_id: authStore.user.id,
     };
 
     /**Post order to api */
@@ -42,7 +41,7 @@ onMounted(async () => {
 
     if (!error) {
       /**REFRESH SESSION: This pulls the new 'app_metadata' into the local JWT */
-      await supabase.auth.refreshSession();
+      await authStore.refreshSession();
 
       ordersStore.clearPendingOrder();
 
