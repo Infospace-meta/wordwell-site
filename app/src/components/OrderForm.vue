@@ -583,14 +583,18 @@ const handleSubmit = async () => {
     }
 
     /**Success logic */
+
     /**refresh session */
     await authStore.refreshSession();
     alert("Order created successfully! Order #" + data.order_number);
     console.log("Backend Response:", data);
+
     /**clear store */
     ordersStore.clearPendingOrder();
+
     /**reset form */
     resetForm();
+
     /**Redirect to dashboard */
     router.push("/dashboard");
   } catch (err) {
