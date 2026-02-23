@@ -36,7 +36,7 @@ export const useAuthStore = defineStore("auth", () => {
         .from("Profile")
         .select("*")
         .eq("id", user.value.id)
-        .single();
+        .maybeSingle();
 
       profile.value = data;
     }
@@ -66,7 +66,7 @@ export const useAuthStore = defineStore("auth", () => {
         .from("Profile")
         .select("*")
         .eq("id", user.value.id)
-        .single();
+        .maybeSingle();
       profile.value = data;
     }
 

@@ -52,7 +52,7 @@ onMounted(async () => {
       router.push("/dashboard");
     } else {
       alert("Something went wrong finalizing your order.");
-      router.push("/order");
+      // router.push("/order");
     }
   } else {
     router.push("/order");
