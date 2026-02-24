@@ -572,8 +572,7 @@ const handleSubmit = async () => {
 
     /**Post order to db */
     const { data, error: apiError } = await ordersStore.addOrder({
-      ...form.value,
-      user_id: authStore.user.id,
+      ...form.value,     
     });
 
     /**Handle response based on what store returns */

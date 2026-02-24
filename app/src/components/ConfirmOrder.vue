@@ -32,8 +32,7 @@ onMounted(async () => {
 
   if (authStore.user && ordersStore.pendingOrder) {
     const payload = {
-      ...ordersStore.pendingOrder,
-      user_id: authStore.user.id,
+      ...ordersStore.pendingOrder,      
     };
 
     /**Post order to api */
