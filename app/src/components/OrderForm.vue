@@ -572,7 +572,7 @@ const handleSubmit = async () => {
 
     /**Post order to db */
     const { data, error: apiError } = await ordersStore.addOrder({
-      ...form.value,     
+      ...form.value,
     });
 
     /**Handle response based on what store returns */
@@ -588,6 +588,9 @@ const handleSubmit = async () => {
     alert("Order created successfully! Order #" + data.order_number);
     console.log("Backend Response:", data);
 
+    /** Redirect to a dedicated payment route passing the Order ID */
+    router.push({ name: "payment", params: { id: data.id } });
+
     /**clear store */
     ordersStore.clearPendingOrder();
 
@@ -595,7 +598,7 @@ const handleSubmit = async () => {
     resetForm();
 
     /**Redirect to dashboard */
-    router.push("/dashboard");
+    // router.push("/dashboard");
   } catch (err) {
     /**Catch errors from uploadFiles() or unexpected logic crashes */
     console.error("Order Submission Failed:", err);

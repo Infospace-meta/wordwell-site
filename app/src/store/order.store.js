@@ -22,6 +22,20 @@ export const useOrdersStore = defineStore("orders", () => {
     pendingOrder.value = {};
   }
 
+  /**Fetch orders belonging to a user */
+  async function fetchUserOrders() {
+    loading.value = true;
+    try {
+      const { data } = await api.get("orders/my-orders");
+      console.log(data)
+      orders.value = data;
+    } catch (err) {
+      error.value = "Failed to load your orders.";
+    } finally {
+      loading.value = false;
+    }
+  }
+
   /**Add a new order */
   async function addOrder(orderFormData) {
     /**Local variables */
@@ -55,6 +69,7 @@ export const useOrdersStore = defineStore("orders", () => {
     pendingOrder,
     setPendingOrder,
     clearPendingOrder,
+    fetchUserOrders,
     addOrder,
   };
 });

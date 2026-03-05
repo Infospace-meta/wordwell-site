@@ -32,7 +32,7 @@ onMounted(async () => {
 
   if (authStore.user && ordersStore.pendingOrder) {
     const payload = {
-      ...ordersStore.pendingOrder,      
+      ...ordersStore.pendingOrder,
     };
 
     /**Post order to api */
@@ -47,8 +47,11 @@ onMounted(async () => {
       /**Success logic */
       alert("Order created successfully! Order #" + data.order_number);
 
+      /**Redirect to payment (data.id is the newly created Order UUID) */
+      router.push({ name: "payment", params: { id: data.id } });
+
       /**Redirect to dashboard */
-      router.push("/dashboard");
+      // router.push("/dashboard");
     } else {
       alert("Something went wrong finalizing your order.");
       // router.push("/order");
