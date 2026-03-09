@@ -171,7 +171,7 @@
 <script setup>
 import { onMounted, computed } from "vue";
 import { useOrdersStore, useAuthStore } from "../store";
-import { supabase } from "../helpers/supabase";
+import { supabase } from "../providers/supabase";
 
 /**VARIABLES */
 const ordersStore = useOrdersStore();

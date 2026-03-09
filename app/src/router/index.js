@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import { OrderView, DashboardView, PaymentView } from "../views";
 import ConfirmOrder from "../components/ConfirmOrder.vue";
 import { useAuthStore } from "../store";
+import AuthLogin from "../components/auth/AuthLogin.vue";
+import AuthConfirm from "../components/auth/AuthConfirm.vue";
 
 const routes = [
   { path: "/", redirect: { name: "order" } },
@@ -20,6 +22,8 @@ const routes = [
     props: true, // Allows the :id to be passed as a prop to the component
     meta: { requiresAuth: true },
   },
+  { path: "/login", name: "login", component: AuthLogin },
+  { path: "/auth-confirm", name: "auth-confirm", component: AuthConfirm },
 ];
 
 /**Initialize here */
