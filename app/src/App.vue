@@ -3,17 +3,6 @@
     <Header />
     <div class="mt-4">
       <RouterView />
-      <!-- LOGIN MODAL -->      
-      <div
-        v-if="auth.isLoginModalOpen"
-        class="modal-overlay"
-        id="login-form"
-        @click="closeModal()"
-      >
-        <div class="max-w-7xl modal-content" @click.stop>
-          <LoginEmail />
-        </div>
-      </div>
     </div>
     <Footer />
   </div>
@@ -24,7 +13,6 @@ import { RouterView } from "vue-router";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import { useAuthStore } from "./store";
-import LoginEmail from "@/components/LoginEmail.vue";
 
 /**VARIABLES */
 const auth = useAuthStore();
