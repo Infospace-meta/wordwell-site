@@ -55,17 +55,18 @@
       <div class="mx-auto px-4 max-w-7xl">
         <div class="flex justify-between items-center py-4">
           <!-- Logo -->
-          <div class="flex items-center">
+          <a href="https://wordwellwriters.com/" target="_blank" rel="noopener noreferrer" class="flex items-center">
             <img src="/wordwell-logo.png" alt="WordWell Writers" class="mr-3 w-auto h-14" />
-          </div>
+          </a>
 
           <!-- Navigation Links - Centered -->
           <nav class="hidden left-1/2 absolute md:flex items-center space-x-12 -translate-x-1/2 transform">
-            <a href="#" class="font-semibold text-blue-800 hover:text-orange-700 transition-colors">Home</a>
-            <a href="#" class="font-semibold text-blue-800 hover:text-orange-700 transition-colors">Services</a>
-            <a href="#" class="font-semibold text-blue-800 hover:text-orange-700 transition-colors">How It Works</a>
-            <a href="#" class="font-semibold text-blue-800 hover:text-orange-700 transition-colors">About Us</a>
-            <a href="#" class="font-semibold text-blue-800 hover:text-orange-700 transition-colors">Contact</a>
+           <a href="https://wordwellwriters.com/" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-800 hover:text-orange-700 transition-colors">Home</a>
+            <a href="https://wordwellwriters.com/writing-services/" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-800 hover:text-orange-700 transition-colors">Services</a>
+            <a href="https://wordwellwriters.com/how-it-works/" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-800 hover:text-orange-700 transition-colors">How It Works</a>
+             <a href="https://wordwellwriters.com/about-wordwell-writers/" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-800 hover:text-orange-700 transition-colors">About Us</a>
+             <a href="https://wordwellwriters.com/blog/" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-800 hover:text-orange-700 transition-colors">Blogs</a>
+            <a href="https://wordwellwriters.com/contact/" target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-800 hover:text-orange-700 transition-colors">Contact</a>
           </nav>
 
           <!-- Right Side: Order Button and Search -->
