@@ -12,14 +12,14 @@
         <!-- Logo -->
         <div class="mb-10 flex justify-center items-center">
           <img
-            src="../../assets/brand/InkWell-Writers-Logo.png"
+            src="../../assets/images/InkWell-Writers-Logo.png"
             alt="wordwell Logo"
             class="w-54 h-auto"
           />
         </div>
         <!-- <h1 class="text-2xl text-gray-700 text-center my-3">Wordwell Admin</h1> -->
         <p class="text-gray-600 text-center mb-8">
-          Sign in to admin dashboard
+          Sign in to your account 
         </p>
 
         <div class="space-y-5">

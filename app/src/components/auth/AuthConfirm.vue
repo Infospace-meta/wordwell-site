@@ -13,7 +13,7 @@
     </div>
 
     <h2 class="text-xl font-bold text-slate-800">Verifying Credentials</h2>
-    <p class="text-slate-500 mt-2">Securing your administrative session...</p>
+    <p class="text-slate-500 mt-2">Securing your session...</p>
 
     <!-- Error State (Hidden by default) -->
     <div
@@ -55,24 +55,7 @@ onMounted(async () => {
 
     if (sessionError || !session) {
       throw new Error("Session could not be established or link expired.");
-    }
-
-    /**2. CHECK ROLE: This is the security gate */
-    const role = session.user.app_metadata?.role;
-    console.log(role);
-
-    if (role === "ADMIN") {
-      /**SUCCESS: Sync the store (sets x-token for Axios) */
-      await authStore.fetchUser();
-      router.push("/");
-    } else {
-      /**FAILURE: Not an Admin */
-      await supabase.auth.signOut();
-      localStorage.removeItem("x-token");
-      throw new Error(
-        "Access Denied: You do not have administrator privileges.",
-      );
-    }
+    }   
   } catch (err) {
     console.error("Auth Confirmation Error:", err.message);
     error.value = err.message;
@@ -80,7 +63,7 @@ onMounted(async () => {
     /** Optional: Auto-redirect non-admins to the main site after 3 seconds */
     if (err.message.includes("Access Denied")) {
       setTimeout(() => {
-        window.location.href = "https://google.com";
+       router.push("/login");
       }, 3000);
     }
   }

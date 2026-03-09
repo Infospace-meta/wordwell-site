@@ -45,8 +45,8 @@ router.beforeEach(async (to) => {
 
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
 
-  // 2. If route requires auth and we still don't have a user
-  if (requiresAuth && !auth.isLoggedIn && auth.profile?.role !== "ADMIN") {
+  /** If route requires auth and we still don't have a user */
+  if (requiresAuth && !auth.isLoggedIn) {
     console.warn("Non-admin tried to access admin dashboard");
     await auth.logout();
     return {
@@ -56,11 +56,7 @@ router.beforeEach(async (to) => {
   }
 
   /**If user is logged in and tries to go to login page */
-  if (
-    (to.name === "login" || to.name === "signup") &&
-    auth.isLoggedIn &&
-    auth.profile?.role === "ADMIN"
-  ) {
+  if ((to.name === "login" || to.name === "signup") && auth.isLoggedIn) {
     return { path: "/" };
   }
 });
