@@ -104,7 +104,7 @@
     </div>
 
     <!-- Main Navigation -->
-    <header class="top-0 bg-white shadow-md stick">
+    <header class="sticky top-0 bg-white shadow-md z-50">
       <div class="mx-auto px-4 max-w-7xl">
         <div class="flex justify-between items-center py-4">
           <!-- Logo -->
@@ -171,12 +171,16 @@
 
           <!-- Right Side: Order Button and Search -->
           <div class="hidden md:flex items-center space-x-3">
-            <button
+            <!-- ORDER NOW BUTTON -->
+            <router-link
+              v-if="!isOrderPage"
+              to="/order"
               class="bg-[#334a97] hover:bg-orange-600 px-6 py-2 rounded-lg font-semibold text-white transition-colors"
             >
               Order Now!
-            </button>
-            <button
+            </router-link>
+
+            <!-- <button
               class="flex justify-center items-center bg-gray-100 hover:bg-gray-200 p-2 rounded-lg transition-colors"
             >
               <svg
@@ -192,7 +196,7 @@
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 ></path>
               </svg>
-            </button>
+            </button> -->
           </div>
 
           <!-- Mobile Menu Button -->
