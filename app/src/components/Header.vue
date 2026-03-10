@@ -173,12 +173,37 @@
           <div class="hidden md:flex items-center space-x-3">
             <!-- ORDER NOW BUTTON -->
             <router-link
-              v-if="!isOrderPage"
+              v-if="!isDashboardPage"
               to="/order"
               class="bg-[#334a97] hover:bg-orange-600 px-6 py-2 rounded-lg font-semibold text-white transition-colors"
             >
               Order Now!
             </router-link>
+
+            <!-- Conditional Auth Buttons -->
+            <template v-if="isLoggedIn">
+              <router-link
+                to="/dashboard"
+                class="bg-[#334a97] hover:bg-orange-600 px-6 py-2 rounded-lg font-semibold text-white transition-colors"
+              >
+                Dashboard
+              </router-link>
+              <button
+                @click="handleLogout"
+                class="text-gray-600 hover:text-red-600 font-semibold px-2 cursor-pointer"
+              >
+                Logout
+              </button>
+            </template>
+
+            <template v-else>
+              <router-link
+                to="/login"
+                class="border border-[#334a97] text-[#334a97] hover:bg-orange-600 hover:border-orange-600 hover:text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+              >
+                Login
+              </router-link>
+            </template>
 
             <!-- <button
               class="flex justify-center items-center bg-gray-100 hover:bg-gray-200 p-2 rounded-lg transition-colors"
@@ -232,7 +257,7 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 /**Hide Order button when on the /order route */
-const isOrderPage = computed(() => route.path === "/order");
+const isDashboardPage = computed(() => route.path === "/dashboard");
 
 const isLoggedIn = computed(() => authStore.isLoggedIn);
 
