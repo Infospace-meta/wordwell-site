@@ -8,7 +8,7 @@
         class="absolute inset-0 border-4 border-indigo-100 rounded-full"
       ></div>
       <div
-        class="absolute inset-0 border-4 border-indigo-600 rounded-full border-t-transparent animate-spin"
+        class="absolute inset-0 border-4 border-[#334a97] rounded-full border-t-transparent animate-spin"
       ></div>
     </div>
 
@@ -23,7 +23,7 @@
       <p class="text-red-600 text-sm font-medium">{{ error }}</p>
       <button
         @click="goBack"
-        class="mt-4 text-indigo-600 font-bold text-sm hover:underline"
+        class="mt-4 text-[#334a97] font-bold text-sm hover:underline"
       >
         Back to Login
       </button>

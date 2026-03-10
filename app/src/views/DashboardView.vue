@@ -9,7 +9,7 @@
         <div class="flex items-center gap-4">
           <router-link
             to="/order"
-            class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-indigo-700 transition"
+            class="bg-[#334a97] text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-indigo-700 transition"
           >
             + New Order
           </router-link>
@@ -28,7 +28,7 @@
             class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm"
           >
             <p class="text-slate-500 text-sm font-medium">Active Orders</p>
-            <p class="text-3xl font-bold text-indigo-600">
+            <p class="text-3xl font-bold text-[#334a97]">
               {{ activeOrdersCount }}
             </p>
           </div>
@@ -57,7 +57,7 @@
           <h3 class="text-lg font-bold text-slate-800">Order History</h3>
           <button
             @click="ordersStore.fetchUserOrders"
-            class="text-sm text-indigo-600 hover:underline"
+            class="text-sm text-[#334a97] hover:underline"
           >
             Refresh List
           </button>
@@ -91,7 +91,7 @@
           </p>
           <router-link
             to="/order"
-            class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-indigo-200"
+            class="bg-[#334a97] text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-blue-800"
             >Get Started Now</router-link
           >
         </div>
@@ -211,7 +211,7 @@ const getStatusClasses = (status) => {
   const styles = {
     PENDING_PAYMENT: "bg-amber-100 text-amber-700",
     PAID: "bg-blue-100 text-blue-700",
-    IN_PROGRESS: "bg-indigo-100 text-indigo-700",
+    IN_PROGRESS: "bg-blue-600 text-blue-800",
     COMPLETED: "bg-emerald-100 text-emerald-700",
     REVISION: "bg-rose-100 text-rose-700",
   };
