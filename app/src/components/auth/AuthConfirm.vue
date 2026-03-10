@@ -55,7 +55,20 @@ onMounted(async () => {
 
     if (sessionError || !session) {
       throw new Error("Session could not be established or link expired.");
-    }   
+    }
+
+    if (session.user) {
+      /**SUCCESS: Sync the store (sets x-token for Axios) */
+      await authStore.fetchUser();
+      router.push("/");
+    } else {
+      /**FAILURE: Not an Admin */
+      await supabase.auth.signOut();
+      localStorage.removeItem("x-token");
+      throw new Error(
+        "Access Denied: You do not have administrator privileges.",
+      );
+    }
   } catch (err) {
     console.error("Auth Confirmation Error:", err.message);
     error.value = err.message;
@@ -63,7 +76,7 @@ onMounted(async () => {
     /** Optional: Auto-redirect non-admins to the main site after 3 seconds */
     if (err.message.includes("Access Denied")) {
       setTimeout(() => {
-       router.push("/login");
+        router.push("/login");
       }, 3000);
     }
   }
