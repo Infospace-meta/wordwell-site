@@ -173,7 +173,7 @@
           <div class="hidden md:flex items-center space-x-3">
             <!-- ORDER NOW BUTTON -->
             <router-link
-              v-if="!isDashboardPage"
+              v-if="!isOrderOrDashboardPage"
               to="/order"
               class="bg-[#334a97] hover:bg-orange-600 px-6 py-2 rounded-lg font-semibold text-white transition-colors"
             >
@@ -257,7 +257,9 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 /**Hide Order button when on the /order route */
-const isDashboardPage = computed(() => route.path === "/dashboard");
+const isOrderOrDashboardPage = computed(
+  () => route.path === "/dashboard" || route.path === "/order",
+);
 
 const isLoggedIn = computed(() => authStore.isLoggedIn);
 
