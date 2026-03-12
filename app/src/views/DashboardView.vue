@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-slate-50 pb-12">
     <!-- Top Navigation / Header -->
     <header
-      class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-10"
+      class="bg-white border-b border-slate-200 px-6 py-4 sticky top-20 z-50"
     >
       <div class="max-w-6xl mx-auto flex justify-between items-center">
         <h1 class="text-xl font-bold text-slate-800">My Learning Dashboard</h1>
