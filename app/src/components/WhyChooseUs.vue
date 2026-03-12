@@ -7,7 +7,7 @@
       <div class="flex lg:flex-row flex-col gap-12 lg:gap-16">
 
         <!-- ── Left Text Block ── -->
-        <div class="lg:top-4 lg:z-10 lg:sticky lg:w-1/3 lg:h-fit shrink-0">
+        <div class="lg:top-24 lg:z-10 lg:sticky lg:w-1/3 lg:h-fit shrink-0">
           <p class="mb-3 font-bold text-[#e8722a] text-[0.7rem] uppercase tracking-widest">
             Why Choose Us
           </p>
@@ -21,7 +21,7 @@
             Choosing the right writing partner can make all the difference. At WordWell Writers,
             our services are designed to give you reliability, quality, and total peace of mind.
           </p>
-          <div class="bg-white mt-5 rounded-full w-10 h-[3px]"></div>
+          <div class="bg-white mt-5 rounded-full w-10 h-0.75"></div>
         </div>
 
         <!-- ── Right Cards Grid ── -->

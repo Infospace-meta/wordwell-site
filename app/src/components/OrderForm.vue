@@ -294,7 +294,7 @@
                   multiple
                   @change="handleFileSelection"
                   class="hidden"
-                  id="fileUpload"                  
+                  id="fileUpload"
                 />
 
                 <!-- FILE PREVIEW LIST -->
@@ -419,7 +419,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useOrdersStore, useAuthStore } from "../store";
 import { storeToRefs } from "pinia";
-import { supabase } from "../helpers/supabase";
+import { supabase } from "../providers/supabase";
 import router from "../router";
 
 /**VARIABLES */
@@ -497,21 +497,28 @@ const formatBytes = (bytes, decimals = 2) => {
 const uploadFiles = async () => {
   const uploadedFiles = [];
 
+  /**Generate a random folder prefix for this session if guest
+   * Use userId if logged in
+   */
+  const folderPrefix = authStore.user
+    ? authStore.user.id
+    : `incoming/${Math.random().toString(36).substring(7)}`;
+
   /**Upload each selected file */
   for (const file of selectedFiles.value) {
-    const fileName = `${Date.now()}-${file.name}`;
+    const filePath = `${folderPrefix}/${Date.now()}-${file.name}`;
     const { data, error } = await supabase.storage
       .from("order-attachments")
-      .upload(fileName, file);
+      .upload(filePath, file);
 
     if (error) throw error;
 
-    /**Get public URL */
-    const {
-      data: { publicUrl },
-    } = supabase.storage.from("order-attachments").getPublicUrl(fileName);
+    /**Get public URL */ //WITH RLS SECURITY THIS IS NOT POSSIBLE
+    // const {
+    //   data: { publicUrl },
+    // } = supabase.storage.from("order-attachments").getPublicUrl(fileName);
 
-    uploadedFiles.push({ file_url: publicUrl, file_name: file.name });
+    uploadedFiles.push({ file_url: filePath, file_name: file.name });
   }
 
   return uploadedFiles;
@@ -566,7 +573,6 @@ const handleSubmit = async () => {
     /**Post order to db */
     const { data, error: apiError } = await ordersStore.addOrder({
       ...form.value,
-      user_id: authStore.user.id,
     });
 
     /**Handle response based on what store returns */
@@ -576,8 +582,14 @@ const handleSubmit = async () => {
     }
 
     /**Success logic */
+
+    /**refresh session */
+    await authStore.refreshSession();
     alert("Order created successfully! Order #" + data.order_number);
     console.log("Backend Response:", data);
+
+    /** Redirect to a dedicated payment route passing the Order ID */
+    router.push({ name: "payment", params: { id: data.id } });
 
     /**clear store */
     ordersStore.clearPendingOrder();
@@ -586,7 +598,7 @@ const handleSubmit = async () => {
     resetForm();
 
     /**Redirect to dashboard */
-    router.push("/dashboard");
+    // router.push("/dashboard");
   } catch (err) {
     /**Catch errors from uploadFiles() or unexpected logic crashes */
     console.error("Order Submission Failed:", err);

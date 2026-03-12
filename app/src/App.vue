@@ -1,20 +1,10 @@
 <template>
   <div class="bg-white min-h-screen">
-    <Header />
-    <div class="mt-4">
-      <RouterView />
-      <!-- LOGIN MODAL -->      
-      <div
-        v-if="auth.isLoginModalOpen"
-        class="modal-overlay"
-        id="login-form"
-        @click="closeModal()"
-      >
-        <div class="max-w-7xl modal-content" @click.stop>
-          <LoginEmail />
-        </div>
-      </div>
+    <TopHeader />
+    <div class="sticky top-0 z-50">
+      <Header />
     </div>
+    <RouterView />
     <Footer />
   </div>
 </template>
@@ -24,7 +14,7 @@ import { RouterView } from "vue-router";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import { useAuthStore } from "./store";
-import LoginEmail from "@/components/LoginEmail.vue";
+import TopHeader from "./components/TopHeader.vue";
 
 /**VARIABLES */
 const auth = useAuthStore();
