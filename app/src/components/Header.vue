@@ -70,7 +70,7 @@
           <div class="hidden md:flex items-center space-x-3">
             <!-- ORDER NOW BUTTON -->
             <router-link
-              v-if="!isOrderOrDashboardPage"
+              v-if="!isOrderOrDashboardPage || !isLoggedIn"
               to="/order"
               class="bg-[#334a97] hover:bg-orange-600 px-6 py-2 rounded-lg font-semibold text-white transition-colors"
             >

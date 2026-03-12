@@ -1,11 +1,10 @@
 <template>
   <div class="bg-white min-h-screen">
+    <TopHeader />
     <div class="sticky top-0 z-50">
       <Header />
     </div>
-    <div class="">
-      <RouterView />
-    </div>
+    <RouterView />
     <Footer />
   </div>
 </template>
@@ -15,6 +14,7 @@ import { RouterView } from "vue-router";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import { useAuthStore } from "./store";
+import TopHeader from "./components/TopHeader.vue";
 
 /**VARIABLES */
 const auth = useAuthStore();
