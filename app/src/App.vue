@@ -1,6 +1,8 @@
 <template>
   <div class="bg-white min-h-screen">
-    <Header />
+    <div class="sticky top-0 z-10">
+      <Header />
+    </div>
     <div class="mt-4">
       <RouterView />
     </div>

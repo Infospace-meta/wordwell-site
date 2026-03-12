@@ -9,7 +9,7 @@
         <div class="flex items-center gap-4">
           <router-link
             to="/order"
-            class="bg-[#334a97] text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-indigo-700 transition"
+            class="bg-transparent text-[#334a97] border-2 border-[#334a97] px-4 py-2 rounded-lg text-sm font-bold hover:bg-[#334a97] hover:text-white transition"
           >
             + New Order
           </router-link>
