@@ -124,12 +124,13 @@ export const useAuthStore = defineStore("auth", () => {
         error.value = null;
       } else {
         userExists.value = false;
-        error.value = "User not registered. Please register first.";
+        error.value =
+          "We couldn't find any orders associated with this email. Please enter the email address you used when placing your order.";
       }
     } catch (err) {
       console.error("Supabase check error:", err);
       userExists.value = false;
-      error.value = "An error occurred while verifying your account.";
+      error.value = "An error occurred while checking your email.";
     } finally {
       checkingEmail.value = false;
     }

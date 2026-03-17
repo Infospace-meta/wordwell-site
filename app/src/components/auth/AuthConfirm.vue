@@ -60,7 +60,7 @@ onMounted(async () => {
     if (session.user) {
       /**SUCCESS: Sync the store (sets x-token for Axios) */
       await authStore.fetchUser();
-      router.push("/");
+      router.push("/dashboard");
     } else {
       /**FAILURE: Not an Admin */
       await supabase.auth.signOut();

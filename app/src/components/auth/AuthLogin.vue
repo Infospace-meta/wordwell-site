@@ -19,7 +19,7 @@
         </div>
         <!-- <h1 class="text-2xl text-gray-700 text-center my-3">Wordwell Admin</h1> -->
         <p class="text-gray-600 text-center mb-8">
-          Sign in to your account 
+          Enter your email to view your orders 
         </p>
 
         <div class="space-y-5">
@@ -49,7 +49,7 @@
               v-if="authStore.error"
               class="text-red-400 text-xs mt-2 ml-1 flex items-center gap-1"
             >
-              <span class="material-symbols-outlined text-xs">Error :</span>
+              <!-- <span class="material-symbols-outlined text-xs">Error :</span> -->
               {{ authStore.error }}
             </p>
           </div>

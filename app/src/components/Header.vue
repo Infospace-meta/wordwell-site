@@ -83,14 +83,14 @@
                 to="/dashboard"
                 class="bg-[#334a97] hover:bg-orange-600 px-6 py-2 rounded-lg font-semibold text-white transition-colors"
               >
-                Dashboard
+                My Orders
               </router-link>
-              <button
+              <!-- <button
                 @click="handleLogout"
                 class="text-gray-600 hover:text-red-600 font-semibold px-2 cursor-pointer"
               >
                 Logout
-              </button>
+              </button> -->
             </template>
 
             <template v-else>
@@ -98,7 +98,7 @@
                 to="/login"
                 class="border border-[#334a97] text-[#334a97] hover:bg-orange-600 hover:border-orange-600 hover:text-white px-6 py-2 rounded-lg font-semibold transition-colors"
               >
-                Login
+                My Orders
               </router-link>
             </template>
 
