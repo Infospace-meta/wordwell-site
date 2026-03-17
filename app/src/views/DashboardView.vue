@@ -109,7 +109,8 @@
                 <th class="px-6 py-4 font-semibold">Order</th>
                 <th class="px-6 py-4 font-semibold">Subject & Service</th>
                 <th class="px-6 py-4 font-semibold">Deadline</th>
-                <th class="px-6 py-4 font-semibold">Status</th>
+                <th class="px-6 py-4 font-semibold">Payment Status</th>
+                <th class="px-6 py-4 font-semibold">Order Status</th>
                 <th class="px-6 py-4 font-semibold text-right">Action</th>
               </tr>
             </thead>
@@ -135,23 +136,31 @@
                 </td>
                 <td class="px-6 py-4">
                   <span
-                    :class="getStatusClasses(order.status)"
+                    :class="getStatusClasses(order.payment_status)"
                     class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter"
                   >
-                    {{ order.status.replace("_", " ") }}
+                    {{ order.payment_status.replace("_", " ") }}
+                  </span>
+                </td>
+                <td class="px-6 py-4">
+                  <span
+                    :class="getStatusClasses(order.order_status)"
+                    class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter"
+                  >
+                    {{ order.order_status.replace("_", " ") }}
                   </span>
                 </td>
                 <td class="px-6 py-4 text-right">
                   <!-- Contextual Actions -->
                   <router-link
-                    v-if="order.status === 'PENDING_PAYMENT'"
+                    v-if="order.payment_status === 'PENDING_PAYMENT'"
                     :to="`/order/${order.id}/pay`"
                     class="text-amber-600 font-bold text-sm hover:underline"
                   >
                     Pay Now
                   </router-link>
                   <button
-                    v-else-if="order.status === 'COMPLETED'"
+                    v-else-if="order.order_status === 'COMPLETED'"
                     @click="handleDownload(order)"
                     class="text-emerald-600 font-bold text-sm hover:underline"
                   >
@@ -192,10 +201,12 @@ const activeOrdersCount = computed(
     ).length,
 );
 const completedOrdersCount = computed(
-  () => ordersStore.orders.filter((o) => o.status === "COMPLETED").length,
+  () => ordersStore.orders.filter((o) => o.order_status === "COMPLETED").length,
 );
 const pendingPaymentCount = computed(
-  () => ordersStore.orders.filter((o) => o.status === "PENDING_PAYMENT").length,
+  () =>
+    ordersStore.orders.filter((o) => o.payment_status === "PENDING_PAYMENT")
+      .length,
 );
 
 /** Helpers */
@@ -211,6 +222,7 @@ const getStatusClasses = (status) => {
   const styles = {
     PENDING_PAYMENT: "bg-amber-100 text-amber-700",
     PAID: "bg-blue-100 text-blue-700",
+    PENDING: "bg-amber-200 text-amber-800",
     IN_PROGRESS: "bg-blue-600 text-blue-800",
     COMPLETED: "bg-emerald-100 text-emerald-700",
     REVISION: "bg-rose-100 text-rose-700",
