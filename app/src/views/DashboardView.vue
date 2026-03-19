@@ -108,6 +108,7 @@
               >
                 <th class="px-6 py-4 font-semibold">Order</th>
                 <th class="px-6 py-4 font-semibold">Subject & Service</th>
+                <th class="px-6 py-4 font-semibold">Order Files</th>
                 <th class="px-6 py-4 font-semibold">Deadline</th>
                 <th class="px-6 py-4 font-semibold">Payment Status</th>
                 <th class="px-6 py-4 font-semibold">Order Status</th>
