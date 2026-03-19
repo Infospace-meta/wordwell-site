@@ -267,6 +267,34 @@ const getStatusClasses = (status) => {
   return styles[status] || "bg-slate-100 text-slate-700";
 };
 
+/**Function for secure downloads */
+const generateSecureDownload = async (file) => {
+  try {
+    // 1. request a signed URL (valid for 60 seconds)
+    // Supabase automatically checks if the user's ID matches the folder path in file_url
+    const { data, error } = await supabase.storage
+      .from("order-attachments")
+      .createSignedUrl(file.file_url, 60);
+
+    if (error) {
+      if (error.message.includes("Object not found")) {
+        alert("File not found. It may have been archived.");
+      } else {
+        alert(
+          "Security Error: You do not have permission to access this file.",
+        );
+      }
+      return;
+    }
+
+    // 2. Open in new tab
+    window.open(data.signedUrl, "_blank");
+  } catch (err) {
+    console.error("Download system error:", err);
+    alert("An error occurred while fetching the secure link.");
+  }
+};
+
 const handleDownload = async (order) => {
   // Logic to get Signed URL for the 'DELIVERABLE' file type
   const deliverable = order.files.find((f) => f.file_type === "DELIVERABLE");
