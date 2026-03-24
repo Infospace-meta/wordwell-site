@@ -108,6 +108,7 @@
               >
                 <th class="px-6 py-4 font-semibold">Order</th>
                 <th class="px-6 py-4 font-semibold">Subject & Service</th>
+                <th class="px-6 py-4 font-semibold">Order Files</th>
                 <th class="px-6 py-4 font-semibold">Deadline</th>
                 <th class="px-6 py-4 font-semibold">Payment Status</th>
                 <th class="px-6 py-4 font-semibold">Order Status</th>
@@ -120,9 +121,11 @@
                 :key="order.id"
                 class="hover:bg-slate-50 transition"
               >
+                <!-- ORDER NUMBER -->
                 <td class="px-6 py-4 font-bold text-slate-700">
                   #{{ order.order_number }}
                 </td>
+                <!-- SUBJECT & SERVICE -->
                 <td class="px-6 py-4">
                   <p class="text-sm font-semibold text-slate-800">
                     {{ order.subject }}
@@ -131,9 +134,42 @@
                     {{ order.service_type }} · {{ order.pages }} pages
                   </p>
                 </td>
+                <!-- FILE LIST -->
+                <td class="px-6 py-4">
+                  <div class="flex flex-col gap-1">
+                    <button
+                      v-for="file in order.files"
+                      :key="file.id"
+                      @click="generateSecureDownload(file)"
+                      class="text-[11px] flex items-center gap-1 hover:text-blue-700 transition w-fit"
+                      :class="
+                        file.file_type === 'DELIVERABLE'
+                          ? 'text-emerald-600 font-bold'
+                          : 'text-slate-500'
+                      "
+                    >
+                      <svg
+                        class="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
+                        />
+                      </svg>
+                      {{ file.file_name }}
+                    </button>
+                  </div>
+                </td>
+                <!-- DEADLINE -->
                 <td class="px-6 py-4 text-sm text-slate-600">
                   {{ formatDate(order.deadline) }}
                 </td>
+                <!-- PAYMENT STATUS -->
                 <td class="px-6 py-4">
                   <span
                     :class="getStatusClasses(order.payment_status)"
@@ -142,6 +178,7 @@
                     {{ order.payment_status.replace("_", " ") }}
                   </span>
                 </td>
+                <!-- ORDER STATUS -->
                 <td class="px-6 py-4">
                   <span
                     :class="getStatusClasses(order.order_status)"
@@ -150,8 +187,8 @@
                     {{ order.order_status.replace("_", " ") }}
                   </span>
                 </td>
+                <!-- ACTIONS -->
                 <td class="px-6 py-4 text-right">
-                  <!-- Contextual Actions -->
                   <router-link
                     v-if="order.payment_status === 'PENDING_PAYMENT'"
                     :to="`/order/${order.id}/pay`"
@@ -228,6 +265,34 @@ const getStatusClasses = (status) => {
     REVISION: "bg-rose-100 text-rose-700",
   };
   return styles[status] || "bg-slate-100 text-slate-700";
+};
+
+/**Function for secure downloads */
+const generateSecureDownload = async (file) => {
+  try {
+    // 1. request a signed URL (valid for 60 seconds)
+    // Supabase automatically checks if the user's ID matches the folder path in file_url
+    const { data, error } = await supabase.storage
+      .from("order-attachments")
+      .createSignedUrl(file.file_url, 60);
+
+    if (error) {
+      if (error.message.includes("Object not found")) {
+        alert("File not found. It may have been archived.");
+      } else {
+        alert(
+          "Security Error: You do not have permission to access this file.",
+        );
+      }
+      return;
+    }
+
+    // 2. Open in new tab
+    window.open(data.signedUrl, "_blank");
+  } catch (err) {
+    console.error("Download system error:", err);
+    alert("An error occurred while fetching the secure link.");
+  }
 };
 
 const handleDownload = async (order) => {
