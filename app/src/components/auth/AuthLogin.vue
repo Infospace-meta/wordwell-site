@@ -115,7 +115,7 @@
 
 <script setup>
 import { ref, watch } from "vue";
-import { useAuthStore } from "../../store";
+import { useAuthStore } from "@/store";
 
 /**VARIABLES */
 const email = ref("");
