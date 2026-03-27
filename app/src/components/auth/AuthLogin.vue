@@ -12,7 +12,7 @@
         <!-- Logo -->
         <div class="mb-10 flex justify-center items-center">
           <img
-            src="../../assets/images/InkWell-Writers-Logo.png"
+            src="@/assets/images/InkWell-Writers-Logo.png"
             alt="wordwell Logo"
             class="w-54 h-auto"
           />

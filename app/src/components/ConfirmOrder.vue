@@ -15,8 +15,7 @@
 <script setup>
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { useOrdersStore } from "../store/order.store";
-import { useAuthStore } from "../store";
+import { useAuthStore, useOrdersStore } from "@/store";
 
 /**VARIABLES */
 const router = useRouter();
