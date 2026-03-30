@@ -175,7 +175,7 @@
                     :class="getStatusClasses(order.payment_status)"
                     class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter"
                   >
-                    {{ order.payment_status.replace("_", " ") }}
+                    {{ order.payment_status.split("_")[0] }}
                   </span>
                 </td>
                 <!-- ORDER STATUS -->
