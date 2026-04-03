@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { OrderView, DashboardView, PaymentView } from "../views";
-import ConfirmOrder from "../components/ConfirmOrder.vue";
-import { useAuthStore } from "../store";
-import AuthLogin from "../components/auth/AuthLogin.vue";
-import AuthConfirm from "../components/auth/AuthConfirm.vue";
+import { OrderView, DashboardView, PaymentView } from "@/views";
+import ConfirmOrder from "@/components/ConfirmOrder.vue";
+import { useAuthStore } from "@/store";
+import AuthLogin from "@/components/auth/AuthLogin.vue";
+import AuthConfirm from "@/components/auth/AuthConfirm.vue";
 
 const routes = [
   { path: "/", redirect: { name: "order" } },

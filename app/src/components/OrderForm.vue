@@ -417,10 +417,10 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { useOrdersStore, useAuthStore } from "../store";
+import { useOrdersStore, useAuthStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { supabase } from "../providers/supabase";
-import router from "../router";
+import { supabase } from "@/providers/supabase";
+import router from "@/router";
 
 /**VARIABLES */
 /**Initialize the store */

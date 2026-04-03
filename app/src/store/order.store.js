@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import api from "../providers/api/axios";
+import api from "@/providers/api/axios";
 import { useLocalStorage } from "@vueuse/core";
 
 export const useOrdersStore = defineStore("orders", () => {
