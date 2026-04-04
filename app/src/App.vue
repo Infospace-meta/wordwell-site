@@ -5,7 +5,8 @@
       <Header />
     </div>
     <RouterView />
-    <Footer />
+    <TheFooter />
+    <!-- <Footer /> -->
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import { useAuthStore } from "./store";
 import TopHeader from "./components/TopHeader.vue";
+import TheFooter from "./components/layout/TheFooter.vue";
 
 /**VARIABLES */
 const auth = useAuthStore();
