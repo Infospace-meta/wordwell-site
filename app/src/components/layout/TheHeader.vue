@@ -82,13 +82,13 @@
       <div class="flex items-center gap-4">
         <button
           class="hidden lg:block rounded-btn bg-primary-dark px-6 py-2.5 text-white hover:bg-complementary transition-colors cursor-pointer font-medium"
-          @click="navigate('#contact')"
+          @click="navigate('order')"
         >
           Order Now
         </button>
         <button
           class="hidden lg:block rounded-btn border-2 border-primary-dark px-6 py-2.5 text-primary-dark hover:border-complementary hover:text-complementary transition-colors cursor-pointer font-medium"
-          @click="navigate('#contact')"
+          @click="navigate('dashboard')"
         >
           My Orders
         </button>
@@ -137,9 +137,9 @@
   <!-- Mobile Menu Overlay -->
   <div
     v-show="isMenuOpen"
-    class="fixed inset-0 z-40 mt-20 bg-white lg:hidden overflow-y-auto"
+    class="fixed inset-0 z-40 mt-16 bg-white lg:hidden overflow-y-auto flex flex-col justify-between"
   >
-    <nav class="flex flex-col p-6 space-y-2">
+    <nav class="flex flex-col p-6">
       <template v-for="link in navLinks" :key="link.name">
         <!-- Mobile Dropdown -->
         <div v-if="link.dropdown" class="flex flex-col">
@@ -186,22 +186,21 @@
           {{ link.name }}
         </router-link>
       </template>
-
-      <div class="pt-8">
-        <button
-          class="w-full rounded-btn bg-primary-dark px-4 py-4 text-white font-bold"
-          @click="navigate('#contact')"
-        >
-          Order Now
-        </button>
-        <button
-          class="w-full rounded-btn bg-primary-dark px-4 py-4 text-white font-bold"
-          @click="navigate('#contact')"
-        >
-          My Orders
-        </button>
-      </div>
     </nav>
+    <div class="space-y-2 p-6">
+      <button
+        class="w-full rounded-btn bg-primary-dark px-4 py-4 text-white font-bold"
+         @click="navigate('order')"
+      >
+        Order Now
+      </button>
+      <button
+        class="w-full rounded-btn border-primary-dark px-4 py-4 text-primary-dark border-2 font-bold"
+        @click="navigate('dashboard')"
+      >
+        My Orders
+      </button>
+    </div>
   </div>
 </template>
 
@@ -228,14 +227,14 @@ const navLinks = [
     name: "Services",
     path: "#services",
     dropdown: [
-      { name: "Academic Writing", path: "/services/academic" },
-      { name: "Content Writing", path: "/services/content" },
+      { name: "Academic Writing", path: "/services/assignment" },
+      { name: "Online Class & Exam Help", path: "/services/attendance" },
     ],
   },
-  { name: "How It Works", path: "#work" },
-  { name: "About Us", path: "#about" },
-  { name: "Blog", path: "#process" },
-  { name: "Contact", path: "#career" },
+  { name: "How It Works", path: "/How-it-works" },
+  { name: "About Us", path: "/about" },
+  { name: "Blog", path: "/blog" },
+  { name: "Contact", path: "/contact" },
 ];
 
 const socialLinks = [
