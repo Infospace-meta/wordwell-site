@@ -585,9 +585,6 @@ const handleSubmit = async () => {
 
     /**reset form */
     resetForm();
-
-    /**Redirect to dashboard */
-    // router.push("/dashboard");
   } catch (err) {
     /**Catch errors from uploadFiles() or unexpected logic crashes */
     console.error("Order Submission Failed:", err);

@@ -48,12 +48,9 @@ onMounted(async () => {
 
       /**Redirect to payment (data.id is the newly created Order UUID) */
       router.push({ name: "payment", params: { id: data.id } });
-
-      /**Redirect to dashboard */
-      // router.push("/dashboard");
     } else {
       alert("Something went wrong finalizing your order.");
-      // router.push("/order");
+      router.push("/order");
     }
   } else {
     router.push("/order");
