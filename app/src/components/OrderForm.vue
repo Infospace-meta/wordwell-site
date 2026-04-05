@@ -539,17 +539,6 @@ const handleSubmit = async () => {
     const fileMetadata = await uploadFiles();
     form.value.files = fileMetadata;
 
-    /**Set payload for order */
-    // const payload = {
-    //   service_type: form.value.service_type,
-    //   academic_level: form.value.academic_level,
-    //   subject: form.value.subject,
-    //   deadline: form.value.deadline,
-    //   pages: form.value.pages,
-    //   instructions: form.value.instructions,
-    //   files: form.value.files,
-    // };
-
     /**If not logged in */
     if (!authStore.isLoggedIn) {
       /**Save order data to local storage and trigger Magic Link  */
@@ -596,9 +585,6 @@ const handleSubmit = async () => {
 
     /**reset form */
     resetForm();
-
-    /**Redirect to dashboard */
-    // router.push("/dashboard");
   } catch (err) {
     /**Catch errors from uploadFiles() or unexpected logic crashes */
     console.error("Order Submission Failed:", err);
