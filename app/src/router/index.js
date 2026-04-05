@@ -5,6 +5,30 @@ import { useAuthStore } from "@/store";
 import AuthLogin from "@/components/auth/AuthLogin.vue";
 import AuthConfirm from "@/components/auth/AuthConfirm.vue";
 
+// const routes = [
+//   { path: '/',             component: () => import('@/views/HomeView.vue') },
+//   { path: '/services',     component: () => import('@/views/ServicesView.vue') },
+//   { path: '/how-it-works', component: () => import('@/views/HowItWorksView.vue') },
+//   { path: '/about',        component: () => import('@/views/AboutView.vue') },
+//   { path: '/contact',      component: () => import('@/views/ContactView.vue') },
+//   { path: '/order',        component: () => import('@/views/OrderView.vue') },
+//   { path: '/login',        component: () => import('@/views/LoginView.vue') },
+//   { path: '/register',     component: () => import('@/views/RegisterView.vue') },
+//   {
+//     path: '/dashboard',
+//     component: () => import('@/layouts/DashboardLayout.vue'),
+//     meta: { requiresAuth: true },
+//     children: [
+//       { path: '',        component: () => import('@/views/dashboard/DashboardHome.vue') },
+//       { path: 'orders',  component: () => import('@/views/dashboard/OrdersList.vue') },
+//       { path: 'orders/:id', component: () => import('@/views/dashboard/OrderDetail.vue') },
+//       { path: 'new-order',  component: () => import('@/views/dashboard/NewOrder.vue') },
+//       { path: 'payments',   component: () => import('@/views/dashboard/Payments.vue') },
+//       { path: 'profile',    component: () => import('@/views/dashboard/Profile.vue') },
+//     ]
+//   }
+// ]
+
 const routes = [
   { path: "/", redirect: { name: "order" } },
   { path: "/order", name: "order", component: OrderView },

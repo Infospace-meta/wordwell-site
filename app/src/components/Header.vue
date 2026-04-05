@@ -12,7 +12,7 @@
             class="flex items-center"
           >
             <img
-              src="/wordwell-logo.png"
+              src="@/assets/Logo.png"
               alt="WordWell Writers"
               class="mr-3 w-auto h-14"
             />

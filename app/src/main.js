@@ -4,8 +4,7 @@ import router from "./router";
 import App from "./App.vue";
 
 /**styling */
-// import "./style.css";
-import "./assets/tailwind.css"; //tailwind
+import "./style.css"; // tailwind + design tokens
 
 const app = createApp(App);
 const pinia = createPinia();
