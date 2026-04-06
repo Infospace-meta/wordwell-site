@@ -3,16 +3,16 @@
 @theme {
   /* --- Colors --- */
   /* Automatically generates bg-primary, text-primary, border-primary, etc. */
-  --color-primary: #1D4ED8;
-  --color-primary-dark: #1E40AF;
-  --color-primary-light: #DBEAFE;
-  --color-accent: #F59E0B;
-  --color-complementary: #DA5012;
-  --color-text: #0F172A;
+  --color-primary: #1d4ed8;
+  --color-primary-dark: #3350a7;
+  --color-primary-light: #dbeafe;
+  --color-accent: #eb7d04;
+  --color-complementary: #da5012;
+  --color-text: #0f172a;
   --color-text-muted: #475569;
-  --color-bg: #FFFFFF;
-  --color-surface: #F8FAFC;
-  --color-border: #E2E8F0;
+  --color-bg: #ffffff;
+  --color-surface: #f8fafc;
+  --color-border: #e2e8f0;
 
   /* --- Typography (Fonts) --- */
   /* Automatically generates font-sans */
@@ -63,7 +63,8 @@
   /* --- Shadows --- */
   /* Automatically generates shadow-card, shadow-navbar, etc. */
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-card-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-navbar: 0 1px 3px rgba(0, 0, 0, 0.08);
   --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }

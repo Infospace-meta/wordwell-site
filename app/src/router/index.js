@@ -1,37 +1,42 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { OrderView, DashboardView, PaymentView } from "@/views";
-import ConfirmOrder from "@/components/ConfirmOrder.vue";
+import {
+  HomeView,
+  AboutView,
+  AssignmentServicesView,
+  AttendanceServicesView,
+  Process,
+  ContactView,
+  OrderView,
+  DashboardView,
+  PaymentView
+} from "@/views";
 import { useAuthStore } from "@/store";
+import ConfirmOrder from "@/components/ConfirmOrder.vue";
 import AuthLogin from "@/components/auth/AuthLogin.vue";
 import AuthConfirm from "@/components/auth/AuthConfirm.vue";
-
-// const routes = [
-//   { path: '/',             component: () => import('@/views/HomeView.vue') },
-//   { path: '/services',     component: () => import('@/views/ServicesView.vue') },
-//   { path: '/how-it-works', component: () => import('@/views/HowItWorksView.vue') },
-//   { path: '/about',        component: () => import('@/views/AboutView.vue') },
-//   { path: '/contact',      component: () => import('@/views/ContactView.vue') },
-//   { path: '/order',        component: () => import('@/views/OrderView.vue') },
-//   { path: '/login',        component: () => import('@/views/LoginView.vue') },
-//   { path: '/register',     component: () => import('@/views/RegisterView.vue') },
-//   {
-//     path: '/dashboard',
-//     component: () => import('@/layouts/DashboardLayout.vue'),
-//     meta: { requiresAuth: true },
-//     children: [
-//       { path: '',        component: () => import('@/views/dashboard/DashboardHome.vue') },
-//       { path: 'orders',  component: () => import('@/views/dashboard/OrdersList.vue') },
-//       { path: 'orders/:id', component: () => import('@/views/dashboard/OrderDetail.vue') },
-//       { path: 'new-order',  component: () => import('@/views/dashboard/NewOrder.vue') },
-//       { path: 'payments',   component: () => import('@/views/dashboard/Payments.vue') },
-//       { path: 'profile',    component: () => import('@/views/dashboard/Profile.vue') },
-//     ]
-//   }
-// ]
+import WebLayout from "@/layout/WebLayout.vue";
 
 const routes = [
-  { path: "/", redirect: { name: "order" } },
-  { path: "/order", name: "order", component: OrderView },
+  {
+    path: "/",
+    component: WebLayout,
+    redirect: { name: "home" },
+    children: [
+      { path: "", name: "home", component: HomeView },
+      { path: "about", name: "about", component: AboutView },
+      {
+        path: "services", name: "services", children: [
+          { path: "assignment", name: "assignment-services", component: AssignmentServicesView },
+          { path: "attendance", name: "attendance-services", component: AttendanceServicesView },
+        ]
+      },
+      { path: "How-it-works", name: "process", component: Process },
+      { path: "contact", name: "contact", component: ContactView },
+      { path: "order", name: "order", component: OrderView },
+    ],
+  },
+  { path: "/login", name: "login", component: AuthLogin }, ,
+  { path: "/auth-confirm", name: "auth-confirm", component: AuthConfirm },
   { path: "/confirm-order", name: "confirm-order", component: ConfirmOrder },
   {
     path: "/dashboard",
@@ -46,8 +51,6 @@ const routes = [
     props: true, // Allows the :id to be passed as a prop to the component
     meta: { requiresAuth: true },
   },
-  { path: "/login", name: "login", component: AuthLogin },
-  { path: "/auth-confirm", name: "auth-confirm", component: AuthConfirm },
 ];
 
 /**Initialize here */

@@ -66,8 +66,8 @@
         </div>
 
         <!-- Column 4: Brand & Text -->
-        <div class="space-y-6 col-span-1 xl:col-span-4 w-full">
-          <div class="flex items-center">
+        <div class="space-y-6 col-span-1 xl:col-span-4 w-full p-4">
+          <div class="flex items-center max-lg:justify-center">
             <!-- WordWell Logo SVG -->
             <img
               src="@/assets/Logo.png"

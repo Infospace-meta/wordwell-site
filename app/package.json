@@ -21,7 +21,6 @@
     "@vueuse/core": "^13.9.0",
     "axios": "^1.13.2",
     "json-server": "^1.0.0-beta.3",
-    "lucide-vue-next": "^1.0.0",
     "pinia": "^3.0.4",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.17",
