@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-50 px-4 py-6 min-h-screen">
+  <div class="px-4 py-6 min-h-screen">
     <div class="mx-auto max-w-2xl">
       <!-- Header -->
       <div class="mb-6 text-center">
@@ -15,6 +15,8 @@
       </div>
 
       <!-- Form Container -->
+
+      
       <div
         class="bg-white shadow-lg p-4 md:p-6 border border-gray-100 rounded-xl"
       >

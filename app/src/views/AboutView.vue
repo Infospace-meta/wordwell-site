@@ -1,5 +1,9 @@
 <template>
-  <div>About View Works!</div>
+  <div>
+    <About />
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import About from "@/components/web/About.vue";
+</script>

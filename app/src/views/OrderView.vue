@@ -1,26 +1,28 @@
 <template>
   <div>
     <!-- Hero Section -->
-    <OrdersHero />
-    
+    <!-- <OrdersHero /> -->
+
     <!-- Main Content: Form and Steps Side by Side -->
-    <div class="gap-0 grid grid-cols-1 lg:grid-cols-2">
+    <div
+      class="gap-0 grid grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto px-4 py-16"
+    >
       <!-- Left: Form -->
       <div>
         <OrdersForm />
       </div>
-      
+
       <!-- Right: Order Steps with Sticky Positioning -->
       <div class="lg:top-4 lg:sticky h-fit">
         <OrderSteps />
       </div>
     </div>
-    
+
     <!-- Why Choose Us Section -->
-    <WhyChooseUs />
-    
+    <!-- <WhyChooseUs /> -->
+
     <!-- Insights & Blogs Section -->
-    <InsightsBlogs />
+    <!-- <InsightsBlogs /> -->
   </div>
 </template>
 

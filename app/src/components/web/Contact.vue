@@ -1,7 +1,11 @@
 <template>
   <div class="">
     <!-- Hero Section -->
-    <contact-section-hero />
+    <div class="bg-primary-dark text-white text-center py-16 h-[40vh]">
+      <div class="mx-auto max-w-7xl">
+        <p class="text-h2 font-semibold">Contact Us</p>
+      </div>
+    </div>
 
     <!-- Map Container -->
     <div
@@ -50,7 +54,6 @@
     <!-- TODO: Implement contact form -->
 
     <!-- Testimonials -->
-    <!-- TODO: Implement testimonials -->
     <div class="bg-slate-50 py-20">
       <div class="mx-auto max-w-7xl space-y-5">
         <p class="text-center text-h4 text-complementary font-semibold">
@@ -115,7 +118,6 @@
 <script setup>
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide } from "vue3-carousel";
-import ContactSectionHero from "./ContactSectionHero.vue";
 
 const testimonials = [
   {

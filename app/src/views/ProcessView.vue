@@ -1,5 +1,9 @@
 <template>
-  <div>Process View Works!</div>
+  <div>
+    <Process />
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import Process from "@/components/web/Process.vue";
+</script>
