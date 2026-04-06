@@ -1,5 +1,9 @@
 <template>
-  <div>Contact View Works!</div>
+  <div>
+    <Contact />
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import Contact from "@/components/web/Contact.vue";
+</script>
