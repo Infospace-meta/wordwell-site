@@ -1,11 +1,11 @@
 <template>
-  <div class="min-h-screen bg-slate-50 pb-12">
+  <div class="min-h-screen pb-12">
     <!-- Top Navigation / Header -->
     <header
-      class="bg-white border-b border-slate-200 px-6 py-4 sticky top-20 z-50"
+      class="bg-white lg:border-b border-slate-200 px-6 py-4 top-20 z-50"
     >
-      <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-xl font-bold text-slate-800">My Learning Dashboard</h1>
+      <div class="max-w-6xl mx-auto flex justify-between items-center max-lg:justify-end">
+        <h1 class="text-xl max-md:hidden font-bold text-slate-800">My Learning Dashboard</h1>
         <div class="flex items-center gap-4">
           <router-link
             to="/order"
@@ -19,7 +19,7 @@
 
     <main class="max-w-6xl mx-auto px-6 mt-8">
       <!-- Welcome & Stats -->
-      <section class="mb-10">
+      <section class="mb-10 max-lg:hidden">
         <h2 class="text-2xl font-bold text-slate-800">
           Welcome back, {{ authStore.profile?.full_name }}!
         </h2>
@@ -99,7 +99,7 @@
         <!-- Orders Table -->
         <div
           v-else
-          class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+          class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-scroll"
         >
           <table class="w-full text-left border-collapse">
             <thead>
