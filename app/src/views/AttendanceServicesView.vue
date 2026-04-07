@@ -1,5 +1,9 @@
 <template>
-  <div>Attendance Services View Works!</div>
+  <div>
+    <Attendance />
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import Attendance from "@/components/web/Attendance.vue";
+</script>

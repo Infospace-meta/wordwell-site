@@ -1,5 +1,9 @@
 <template>
-  <div>Assignment Services View Works!</div>
+  <div>
+    <Assignment />
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import Assignment from "@/components/web/Assignment.vue";
+</script>
