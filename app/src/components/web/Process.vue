@@ -4,9 +4,7 @@
     <div class="bg-primary-dark text-white text-center py-16 min-h-[40vh]">
       <div class="mx-auto max-w-7xl px-4 space-y-5">
         <p class="text-h2 font-semibold">How It Works</p>
-        <p class="text-center text-h4 text-accent font-semibold">
-          Our Process
-        </p>
+        <p class="text-center text-h4 text-accent font-semibold">Our Process</p>
         <p
           class="text-center text-body text-white font-normal tracking-wide leading-relaxed max-w-4xl mx-auto"
         >
@@ -46,19 +44,24 @@
         </div>
       </div>
     </div>
-    <div
-      class="w-full -translate-y-5/5 flex justify-center items-center"
-    >
+    <div class="w-full lg:-translate-y-1/2 flex justify-center items-center">
       <button
         class="mt-10 bg-accent text-white px-6 py-3 rounded-btn font-semibold hover:bg-primary-dark transition-colors"
+        @click="navigate('order')"
       >
         Start Your Order
       </button>
     </div>
+
+    <f-a-q-item class="" />
+    <service-card class="" />
   </div>
 </template>
 
 <script setup>
+import FAQItem from "@/components/shared/FAQItem.vue";
+import ServiceCard from "@/components/shared/ServiceCard.vue";
+
 const steps = [
   {
     id: 1,

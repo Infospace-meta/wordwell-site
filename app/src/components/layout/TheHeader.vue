@@ -190,7 +190,7 @@
     <div class="space-y-2 p-6">
       <button
         class="w-full rounded-btn bg-primary-dark px-4 py-4 text-white font-bold"
-         @click="navigate('order')"
+        @click="navigate('order')"
       >
         Order Now
       </button>
@@ -233,7 +233,7 @@ const navLinks = [
   },
   { name: "How It Works", path: "/How-it-works" },
   { name: "About Us", path: "/about" },
-  { name: "Blog", path: "/blog" },
+  // { name: "Blog", path: "/blog" },g
   { name: "Contact", path: "/contact" },
 ];
 

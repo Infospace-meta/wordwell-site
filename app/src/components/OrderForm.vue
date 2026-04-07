@@ -16,7 +16,7 @@
 
       <!-- Form Container -->
 
-      
+
       <div
         class="bg-white shadow-lg p-4 md:p-6 border border-gray-100 rounded-xl"
       >
@@ -85,7 +85,7 @@
           <!-- Welcome Message for Authenticated Users -->
           <div
             v-else
-            class="p-4 bg-indigo-50 rounded-xl border border-indigo-100 flex items-center justify-between"
+            class="p-4 bg-indigo-50 rounded-xl border border-indigo-100 flex max-lg:flex-col max-lg:items-start space-y-2 justify-between"
           >
             <div class="flex items-center space-x-3">
               <!-- User Avatar / Icon -->

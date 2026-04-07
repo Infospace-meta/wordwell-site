@@ -28,8 +28,8 @@
 
 <script setup>
 import OrdersForm from "@/components/OrderForm.vue";
-import OrdersHero from "@/components/OrdersHero.vue";
+// import OrdersHero from "@/components/OrdersHero.vue";
 import OrderSteps from "@/components/OrderSteps.vue";
-import WhyChooseUs from "@/components/WhyChooseUs.vue";
-import InsightsBlogs from "@/components/InsightsBlogs.vue";
+// import WhyChooseUs from "@/components/WhyChooseUs.vue";
+// import InsightsBlogs from "@/components/InsightsBlogs.vue";
 </script>
