@@ -2,7 +2,7 @@
   <div class="">
     <!-- Hero Section -->
     <div class="bg-primary-dark text-white text-center py-16 h-1/3">
-      <div class="mx-auto max-w-7xl px-4 space-y-5">
+      <div class="mx-auto max-w-7xl px-4 space-y-5 lg:translate-y-1/2">
         <p class="text-h2 font-semibold">About Us</p>
         <p class="text-center text-h4 text-accent font-semibold">Who we are</p>
         <p
@@ -62,6 +62,7 @@
             Academic Support
           </h2>
           <button
+           @click="router.push('/order')"
             class="bg-accent hover:bg-complementary text-white font-bold py-4 px-8 rounded-btn transition-colors text-btn tracking-widest"
           >
             Place an order now!
@@ -195,6 +196,7 @@
             </p>
 
             <button
+             @click="router.push('/order')"
               class="bg-[#2c4696] hover:bg-blue-900 text-white font-bold py-4 px-10 rounded transition-colors uppercase text-sm tracking-widest shadow-md"
             >
               Get Started Today!
@@ -315,6 +317,7 @@
             <!-- CTA Button -->
             <div class="pt-4">
               <button
+               @click="router.push('/order')"
                 class="bg-accent hover:bg-complementary text-btn text-white py-4 px-10 rounded-btn transition-colors tracking-widest"
               >
                 Get a Free Quote
@@ -349,6 +352,15 @@ import {
   Lightbulb,
   Users,
 } from "@lucide/vue";
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+// Navigation function
+const navigate = (path) => {
+  router.push('/' + path); // Ensure absolute pathing
+};
+
 
 // import { Goal, Eye, ShieldCheck } from "@lucide/vue";
 

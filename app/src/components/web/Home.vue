@@ -45,6 +45,7 @@
             class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
           >
             <button
+              @click="router.push('/order')"
               class="bg-accent hover:bg-complementary text-white py-3 px-7 rounded-btn transition-all text-button tracking-widest cursor-pointer"
             >
               Order Your Paper Now
@@ -198,17 +199,17 @@
       >
         <!-- Left Column: Professional Image -->
         <div class="relative">
-          <div class="relative z-10 rounded-[2rem] overflow-hidden shadow-2xl">
+          <div class="relative z-10 rounded-4xl overflow-hidden shadow-2xl">
             <!-- Using a professional academic-themed photo -->
             <img
               src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1470&auto=format&fit=crop"
               alt="Focused student working on laptop"
-              class="w-full h-[500px] object-cover"
+              class="w-full h-125 object-cover"
             />
           </div>
           <!-- Decorative Background Frame -->
           <div
-            class="absolute -top-6 -left-6 w-full h-full border-2 border-gray-100 rounded-[2rem] -z-0"
+            class="absolute -top-6 -left-6 w-full h-full border-2 border-gray-100 rounded-4xl z-0"
           ></div>
         </div>
 
@@ -220,14 +221,12 @@
             >
               About WordWell Writers
             </span>
-            <h2
-              class="text-h2 font-semibold text-accent leading-tight mb-8"
-            >
+            <h2 class="text-h2 font-semibold text-accent leading-tight mb-8">
               Crafting Academic Success, One Word at a Time!
             </h2>
           </div>
 
-          <div class="space-y-6 text-gray-600  leading-relaxed">
+          <div class="space-y-6 text-gray-600 leading-relaxed">
             <p>
               At WordWell Writers, we believe every idea deserves to shine.
               That’s why we provide expert academic writing services tailored to
@@ -254,6 +253,7 @@
 
           <div class="pt-4">
             <button
+              @click="router.push('/order')"
               class="bg-[#2c4696] hover:bg-blue-800 text-white font-bold py-4 px-10 rounded-xl transition-all uppercase text-sm tracking-widest shadow-lg hover:shadow-blue-200 hover:-translate-y-1"
             >
               Get Started Today!
@@ -285,6 +285,7 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 import {
   FileText,
   GraduationCap,
@@ -298,6 +299,13 @@ import FAQItem from "@/components/shared/FAQItem.vue";
 import ServiceCard from "@/components/shared/ServiceCard.vue";
 import ProcessCard from "@/components/shared/ProcessCards.vue";
 import OfferingCard from "@/components/shared/OfferingCard.vue";
+
+const router = useRouter();
+
+// Navigation function
+const navigate = (path) => {
+  router.push("/" + path); // Ensure absolute pathing
+};
 </script>
 
 <style scoped>

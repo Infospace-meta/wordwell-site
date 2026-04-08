@@ -190,13 +190,13 @@
     <div class="space-y-2 p-6">
       <button
         class="w-full rounded-btn bg-primary-dark px-4 py-4 text-white font-bold"
-        @click="navigate('order')"
+        @click="router.push('/order')"
       >
         Order Now
       </button>
       <button
         class="w-full rounded-btn border-primary-dark px-4 py-4 text-primary-dark border-2 font-bold"
-        @click="navigate('dashboard')"
+         @click="router.push('/dashboard')"
       >
         My Orders
       </button>
@@ -206,19 +206,26 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from 'vue-router';
 
 const isMenuOpen = ref(false);
 const isServicesOpen = ref(false);
+const router = useRouter();
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
   if (!isMenuOpen.value) isServicesOpen.value = false;
 };
 
+// Navigation function
 const navigate = (path) => {
-  isMenuOpen.value = false;
-  window.location.href = path;
+  router.push('/' + path); // Ensure absolute pathing
 };
+
+// const navigate = (path) => {
+//   isMenuOpen.value = false;
+//   window.location.href = path;
+// };
 
 // Unified Navigation Data
 const navLinks = [
