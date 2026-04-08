@@ -1,5 +1,9 @@
 <template>
-  <div>Home View Works!</div>
+  <div>
+    <Home />
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import Home from "@/components/web/Home.vue";
+</script>
