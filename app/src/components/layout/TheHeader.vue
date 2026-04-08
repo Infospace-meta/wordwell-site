@@ -233,7 +233,7 @@ const navLinks = [
   },
   { name: "How It Works", path: "/How-it-works" },
   { name: "About Us", path: "/about" },
-  // { name: "Blog", path: "/blog" },g
+  // { name: "Blog", path: "/blog" },
   { name: "Contact", path: "/contact" },
 ];
 
