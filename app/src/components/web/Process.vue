@@ -1,8 +1,8 @@
 <template>
-  <div class="">
+  <div class="space-y-28">
     <!-- Hero Section -->
-    <div class="bg-primary-dark text-white text-center py-16 min-h-[40vh]">
-      <div class="mx-auto max-w-7xl px-4 space-y-5">
+    <div class="bg-primary-dark text-white text-center py-16">
+      <div class="mx-auto max-w-7xl px-4 lg:translate-y-2/3 space-y-5">
         <p class="text-h2 font-semibold">How It Works</p>
         <p class="text-center text-h4 text-accent font-semibold">Our Process</p>
         <p
@@ -14,47 +14,47 @@
           your specific needs.
         </p>
       </div>
-    </div>
 
-    <!-- Core Values Section (Grid Layout) -->
-    <div class="max-w-7xl mx-auto lg:-translate-y-1/3 p-4">
-      <!-- Grid Container -->
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-1">
-        <div
-          v-for="step in steps"
-          :key="step.id"
-          class="bg-white rounded-card p-10 border text-center border-gray-100 flex flex-col shadow-sm transition-all hover:shadow-md hover:-translate-y-1"
-        >
-          <!-- Icon -->
-          <h1
-            class="text-white border-2 border-primary-dark flex justify-center items-center rounded-full w-12 h-12 text-center mx-auto bg-accent font-bold text-3xl mb-5"
+      <!-- Core Values Section (Grid Layout) -->
+      <div class="max-w-7xl mx-auto lg:translate-y-2/3 p-4">
+        <!-- Grid Container -->
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-1">
+          <div
+            v-for="step in steps"
+            :key="step.id"
+            class="bg-white rounded-card p-10 border text-center border-gray-100 flex flex-col shadow-sm transition-all hover:shadow-md hover:-translate-y-1"
           >
-            {{ step.icon }}
-          </h1>
+            <!-- Icon -->
+            <h1
+              class="text-white border-2 border-primary-dark flex justify-center items-center rounded-full w-12 h-12 text-center mx-auto bg-accent font-bold text-3xl mb-5"
+            >
+              {{ step.icon }}
+            </h1>
 
-          <!-- Title -->
-          <h3 class="text-primary-dark font-bold text-h4 mb-5">
-            {{ step.title }}
-          </h3>
+            <!-- Title -->
+            <h3 class="text-primary-dark font-bold text-h4 mb-5">
+              {{ step.title }}
+            </h3>
 
-          <!-- Content -->
-          <p class="text-gray-700 text-small leading-relaxed">
-            {{ step.text }}
-          </p>
+            <!-- Content -->
+            <p class="text-gray-700 text-small leading-relaxed">
+              {{ step.text }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="w-full lg:-translate-y-1/2 flex justify-center items-center">
+    <!-- <div class="w-full flex justify-center items-center">
       <button
         class="mt-10 bg-accent text-white px-6 py-3 rounded-btn font-semibold hover:bg-primary-dark transition-colors"
         @click="navigate('order')"
       >
         Start Your Order
       </button>
-    </div>
+    </div> -->
 
     <f-a-q-item class="" />
-    <service-card class="" />
+    <service-card class="-translate-y-1/5" />
   </div>
 </template>
 

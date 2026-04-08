@@ -1,19 +1,16 @@
 <template>
-  <div class="">
+  <div class="space-y-10">
     <!-- Hero Section -->
-    <div class="bg-primary-dark text-white text-center py-16 h-[40vh]">
+    <div class="bg-primary-dark text-white text-center py-16">
       <div class="mx-auto max-w-7xl">
         <p class="text-h2 font-semibold">Contact Us</p>
       </div>
     </div>
-
     <!-- Map Container -->
-    <div
-      class="relative text-right h-[60vh] -translate-y-1/3 lg:w-3/5 w-9/10 mx-auto rounded-card max-lg:mb-64"
-    >
-      <div class="overflow-hidden h-[60vh] w-full rounded-card">
+    <div class="relative text-right h-150 mx-auto rounded-card max-w-5xl">
+      <div class="h-150 overflow-hidden w-full rounded-card">
         <iframe
-          class="h-[60vh]"
+          class="h-150"
           width="100%"
           frameborder="0"
           scrolling="no"
@@ -21,32 +18,31 @@
           marginwidth="0"
           src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=Des%20Moines&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
         ></iframe>
-        <a href="https://www.modelsearchengine.com/">onlyfinder</a>
-        <br /><a href="https://embed-maps.com/">embed-maps.com</a>
+        <!-- <a href="https://www.modelsearchengine.com/">onlyfinder</a>
+          <br /><a href="https://embed-maps.com/">embed-maps.com</a> -->
       </div>
-      <div
-        class="grid grid-cols-1 lg:grid-cols-3 text-center space-y-5 translate-y-1/8 lg:translate-y-1/3"
-      >
-        <div class="space-y-5">
-          <p class="text-center text-primary-dark text-h3 font-semibold">
-            Physical location
-          </p>
-          <p class="text-sm text-gray-600 mt-2">123 Academic Ave</p>
-          <p class="text-sm text-gray-600 mt-2">Des Moines</p>
-        </div>
-        <div class="space-y-5">
-          <p class="text-center text-primary-dark text-h3 font-semibold">
-            Phone Number
-          </p>
-          <p class="text-sm text-gray-600">+1 (704) 749 834</p>
-        </div>
-        <div class="space-y-5">
-          <p class="text-center text-primary-dark text-h3 font-semibold">
-            Email Address
-          </p>
-          <p class="text-sm text-gray-600">support@wordwellwriters.com</p>
-          <p class="text-sm text-gray-600">info@wordwellwriters.com</p>
-        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 text-center space-y-5 max-w-5xl mx-auto">
+      <div class="space-y-5">
+        <p class="text-center text-primary-dark text-h3 font-semibold">
+          Physical location
+        </p>
+        <p class="text-sm text-gray-600 mt-2">123 Academic Ave</p>
+        <p class="text-sm text-gray-600 mt-2">Des Moines</p>
+      </div>
+      <div class="space-y-5">
+        <p class="text-center text-primary-dark text-h3 font-semibold">
+          Phone Number
+        </p>
+        <p class="text-sm text-gray-600">+1 (704) 749 834</p>
+      </div>
+      <div class="space-y-5">
+        <p class="text-center text-primary-dark text-h3 font-semibold">
+          Email Address
+        </p>
+        <p class="text-sm text-gray-600">support@wordwellwriters.com</p>
+        <p class="text-sm text-gray-600">info@wordwellwriters.com</p>
       </div>
     </div>
 

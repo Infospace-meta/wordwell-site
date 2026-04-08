@@ -31,8 +31,10 @@
             </p>
           </div>
           <button
+          @click="router.push('/order')"
             class="bg-primary-dark hover:bg-primary text-white py-3 px-10 rounded-btn transition-all text-button tracking-widest"
           >
+          
             Get a Free Quote
           </button>
         </div>
@@ -124,6 +126,7 @@
 
             <div class="mt-10">
               <button
+              @click="router.push('/order')"
                 class="bg-primary-dark hover:bg-primary text-white font-bold py-4 px-12 rounded-lg transition-all uppercase text-sm tracking-widest shadow-md"
               >
                 Order Now
@@ -161,6 +164,15 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+// Navigation function
+const navigate = (path) => {
+  router.push('/' + path); // Ensure absolute pathing
+};
+
 // Data for Section 3: Nested Categories from the image
 const nestedServices = [
   {

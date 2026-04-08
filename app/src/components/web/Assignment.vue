@@ -26,6 +26,7 @@
             </p>
           </div>
           <button
+          @click="router.push('/order')"
             class="bg-primary-dark hover:bg-primary text-white font-bold py-4 px-10 rounded-lg transition-all uppercase text-sm tracking-widest shadow-lg"
           >
             Get a Free Quote
@@ -96,6 +97,7 @@
 
             <div class="mt-10">
               <button
+              @click="router.push('/order')"
                 class="bg-primary-dark hover:bg-primary text-white font-bold py-4 px-12 rounded-lg transition-all uppercase text-sm tracking-widest shadow-md"
               >
                 Order Now
@@ -162,7 +164,15 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 import { Clock, ShieldCheck, Award, Eye, Lightbulb, Users } from "@lucide/vue";
+
+const router = useRouter();
+
+// Navigation function
+const navigate = (path) => {
+  router.push('/' + path); // Ensure absolute pathing
+};
 
 // 1. Feature Cards Data (With Icons)
 const features = [
