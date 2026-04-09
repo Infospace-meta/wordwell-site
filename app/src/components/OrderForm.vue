@@ -273,7 +273,7 @@
               >
             </div>
             <p class="mt-1 text-gray-500 text-xs">
-              Base price: ${{ basePrice }} per page
+              Base price: ${{ standardCost }} per page
             </p>
           </div>
 
@@ -428,7 +428,6 @@ const ordersStore = useOrdersStore();
 const authStore = useAuthStore();
 const { loading: isAddingOrder } = storeToRefs(ordersStore);
 const formError = ref(false);
-const basePrice = 15;
 
 /**Order Form */
 const form = ref({
