@@ -420,6 +420,7 @@ import { useOrdersStore, useAuthStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { supabase } from "@/providers/supabase";
 import router from "@/router";
+import { SERVICE_COSTS } from "@/config/constants";
 
 /**VARIABLES */
 /**Initialize the store */
@@ -450,34 +451,9 @@ const uploading = ref(false);
 const estimatedWords = computed(() => form.value.pages * 275);
 
 /**Logic for $15 per page (should match backend pricing) */
-const standardCost = computed(() => {
-  switch (form.value.service_type) {
-    case "essay writing":
-      return 10;
-      break;
-    case "assignment help":
-      return 10;
-      break;
-    case "research paper":
-      return 10;
-      break;
-    case "thesis/dissertation":
-      return 10;
-      break;
-    case "editing and proofreading":
-      return 10;
-      break;
-    case "literature review":
-      return 10;
-      break;
-    case "presentation and reports":
-      return 10;
-      break;
-    default:
-      return 15;
-      break;
-  }
-});
+const standardCost = computed(
+  () => SERVICE_COSTS[form.value.service_type] ?? 15,
+);
 const totalCost = computed(() => form.value.pages * standardCost.value);
 
 /**FUNCTIONS */
