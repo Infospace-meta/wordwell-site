@@ -16,7 +16,6 @@
 
       <!-- Form Container -->
 
-
       <div
         class="bg-white shadow-lg p-4 md:p-6 border border-gray-100 rounded-xl"
       >
@@ -137,7 +136,6 @@
                 <option value="essay">Essay Writing</option>
                 <option value="assignment help">Assignment Help</option>
                 <option value="research paper">Research Paper</option>
-                <option value="homework help">Homework Help</option>
                 <option value="thesis/dissertation">Thesis/Dissertation</option>
                 <option value="editing and proofreading">
                   Editing and Proofreading
@@ -146,7 +144,6 @@
                 <option value="presentation and reports">
                   Presentation and Reports
                 </option>
-                <option value="admission essays">Admission Essays</option>
               </select>
             </div>
 
