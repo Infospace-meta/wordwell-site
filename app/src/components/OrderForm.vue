@@ -478,7 +478,7 @@ const standardCost = computed(() => {
       break;
   }
 });
-const totalCost = computed(() => form.value.pages * 15);
+const totalCost = computed(() => form.value.pages * standardCost);
 
 /**FUNCTIONS */
 
