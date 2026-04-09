@@ -133,7 +133,7 @@
                 class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200 appearance-none"
                 required
               >
-                <option value="essay">Essay Writing</option>
+                <option value="essay writing">Essay Writing</option>
                 <option value="assignment help">Assignment Help</option>
                 <option value="research paper">Research Paper</option>
                 <option value="thesis/dissertation">Thesis/Dissertation</option>
@@ -450,6 +450,34 @@ const uploading = ref(false);
 const estimatedWords = computed(() => form.value.pages * 275);
 
 /**Logic for $15 per page (should match backend pricing) */
+const standardCost = computed(() => {
+  switch (form.value.service_type) {
+    case "essay writing":
+      return 10;
+      break;
+    case "assignment help":
+      return 10;
+      break;
+    case "research paper":
+      return 10;
+      break;
+    case "thesis/dissertation":
+      return 10;
+      break;
+    case "editing and proofreading":
+      return 10;
+      break;
+    case "literature review":
+      return 10;
+      break;
+    case "presentation and reports":
+      return 10;
+      break;
+    default:
+      return 15;
+      break;
+  }
+});
 const totalCost = computed(() => form.value.pages * 15);
 
 /**FUNCTIONS */
