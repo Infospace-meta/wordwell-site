@@ -16,7 +16,6 @@
 
       <!-- Form Container -->
 
-
       <div
         class="bg-white shadow-lg p-4 md:p-6 border border-gray-100 rounded-xl"
       >
@@ -134,10 +133,9 @@
                 class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200 appearance-none"
                 required
               >
-                <option value="essay">Essay Writing</option>
+                <option value="essay writing">Essay Writing</option>
                 <option value="assignment help">Assignment Help</option>
                 <option value="research paper">Research Paper</option>
-                <option value="homework help">Homework Help</option>
                 <option value="thesis/dissertation">Thesis/Dissertation</option>
                 <option value="editing and proofreading">
                   Editing and Proofreading
@@ -146,7 +144,6 @@
                 <option value="presentation and reports">
                   Presentation and Reports
                 </option>
-                <option value="admission essays">Admission Essays</option>
               </select>
             </div>
 
@@ -276,7 +273,7 @@
               >
             </div>
             <p class="mt-1 text-gray-500 text-xs">
-              Base price: ${{ basePrice }} per page
+              Base price: ${{ standardCost }} per page
             </p>
           </div>
 
@@ -423,6 +420,7 @@ import { useOrdersStore, useAuthStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { supabase } from "@/providers/supabase";
 import router from "@/router";
+import { SERVICE_COSTS } from "@/config/constants";
 
 /**VARIABLES */
 /**Initialize the store */
@@ -430,15 +428,14 @@ const ordersStore = useOrdersStore();
 const authStore = useAuthStore();
 const { loading: isAddingOrder } = storeToRefs(ordersStore);
 const formError = ref(false);
-const basePrice = 15;
 
 /**Order Form */
 const form = ref({
   full_name: "",
   email: "",
   whatsapp_no: "",
-  service_type: "Essay",
-  academic_level: "Undergraduate",
+  service_type: "",
+  academic_level: "",
   subject: "",
   deadline: "",
   pages: 1,
@@ -453,7 +450,10 @@ const uploading = ref(false);
 const estimatedWords = computed(() => form.value.pages * 275);
 
 /**Logic for $15 per page (should match backend pricing) */
-const totalCost = computed(() => form.value.pages * 15);
+const standardCost = computed(
+  () => SERVICE_COSTS[form.value.service_type] ?? 15,
+);
+const totalCost = computed(() => form.value.pages * standardCost.value);
 
 /**FUNCTIONS */
 
