@@ -7,6 +7,7 @@ import ContactView from "./ContactView.vue";
 import OrderView from "./OrderView.vue";
 import DashboardView from "./DashboardView.vue";
 import PaymentView from "./PaymentView.vue";
+import TermsView from "./TermsView.vue";
 
 export {
   HomeView,
@@ -18,4 +19,5 @@ export {
   OrderView,
   DashboardView,
   PaymentView,
+  TermsView,
 };
