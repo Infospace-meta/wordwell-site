@@ -8,13 +8,14 @@ import {
   ContactView,
   OrderView,
   DashboardView,
-  PaymentView
+  PaymentView,
 } from "@/views";
 import { useAuthStore } from "@/store";
 import ConfirmOrder from "@/components/ConfirmOrder.vue";
 import AuthLogin from "@/components/auth/AuthLogin.vue";
 import AuthConfirm from "@/components/auth/AuthConfirm.vue";
 import WebLayout from "@/layout/WebLayout.vue";
+import TermsView from "../views/TermsView.vue";
 
 const routes = [
   {
@@ -25,20 +26,31 @@ const routes = [
       { path: "", name: "home", component: HomeView },
       { path: "about", name: "about", component: AboutView },
       {
-        path: "services", name: "services", children: [
-          { path: "assignment", name: "assignment-services", component: AssignmentServicesView },
-          { path: "attendance", name: "attendance-services", component: AttendanceServicesView },
-        ]
+        path: "services",
+        name: "services",
+        children: [
+          {
+            path: "assignment",
+            name: "assignment-services",
+            component: AssignmentServicesView,
+          },
+          {
+            path: "attendance",
+            name: "attendance-services",
+            component: AttendanceServicesView,
+          },
+        ],
       },
       { path: "How-it-works", name: "process", component: Process },
       { path: "contact", name: "contact", component: ContactView },
       { path: "order", name: "order", component: OrderView },
     ],
   },
-  { path: "/login", name: "login", component: AuthLogin }, ,
+  { path: "/login", name: "login", component: AuthLogin },
+  ,
   { path: "/auth-confirm", name: "auth-confirm", component: AuthConfirm },
   { path: "/confirm-order", name: "confirm-order", component: ConfirmOrder },
-  { path: "/terms", name: "terms", component: ConfirmOrder },
+  { path: "/terms", name: "terms", component: TermsView },
   {
     path: "/dashboard",
     name: "dashboard",
@@ -55,16 +67,16 @@ const routes = [
 ];
 
 /**Initialize here */
-const router = createRouter({ 
-  history: createWebHistory(), 
+const router = createRouter({
+  history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition;
     } else {
-      return { top: 0, behavior: 'smooth' };
+      return { top: 0, behavior: "smooth" };
     }
-  }
+  },
 });
 
 router.beforeEach(async (to) => {
