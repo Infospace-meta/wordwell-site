@@ -38,6 +38,7 @@ const routes = [
   { path: "/login", name: "login", component: AuthLogin }, ,
   { path: "/auth-confirm", name: "auth-confirm", component: AuthConfirm },
   { path: "/confirm-order", name: "confirm-order", component: ConfirmOrder },
+  { path: "/terms", name: "terms", component: ConfirmOrder },
   {
     path: "/dashboard",
     name: "dashboard",
