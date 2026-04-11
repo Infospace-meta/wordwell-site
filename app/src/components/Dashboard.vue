@@ -103,9 +103,9 @@
           </div>
         </div>
 
-        <!-- Empty State -->
+        <!-- Empty State (Only if NOT loading and count is 0) -->
         <div
-          v-if="ordersStore.orders.length === 0 && !ordersStore.loading"
+          v-else-if="ordersStore.orders.length === 0"
           class="bg-white border-2 border-dashed border-slate-200 rounded-3xl p-12 text-center"
         >
           <div
