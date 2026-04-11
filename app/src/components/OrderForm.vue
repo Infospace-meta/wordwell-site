@@ -380,6 +380,11 @@
                   {{ fileErrorMessage }}
                 </p>
 
+                <!-- Helper text -->
+                <p class="text-gray-400 text-[10px] mt-1">
+                  Max 10MB per file. Total limit: 50MB.
+                </p>
+
                 <!-- Uploading text -->
                 <p
                   v-if="uploading"
