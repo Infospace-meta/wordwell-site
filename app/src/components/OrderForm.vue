@@ -462,6 +462,11 @@ const standardCost = computed(
 );
 const totalCost = computed(() => form.value.pages * standardCost.value);
 
+/**Define limits (in bytes) */
+const MAX_FILE_SIZE = 10*1024*1024; //10MB per file
+const MAX_TOTAL_SIZE = 50*1024*1024; //50MB total per order
+const fileErrorMessage = ref("");
+
 /**FUNCTIONS */
 
 /**Fetch user on mount */
