@@ -544,6 +544,12 @@ const handleFileSelection = (event) => {
       break; //stop adding files since limit has been hit
     }
 
+    /**Check allowed file type */
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      fileErrorMessage.value = "Only PDF, Word, and Image files are allowed.";
+      continue;
+    }
+
     validFiles.push(file);
     currentTotalSize += file.size;
   }
