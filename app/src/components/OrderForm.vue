@@ -463,8 +463,8 @@ const standardCost = computed(
 const totalCost = computed(() => form.value.pages * standardCost.value);
 
 /**Define limits (in bytes) */
-const MAX_FILE_SIZE = 10*1024*1024; //10MB per file
-const MAX_TOTAL_SIZE = 50*1024*1024; //50MB total per order
+const MAX_FILE_SIZE = 10 * 1024 * 1024; //10MB per file
+const MAX_TOTAL_SIZE = 50 * 1024 * 1024; //50MB total per order
 const fileErrorMessage = ref("");
 
 /**FUNCTIONS */
@@ -484,8 +484,38 @@ onMounted(async () => {
 
 /**Function to handle file selection */
 const handleFileSelection = (event) => {
+  /**Reset error on new selection */
+  fileErrorMessage.value = "";
   const newFiles = Array.from(event.target.files);
-  selectedFiles.value = [...selectedFiles.value, ...newFiles];
+
+  /**Calculate current total size of already selected files */
+  let currentTotalSize = selectedFiles.value.reduce(
+    (sum, f) => sum + f.size,
+    0,
+  );
+
+  const validFiles = [];
+
+  for (const file of newFiles) {
+    /**Check individual file size */
+    if (file.size > MAX_FILE_SIZE) {
+      fileErrorMessage.value = `file "${file.name}" exceeds the 10MB limit.`;
+      continue; //Skip this file and check the next one
+    }
+
+    /**Check if adding this file exceeds total order limit */
+    if (currentTotalSize + file.size > MAX_TOTAL_SIZE) {
+      fileErrorMessage.value = `Total attachment size cannot exceed 50MB. Some files were not added.`;
+      break; //stop adding files since limit has been hit
+    }
+
+    validFiles.push(file);
+    currentTotalSize += file.size;
+  }
+
+  /**Add only the valid files to state */
+  selectedFiles.value = [...selectedFiles.value, ...validFiles];
+
   /**Clear error when files are added */
   if (selectedFiles.value.length > 0) {
     formError.value = false;
@@ -495,6 +525,9 @@ const handleFileSelection = (event) => {
 /**Function to remove a file from the list before uploading */
 const removeFile = (index) => {
   selectedFiles.value.splice(index, 1);
+  if (selectedFiles.value.length === 0) {
+    fileErrorMessage.value = "";
+  }
 };
 
 /**Helper to make file sizes readable (KB/MB) */
