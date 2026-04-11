@@ -1,11 +1,13 @@
 <template>
   <div class="min-h-screen pb-12">
     <!-- Top Navigation / Header -->
-    <header
-      class="bg-white lg:border-b border-slate-200 px-6 py-4 top-20 z-50"
-    >
-      <div class="max-w-6xl mx-auto flex justify-between items-center max-lg:justify-end">
-        <h1 class="text-xl max-md:hidden font-bold text-slate-800">My Learning Dashboard</h1>
+    <header class="bg-white lg:border-b border-slate-200 px-6 py-4 top-20 z-50">
+      <div
+        class="max-w-6xl mx-auto flex justify-between items-center max-lg:justify-end"
+      >
+        <h1 class="text-xl max-md:hidden font-bold text-slate-800">
+          My Learning Dashboard
+        </h1>
         <div class="flex items-center gap-4">
           <router-link
             to="/order"
@@ -58,8 +60,10 @@
           <button
             @click="ordersStore.fetchUserOrders"
             class="text-sm text-[#334a97] hover:underline"
+            :disabled="ordersStore.loading"
           >
-            Refresh List
+            <span v-if="!ordersStore.loading">Refresh List</span>
+            <span v-else class="animate-pulse">Refreshing...</span>
           </button>
         </div>
 
