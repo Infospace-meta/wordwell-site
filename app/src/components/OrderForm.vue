@@ -513,6 +513,15 @@ const handleFileSelection = (event) => {
   /**Reset error on new selection */
   fileErrorMessage.value = "";
   const newFiles = Array.from(event.target.files);
+  /**Allowed types */
+  const ALLOWED_TYPES = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
+    "image/jpeg",
+    "image/png",
+    "text/plain",
+  ];
 
   /**Calculate current total size of already selected files */
   let currentTotalSize = selectedFiles.value.reduce(
