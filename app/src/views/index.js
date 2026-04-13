@@ -7,5 +7,17 @@ import ContactView from "./ContactView.vue";
 import OrderView from "./OrderView.vue";
 import DashboardView from "./DashboardView.vue";
 import PaymentView from "./PaymentView.vue";
+import TermsView from "./TermsView.vue";
 
-export { HomeView, AboutView, AssignmentServicesView, AttendanceServicesView, Process, ContactView, OrderView, DashboardView, PaymentView };
+export {
+  HomeView,
+  AboutView,
+  AssignmentServicesView,
+  AttendanceServicesView,
+  Process,
+  ContactView,
+  OrderView,
+  DashboardView,
+  PaymentView,
+  TermsView,
+};

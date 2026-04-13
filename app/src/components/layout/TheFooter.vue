@@ -81,6 +81,11 @@
             turnaround, & a commitment to excellence, we help students &
             professionals achieve their academic goals with confidence.
           </p>
+          <router-link
+            to="/terms"
+            class="text-small text-text-muted leading-relaxed text-wrap hover:text-primary transition"
+            >Terms & Conditions</router-link
+          >
         </div>
       </div>
     </div>
