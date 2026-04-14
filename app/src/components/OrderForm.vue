@@ -404,6 +404,13 @@
 
           <!-- Submit Button -->
           <div class="pt-2">
+            <p class="text-[10px] text-center text-slate-400 mb-4 px-4">
+              By clicking "Place My Order", you agree to our
+              <router-link to="/terms" class="text-indigo-600 underline"
+                >Terms and Conditions</router-link
+              >
+              and Data Protection Policy.
+            </p>
             <button
               type="submit"
               :disabled="uploading"
@@ -433,13 +440,6 @@
                 Processing...
               </span>
             </button>
-            <p class="text-[10px] text-center text-slate-400 mt-4 px-4">
-              By clicking "Place My Order", you agree to our
-              <router-link to="/terms" class="text-indigo-600 underline"
-                >Terms and Conditions</router-link
-              >
-              and Data Protection Policy.
-            </p>
           </div>
         </form>
       </div>
