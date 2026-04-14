@@ -56,7 +56,7 @@
                 type="email"
                 id="email"
                 v-model="form.email"
-                placeholder="E.g. john@wordwellwriters.com"
+                placeholder="E.g. john@wordwellinternational.com"
                 class="px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200"
                 required
               />

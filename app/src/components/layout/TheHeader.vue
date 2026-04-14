@@ -16,7 +16,7 @@
           </a>
         </div>
         <div class="text-small text-white font-medium">
-          Phone: +1 (563) 343-3372 | Email: support@wordwellwriters.com
+          Phone: +1 (563) 343-3372 | Email: support@wordwellinternational.com
         </div>
       </div>
     </div>

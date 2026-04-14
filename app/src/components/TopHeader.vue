@@ -80,7 +80,7 @@
           +1 (563) 343-3372
         </a>
         <a
-          href="mailto:support@wordwellwriters.com"
+          href="mailto:support@wordwellinternational.com"
           class="flex items-center hover:text-blue-600 transition-colors"
         >
           <svg
@@ -96,7 +96,7 @@
               d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-18 4v7a2 2 0 002 2h14a2 2 0 002-2v-7M3 8l7.89 5.26a2 2 0 002.22 0L21 8"
             ></path>
           </svg>
-          support@wordwellwriters.com
+          support@wordwellinternational.com
         </a>
       </div>
     </div>
