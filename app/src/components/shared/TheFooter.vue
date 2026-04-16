@@ -54,8 +54,8 @@
             </p>
             <div class="flex flex-col">
               <span class="text-text-muted">Email:</span>
-              <a href="mailto:support@wordwellwriters.com" class="text-primary"
-                >support@wordwellwriters.com</a
+              <a href="mailto:support@wordwellinternational.com" class="text-primary"
+                >support@wordwellinternational.com</a
               >
             </div>
             <p>

@@ -178,7 +178,7 @@
             at:
           </p>
           <p class="font-bold text-[#334a97]">
-            Email: support@wordwellwriters.com
+            Email: support@wordwellinternational.com
           </p>
         </section>
 

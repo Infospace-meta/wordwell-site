@@ -5,5 +5,5 @@
 </template>
 
 <script setup>
-import Process from "@/components/web/Process.vue";
+import Process from "@/components/site/Process.vue";
 </script>

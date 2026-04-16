@@ -5,5 +5,5 @@
 </template>
 
 <script setup>
-import Assignment from "@/components/web/Assignment.vue";
+import Assignment from "@/components/site/Assignment.vue";
 </script>

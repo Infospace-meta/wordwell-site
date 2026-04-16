@@ -11,7 +11,7 @@ import {
   PaymentView,
 } from "@/views";
 import { useAuthStore } from "@/store";
-import ConfirmOrder from "@/components/ConfirmOrder.vue";
+import ConfirmOrder from "@/components/order/ConfirmOrder.vue";
 import AuthLogin from "@/components/auth/AuthLogin.vue";
 import AuthConfirm from "@/components/auth/AuthConfirm.vue";
 import WebLayout from "@/layout/WebLayout.vue";

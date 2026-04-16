@@ -16,7 +16,7 @@
           </a>
         </div>
         <div class="text-small text-white font-medium">
-          Phone: +1 (563) 343-3372 | Email: support@wordwellwriters.com
+          Phone: +1 (563) 343-3372 | Email: support@wordwellinternational.com
         </div>
       </div>
     </div>
@@ -190,13 +190,13 @@
     <div class="space-y-2 p-6">
       <button
         class="w-full rounded-btn bg-primary-dark px-4 py-4 text-white font-bold"
-        @click="router.push('/order')"
+        @click="navigateMobile('order')"
       >
         Order Now
       </button>
       <button
         class="w-full rounded-btn border-primary-dark px-4 py-4 text-primary-dark border-2 font-bold"
-         @click="router.push('/dashboard')"
+        @click="navigateMobile('dashboard')"
       >
         My Orders
       </button>
@@ -206,7 +206,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const isMenuOpen = ref(false);
 const isServicesOpen = ref(false);
@@ -217,9 +217,15 @@ const toggleMenu = () => {
   if (!isMenuOpen.value) isServicesOpen.value = false;
 };
 
-// Navigation function
+/**Navigation function */
 const navigate = (path) => {
-  router.push('/' + path); // Ensure absolute pathing
+  router.push("/" + path); // Ensure absolute pathing
+};
+
+/**Navigation with automatic toggle on mobile */
+const navigateMobile = (path) => {
+  router.push("/" + path); // Ensure absolute pathing
+  toggleMenu();
 };
 
 // const navigate = (path) => {
@@ -227,7 +233,7 @@ const navigate = (path) => {
 //   window.location.href = path;
 // };
 
-// Unified Navigation Data
+/**Unified Navigation Data */
 const navLinks = [
   { name: "Home", path: "/" },
   {

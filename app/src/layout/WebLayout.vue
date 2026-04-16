@@ -13,8 +13,8 @@
 import { RouterView } from "vue-router";
 // import Header from "./components/Header.vue";
 import { useAuthStore } from "@/store";
-import TheFooter from "@/components/layout/TheFooter.vue";
-import TheHeader from "@/components/layout/TheHeader.vue";
+import TheFooter from "@/components/shared/TheFooter.vue";
+import TheHeader from "@/components/shared/TheHeader.vue";
 
 /**VARIABLES */
 const auth = useAuthStore();
