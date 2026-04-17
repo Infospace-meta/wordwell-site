@@ -13,7 +13,7 @@ export const useOrdersStore = defineStore("orders", () => {
   /**ACTIONS */
   /**Set order form data */
   function setPendingOrder(data) {
-    console.log(data);
+    // console.log(data);
     pendingOrder.value = data;
   }
 
@@ -27,7 +27,7 @@ export const useOrdersStore = defineStore("orders", () => {
     loading.value = true;
     try {
       const { data } = await api.get("orders/my-orders");
-      console.log(data)
+      // console.log(data)
       orders.value = data;
     } catch (err) {
       error.value = "Failed to load your orders.";
@@ -42,7 +42,7 @@ export const useOrdersStore = defineStore("orders", () => {
     loading.value = true;
     error.value = null; //reset error on new call
 
-    console.log(orderFormData);
+    // console.log(orderFormData);
 
     try {
       const { data } = await api.post("orders", orderFormData);
@@ -55,7 +55,7 @@ export const useOrdersStore = defineStore("orders", () => {
         err.response?.data?.message || err.message || "An error occurred";
       error.value = apiError;
 
-      console.error("Error adding order:", err);
+      // console.error("Error adding order:", err);
       return { data: null, error: apiError };
     } finally {
       loading.value = false;
