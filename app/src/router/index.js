@@ -76,7 +76,7 @@ router.beforeEach(async (to) => {
     try {
       await auth.fetchUser();
     } catch (err) {
-      console.error("Failed to restore session:", err);
+      // console.error("Failed to restore session:", err);
     }
   }
 
@@ -84,7 +84,7 @@ router.beforeEach(async (to) => {
 
   /** If route requires auth and we still don't have a user */
   if (requiresAuth && !auth.isLoggedIn) {
-    console.warn("Non-admin tried to access admin dashboard");
+    // console.warn("Non-admin tried to access admin dashboard");
     await auth.logout();
     return {
       path: "/login",

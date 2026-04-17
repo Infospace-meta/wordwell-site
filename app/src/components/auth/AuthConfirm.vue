@@ -70,7 +70,7 @@ onMounted(async () => {
       );
     }
   } catch (err) {
-    console.error("Auth Confirmation Error:", err.message);
+    // console.error("Auth Confirmation Error:", err.message);
     error.value = err.message;
 
     /** Optional: Auto-redirect non-admins to the main site after 3 seconds */
