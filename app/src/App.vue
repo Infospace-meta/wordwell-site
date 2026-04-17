@@ -2,7 +2,7 @@
   <Toaster
     position="top-center"
     richColors
-    closeButton="true"
+    closeButton
     closeButtonPosition="top-right"
   />
   <router-view />

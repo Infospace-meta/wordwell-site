@@ -454,6 +454,7 @@ import { storeToRefs } from "pinia";
 import { supabase } from "@/providers/supabase";
 import router from "@/router";
 import { toast } from "vue-sonner";
+import { SERVICE_COSTS } from "@/config/constants";
 
 /**VARIABLES */
 /**Initialize the store */
