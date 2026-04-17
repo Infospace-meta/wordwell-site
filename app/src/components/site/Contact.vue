@@ -41,8 +41,8 @@
         <p class="text-center text-primary-dark text-h3 font-semibold">
           Email Address
         </p>
-        <p class="text-sm text-gray-600">support@wordwellwriters.com</p>
-        <p class="text-sm text-gray-600">info@wordwellwriters.com</p>
+        <p class="text-sm text-gray-600">support@wordwellinternational.com</p>
+        <p class="text-sm text-gray-600">info@wordwellinternational.com</p>
       </div>
     </div>
 

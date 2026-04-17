@@ -54,8 +54,8 @@
             </p>
             <div class="flex flex-col">
               <span class="text-text-muted">Email:</span>
-              <a href="mailto:support@wordwellwriters.com" class="text-primary"
-                >support@wordwellwriters.com</a
+              <a href="mailto:support@wordwellinternational.com" class="text-primary"
+                >support@wordwellinternational.com</a
               >
             </div>
             <p>
@@ -81,6 +81,11 @@
             turnaround, & a commitment to excellence, we help students &
             professionals achieve their academic goals with confidence.
           </p>
+          <router-link
+            to="/terms"
+            class="text-small text-text-muted leading-relaxed text-wrap hover:text-primary transition"
+            >Terms & Conditions</router-link
+          >
         </div>
       </div>
     </div>

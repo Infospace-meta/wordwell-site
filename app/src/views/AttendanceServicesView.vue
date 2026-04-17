@@ -5,5 +5,5 @@
 </template>
 
 <script setup>
-import Attendance from "@/components/web/Attendance.vue";
+import Attendance from "@/components/site/Attendance.vue";
 </script>

@@ -56,7 +56,7 @@
                 type="email"
                 id="email"
                 v-model="form.email"
-                placeholder="E.g. john@wordwellwriters.com"
+                placeholder="E.g. john@wordwellinternational.com"
                 class="px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200"
                 required
               />
@@ -133,10 +133,9 @@
                 class="bg-white px-4 py-3 border border-gray-200 focus:border-orange-500 rounded-lg outline-none focus:ring-2 focus:ring-orange-200 w-full text-sm transition-all duration-200 appearance-none"
                 required
               >
-                <option value="essay">Essay Writing</option>
+                <option value="essay writing">Essay Writing</option>
                 <option value="assignment help">Assignment Help</option>
                 <option value="research paper">Research Paper</option>
-                <option value="homework help">Homework Help</option>
                 <option value="thesis/dissertation">Thesis/Dissertation</option>
                 <option value="editing and proofreading">
                   Editing and Proofreading
@@ -145,7 +144,6 @@
                 <option value="presentation and reports">
                   Presentation and Reports
                 </option>
-                <option value="admission essays">Admission Essays</option>
               </select>
             </div>
 
@@ -275,7 +273,7 @@
               >
             </div>
             <p class="mt-1 text-gray-500 text-xs">
-              Base price: ${{ basePrice }} per page
+              Base price: ${{ standardCost }} per page
             </p>
           </div>
 
@@ -362,6 +360,32 @@
                   ⚠️ Please upload at least one attachment.
                 </p>
 
+                <!-- FILE ERROR MESSAGE -->
+                <p
+                  v-if="fileErrorMessage"
+                  class="text-red-500 text-xs mt-2 bg-red-50 p-2 rounded border border-red-100 flex items-center gap-1"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-3 w-3"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  {{ fileErrorMessage }}
+                </p>
+
+                <!-- Helper text -->
+                <p class="text-gray-400 text-[10px] mt-1">
+                  Max 10MB per file. Total limit: 50MB.
+                </p>
+
+                <!-- Uploading text -->
                 <p
                   v-if="uploading"
                   class="text-blue-500 text-xs mt-2 animate-pulse font-bold"
@@ -380,6 +404,13 @@
 
           <!-- Submit Button -->
           <div class="pt-2">
+            <p class="text-[10px] text-center text-slate-400 mb-4 px-4">
+              By clicking "Place My Order", you agree to our
+              <router-link to="/terms" class="text-indigo-600 underline"
+                >Terms and Conditions</router-link
+              >
+              and Data Protection Policy.
+            </p>
             <button
               type="submit"
               :disabled="uploading"
@@ -430,15 +461,14 @@ const ordersStore = useOrdersStore();
 const authStore = useAuthStore();
 const { loading: isAddingOrder } = storeToRefs(ordersStore);
 const formError = ref(false);
-const basePrice = 15;
 
 /**Order Form */
 const form = ref({
   full_name: "",
   email: "",
   whatsapp_no: "",
-  service_type: "Essay",
-  academic_level: "Undergraduate",
+  service_type: "",
+  academic_level: "",
   subject: "",
   deadline: "",
   pages: 1,
@@ -453,7 +483,15 @@ const uploading = ref(false);
 const estimatedWords = computed(() => form.value.pages * 275);
 
 /**Logic for $15 per page (should match backend pricing) */
-const totalCost = computed(() => form.value.pages * 15);
+const standardCost = computed(
+  () => SERVICE_COSTS[form.value.service_type] ?? 15,
+);
+const totalCost = computed(() => form.value.pages * standardCost.value);
+
+/**Define limits (in bytes) */
+const MAX_FILE_SIZE = 10 * 1024 * 1024; //10MB per file
+const MAX_TOTAL_SIZE = 50 * 1024 * 1024; //50MB total per order
+const fileErrorMessage = ref("");
 
 /**FUNCTIONS */
 
@@ -472,8 +510,53 @@ onMounted(async () => {
 
 /**Function to handle file selection */
 const handleFileSelection = (event) => {
+  /**Reset error on new selection */
+  fileErrorMessage.value = "";
   const newFiles = Array.from(event.target.files);
-  selectedFiles.value = [...selectedFiles.value, ...newFiles];
+  /**Allowed types */
+  const ALLOWED_TYPES = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
+    "image/jpeg",
+    "image/png",
+    "text/plain",
+  ];
+
+  /**Calculate current total size of already selected files */
+  let currentTotalSize = selectedFiles.value.reduce(
+    (sum, f) => sum + f.size,
+    0,
+  );
+
+  const validFiles = [];
+
+  for (const file of newFiles) {
+    /**Check individual file size */
+    if (file.size > MAX_FILE_SIZE) {
+      fileErrorMessage.value = `file "${file.name}" exceeds the 10MB limit.`;
+      continue; //Skip this file and check the next one
+    }
+
+    /**Check if adding this file exceeds total order limit */
+    if (currentTotalSize + file.size > MAX_TOTAL_SIZE) {
+      fileErrorMessage.value = `Total attachment size cannot exceed 50MB. Some files were not added.`;
+      break; //stop adding files since limit has been hit
+    }
+
+    /**Check allowed file type */
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      fileErrorMessage.value = "Only PDF, Word, and Image files are allowed.";
+      continue;
+    }
+
+    validFiles.push(file);
+    currentTotalSize += file.size;
+  }
+
+  /**Add only the valid files to state */
+  selectedFiles.value = [...selectedFiles.value, ...validFiles];
+
   /**Clear error when files are added */
   if (selectedFiles.value.length > 0) {
     formError.value = false;
@@ -483,6 +566,9 @@ const handleFileSelection = (event) => {
 /**Function to remove a file from the list before uploading */
 const removeFile = (index) => {
   selectedFiles.value.splice(index, 1);
+  if (selectedFiles.value.length === 0) {
+    fileErrorMessage.value = "";
+  }
 };
 
 /**Helper to make file sizes readable (KB/MB) */

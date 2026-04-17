@@ -5,5 +5,5 @@
 </template>
 
 <script setup>
-import Home from "@/components/web/Home.vue";
+import Home from "@/components/site/Home.vue";
 </script>

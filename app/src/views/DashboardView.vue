@@ -7,5 +7,5 @@
 
 <script setup>
 import Dashboard from "@/components/Dashboard.vue";
-import TheHeader from "@/components/layout/TheHeader.vue";
+import TheHeader from "@/components/shared/TheHeader.vue";
 </script>

@@ -5,5 +5,5 @@
 </template>
 
 <script setup>
-import About from "@/components/web/About.vue";
+import About from "@/components/site/About.vue";
 </script>
