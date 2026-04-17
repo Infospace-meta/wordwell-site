@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+@source "../../blog/**/*.md";
+@source "../../blog/.vitepress/**/*.vue";
+
 @theme {
   /* --- Colors --- */
   /* Automatically generates bg-primary, text-primary, border-primary, etc. */

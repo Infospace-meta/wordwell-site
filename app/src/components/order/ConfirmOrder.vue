@@ -16,6 +16,7 @@
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore, useOrdersStore } from "@/store";
+import { toast } from "vue-sonner";
 
 /**VARIABLES */
 const router = useRouter();
@@ -27,7 +28,7 @@ onMounted(async () => {
   /**Fetch user */
   await authStore.fetchUser();
 
-  console.log("Actual Data:", ordersStore.pendingOrder);
+  // console.log("Actual Data:", ordersStore.pendingOrder);
 
   if (authStore.user && ordersStore.pendingOrder) {
     const payload = {
@@ -44,12 +45,14 @@ onMounted(async () => {
       ordersStore.clearPendingOrder();
 
       /**Success logic */
-      alert("Order created successfully! Order #" + data.order_number);
+      // alert("Order created successfully! Order #" + data.order_number);
+      toast.success("Order created successfully! Order #" + data.order_number);
 
       /**Redirect to payment (data.id is the newly created Order UUID) */
       router.push({ name: "payment", params: { id: data.id } });
     } else {
-      alert("Something went wrong finalizing your order.");
+      // alert("Something went wrong finalizing your order.");
+      toast.error("Something went wrong finalizing your order.");
       router.push("/order");
     }
   } else {

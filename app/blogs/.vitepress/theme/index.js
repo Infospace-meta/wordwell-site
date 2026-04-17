@@ -1,12 +1,10 @@
-// https://vitepress.dev/guide/custom-theme
+// .vitepress/theme/index.js
 import Layout from './Layout.vue'
-import './style.css'
+import './../../../src/style.css' // Your main website's Tailwind/Global CSS
 
-/** @type {import('vitepress').Theme} */
 export default {
   Layout,
   enhanceApp({ app, router, siteData }) {
-    // ...
+    // You can register global components here if needed
   }
 }
-

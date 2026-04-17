@@ -31,7 +31,7 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     /** Do something with request error */
-    console.error("Request Error:", error);
+    // console.error("Request Error:", error);
     return Promise.reject(error);
   },
 );
@@ -52,7 +52,7 @@ axiosInstance.interceptors.response.use(
       /** Handle 401 Unauthorized error */
       if (status === 401 /* && !config._retry */) {
         // Add retry logic here if implementing token refresh
-        console.warn("Unauthorized access (401). Logging out...");
+        // console.warn("Unauthorized access (401). Logging out...");
         // Use dynamic import ONLY WHEN NEEDED inside the function
         try {
           const { useAuthStore } = await import("@/store/auth.store");
@@ -60,20 +60,20 @@ axiosInstance.interceptors.response.use(
           /** Perform logout or redirect to the login page */
           authStore.logout();
         } catch (importError) {
-          console.error("Failed to import authStore for logout:", importError);
+          // console.error("Failed to import authStore for logout:", importError);
         }
       }
 
       /** Handle 403 Forbidden error */
       if (status === 403) {
-        console.warn("Access forbidden (403).");
+        // console.warn("Access forbidden (403).");
         // Maybe redirect to an 'access denied' page or show a message
         // Depending on requirements, logout might not always be the desired action for 403.
       }
     } else if (error.request) {
-      console.error("Network error or no response received:", error.request);
+      // console.error("Network error or no response received:", error.request);
     } else {
-      console.error("Error setting up request:", error.message);
+      // console.error("Error setting up request:", error.message);
     }
 
     /** Reject with the error so store actions can catch it */

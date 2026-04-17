@@ -453,6 +453,7 @@ import { useOrdersStore, useAuthStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { supabase } from "@/providers/supabase";
 import router from "@/router";
+import { toast } from "vue-sonner";
 import { SERVICE_COSTS } from "@/config/constants";
 
 /**VARIABLES */
@@ -641,7 +642,10 @@ const handleSubmit = async () => {
 
       if (authError) throw authError;
 
-      alert(
+      // alert(
+      //   "Magic link sent! Check your email to verify and complete your order.",
+      // );
+      toast.success(
         "Magic link sent! Check your email to verify and complete your order.",
       );
       return;
@@ -654,7 +658,9 @@ const handleSubmit = async () => {
 
     /**Handle response based on what store returns */
     if (apiError) {
-      alert("Error submitting order: " + (apiError || "Check console"));
+      // alert("Error submitting order: " + (apiError || "Check console"));
+      toast.error("Error submitting order: " + (apiError || "Check console"));
+      // console.error("Order Submission Error:", apiError);
       return;
     }
 
@@ -662,8 +668,9 @@ const handleSubmit = async () => {
 
     /**refresh session */
     await authStore.refreshSession();
-    alert("Order created successfully! Order #" + data.order_number);
-    console.log("Backend Response:", data);
+    // alert("Order created successfully! Order #" + data.order_number);
+    toast.success("Order created successfully! Order #" + data.order_number);
+    // console.log("Backend Response:", data);
 
     /** Redirect to a dedicated payment route passing the Order ID */
     router.push({ name: "payment", params: { id: data.id } });
@@ -675,8 +682,9 @@ const handleSubmit = async () => {
     resetForm();
   } catch (err) {
     /**Catch errors from uploadFiles() or unexpected logic crashes */
-    console.error("Order Submission Failed:", err);
-    alert("Error submitting order. Check console.");
+    // console.error("Order Submission Failed:", err);
+    // alert("Error submitting order. Check console.");
+    toast.error("Error submitting order.", err);
   } finally {
     uploading.value = false;
   }
@@ -702,9 +710,11 @@ const handleLogout = async () => {
       ordersStore.clearPendingOrder();
 
       /**alert user */
-      alert("Logged out successfully");
+      // alert("Logged out successfully");
+      toast.success("Logged out successfully");
     } else {
-      alert("Logout failed. Please try again.");
+      // alert("Logout failed. Please try again.");
+      toast.error("Logout failed. Please try again.");
     }
   }
 };
