@@ -41,6 +41,7 @@ import { useRoute, useRouter } from "vue-router";
 import { loadScript } from "@paypal/paypal-js";
 import { useOrdersStore } from "@/store/order.store";
 import api from "@/providers/api/axios";
+import { toast } from "vue-sonner";
 
 /**VARIABLES */
 const route = useRoute();
@@ -77,17 +78,21 @@ onMounted(async () => {
         try {
           /**Call your NestJS backend to capture and verify the money */
           await api.post(`payments/capture/${data.orderID}`);
-          alert("Payment Successful!");
+          // alert("Payment Successful!");
+          toast.success("Payment verified! Redirecting to dashboard...");
+          
           router.push("/dashboard");
         } catch (err) {
-          alert("Payment verification failed. Please contact support.");
+          // alert("Payment verification failed. Please contact support.");
+          toast.error("Payment verification failed. Please contact support.");
         } finally {
           verifying.value = false;
         }
       },
       onError: (err) => {
-        console.error("PayPal Error:", err);
-        alert("An error occurred with PayPal. Please try again.");
+        // console.error("PayPal Error:", err);
+        // alert("An error occurred with PayPal. Please try again.");
+        toast.error("An error occurred with PayPal. Please try again.");
       },
     })
     .render("#paypal-button-container");

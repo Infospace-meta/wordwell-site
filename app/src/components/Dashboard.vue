@@ -3,7 +3,7 @@
     <!-- Top Navigation / Header -->
     <header class="bg-white lg:border-b border-slate-200 px-6 py-4 top-20 z-50">
       <div
-        class="max-w-6xl mx-auto flex justify-between items-center max-lg:justify-end"
+        class="max-w-7xl px-5 mx-auto flex justify-between items-center max-lg:justify-end"
       >
         <h1 class="text-xl max-md:hidden font-bold text-slate-800">
           My Learning Dashboard
@@ -19,7 +19,7 @@
       </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 mt-8">
+    <main class="max-w-7xl px-5 mx-auto mt-8">
       <!-- Welcome & Stats -->
       <section class="mb-10 max-lg:hidden">
         <h2 class="text-2xl font-bold text-slate-800">
@@ -148,7 +148,12 @@
               >
                 <th class="px-6 py-4 font-semibold">Order</th>
                 <th class="px-6 py-4 font-semibold">Subject & Service</th>
-                <th class="px-6 py-4 font-semibold">Order Files</th>
+                <th class="px-6 py-4 font-semibold text-xs">
+                  Your Attachments
+                </th>
+                <th class="px-6 py-4 font-semibold text-xs text-emerald-700">
+                  Completed Work
+                </th>
                 <th class="px-6 py-4 font-semibold">Deadline</th>
                 <th class="px-6 py-4 font-semibold">Payment Status</th>
                 <th class="px-6 py-4 font-semibold">Order Status</th>
@@ -175,21 +180,19 @@
                   </p>
                 </td>
                 <!-- FILE LIST -->
+                <!-- YOUR ATTACHMENTS (Client Uploads) -->
                 <td class="px-6 py-4">
                   <div class="flex flex-col gap-1">
                     <button
-                      v-for="file in order.files"
+                      v-for="file in order.files.filter(
+                        (f) => f.file_type !== 'DELIVERABLE',
+                      )"
                       :key="file.id"
                       @click="generateSecureDownload(file)"
-                      class="text-[11px] flex items-center gap-1 hover:text-blue-700 transition w-fit"
-                      :class="
-                        file.file_type === 'DELIVERABLE'
-                          ? 'text-emerald-600 font-bold'
-                          : 'text-slate-500'
-                      "
+                      class="text-[11px] flex items-center gap-1.5 text-slate-500 hover:text-blue-600 transition group"
                     >
                       <svg
-                        class="w-3 h-3"
+                        class="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-500"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -203,6 +206,54 @@
                       </svg>
                       {{ file.file_name }}
                     </button>
+                    <span
+                      v-if="
+                        !order.files.some((f) => f.file_type !== 'DELIVERABLE')
+                      "
+                      class="text-[10px] text-slate-400 italic"
+                      >No files</span
+                    >
+                  </div>
+                </td>
+
+                <!-- COMPLETED WORK (Deliverables) -->
+                <td class="px-6 py-4">
+                  <div class="flex flex-col gap-1">
+                    <button
+                      v-for="file in order.files.filter(
+                        (f) => f.file_type === 'DELIVERABLE',
+                      )"
+                      :key="file.id"
+                      @click="generateSecureDownload(file)"
+                      class="text-[11px] flex items-center gap-1.5 text-emerald-600 font-bold hover:text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100 w-fit transition"
+                    >
+                      <svg
+                        class="w-3.5 h-3.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      {{ file.file_name }}
+                    </button>
+                    <!-- Placeholder if not done yet -->
+                    <div
+                      v-if="
+                        !order.files.some((f) => f.file_type === 'DELIVERABLE')
+                      "
+                      class="flex items-center gap-1 text-[11px] text-slate-400 italic"
+                    >
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-slate-300 animate-pulse"
+                      ></span>
+                      Waiting for delivery...
+                    </div>
                   </div>
                 </td>
                 <!-- DEADLINE -->
@@ -258,6 +309,7 @@
 import { onMounted, computed } from "vue";
 import { useOrdersStore, useAuthStore } from "@/store";
 import { supabase } from "@/providers/supabase";
+import {  toast } from "vue-sonner";
 
 /**VARIABLES */
 const ordersStore = useOrdersStore();
@@ -267,7 +319,7 @@ const authStore = useAuthStore();
 onMounted(async () => {
   await authStore.fetchUser();
   await ordersStore.fetchUserOrders();
-  console.log(ordersStore.orders);
+  // console.log(ordersStore.orders);
 });
 
 /** Computed Stats */
@@ -318,11 +370,15 @@ const generateSecureDownload = async (file) => {
 
     if (error) {
       if (error.message.includes("Object not found")) {
-        alert("File not found. It may have been archived.");
+        toast.error("File not found. It may have been archived.");
+        // alert("File not found. It may have been archived.");
       } else {
-        alert(
+        toast.error(
           "Security Error: You do not have permission to access this file.",
         );
+        // alert(
+        //   "Security Error: You do not have permission to access this file.",
+        // );
       }
       return;
     }
@@ -330,15 +386,17 @@ const generateSecureDownload = async (file) => {
     // 2. Open in new tab
     window.open(data.signedUrl, "_blank");
   } catch (err) {
-    console.error("Download system error:", err);
-    alert("An error occurred while fetching the secure link.");
+    // console.error("Download system error:", err);
+    toast.error("An error occurred while fetching the secure link.");
   }
 };
 
 const handleDownload = async (order) => {
   // Logic to get Signed URL for the 'DELIVERABLE' file type
   const deliverable = order.files.find((f) => f.file_type === "DELIVERABLE");
-  if (!deliverable) return alert("File not ready yet.");
+  if (!deliverable) return;
+  // alert("File not ready yet.");
+  toast.error("File not ready yet.");
 
   const { data, error } = await supabase.storage
     .from("order-attachments")

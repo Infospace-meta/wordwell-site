@@ -47,13 +47,13 @@ export const useAuthStore = defineStore("auth", () => {
         .eq("id", user.value.id)
         .maybeSingle();
 
-      console.log(data);
+      // console.log(data);
       profile.value = data;
     } catch (err) {
       const errorMessage =
         err.response?.data?.message || "Failed to fetch user profile.";
       apiError.value = errorMessage;
-      console.error("Error fetching profile:", err);
+      // console.error("Error fetching profile:", err);
       throw new Error(errorMessage);
     } finally {
       apiLoading.value = false;
@@ -85,7 +85,7 @@ export const useAuthStore = defineStore("auth", () => {
 
     /**handle error */
     if (error) {
-      console.error("Session refresh failed:", error.message);
+      // console.error("Session refresh failed:", error.message);
       return { error };
     }
 
@@ -128,7 +128,7 @@ export const useAuthStore = defineStore("auth", () => {
           "We couldn't find any orders associated with this email. Please enter the email address you used when placing your order.";
       }
     } catch (err) {
-      console.error("Supabase check error:", err);
+      // console.error("Supabase check error:", err);
       userExists.value = false;
       error.value = "An error occurred while checking your email.";
     } finally {
@@ -160,7 +160,7 @@ export const useAuthStore = defineStore("auth", () => {
   async function logout() {
     const { error } = await supabase.auth.signOut();
     if (error) {
-      console.error("Error logging out:", error.message);
+      // console.error("Error logging out:", error.message);
       return { error };
     }
 
