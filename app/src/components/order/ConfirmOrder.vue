@@ -53,6 +53,7 @@ onMounted(async () => {
     } else {
       // alert("Something went wrong finalizing your order.");
       toast.error("Something went wrong finalizing your order.");
+      console.log(error);
       router.push("/order");
     }
   } else {
