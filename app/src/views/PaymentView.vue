@@ -37,6 +37,7 @@
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import api from "@/providers/api/axios";
+import { toast } from "vue-sonner";
 
 const route = useRoute();
 const order = ref(null);
@@ -58,7 +59,8 @@ const startPaystackPayment = async () => {
     // REDIRECT the user to Paystack
     window.location.href = data.authorization_url;
   } catch (err) {
-    alert("Could not initialize payment. Please try again.");
+    // alert("Could not initialize payment. Please try again.");
+    toast.error("Could not initialize payment. Please try again.");
     loading.value = false;
   }
 };
