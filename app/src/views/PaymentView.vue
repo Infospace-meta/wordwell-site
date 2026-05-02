@@ -1,100 +1,65 @@
 <template>
   <div class="min-h-screen bg-slate-50 flex items-center justify-center p-6">
     <div
-      class="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 border border-slate-200"
+      class="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 border border-slate-200 text-center"
     >
-      <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold text-slate-800">Final Step: Payment</h2>
-        <p class="text-slate-500 mt-2">Order #{{ order?.order_number }}</p>
-      </div>
+      <h2 class="text-2xl font-bold text-slate-800 mb-2">Final Step</h2>
+      <p class="text-slate-500 mb-6">
+        Complete payment for Order #{{ order?.order_number }}
+      </p>
 
-      <!-- Pricing Breakdown -->
-      <div class="bg-slate-50 rounded-xl p-4 mb-8 space-y-3">
-        <div class="flex justify-between text-sm">
-          <span class="text-slate-600">Service:</span>
-          <span class="font-medium text-slate-800">{{
-            order?.service_type
-          }}</span>
-        </div>
-        <div class="flex justify-between font-bold text-lg border-t pt-3">
-          <span>Total Amount:</span>
-          <span class="text-indigo-600">${{ order?.total_price }}</span>
-        </div>
-      </div>
-
-      <!-- PayPal Button -->
-      <div id="paypal-button-container"></div>
-
-      <!-- Loading Overlay -->
-      <div v-if="verifying" class="text-center mt-4">
-        <p class="text-indigo-600 font-bold animate-pulse text-sm">
-          🚀 Verifying payment with WordWell...
+      <div class="bg-indigo-50 rounded-xl p-6 mb-8">
+        <p class="text-sm text-indigo-600 font-medium uppercase tracking-wider">
+          Amount Due
+        </p>
+        <p class="text-4xl font-black text-[#334a97]">
+          ${{ order?.total_price }}
         </p>
       </div>
+
+      <button
+        @click="startPaystackPayment"
+        :disabled="loading"
+        class="w-full bg-[#334a97] hover:bg-blue-800 text-white font-bold py-4 rounded-xl shadow-lg transition flex items-center justify-center gap-3"
+      >
+        <span v-if="!loading">Pay Securely with Card</span>
+        <span v-else class="animate-pulse">Redirecting to Paystack...</span>
+      </button>
+
+      <p class="text-[10px] text-slate-400 mt-4 italic">
+        Secured by Paystack. All major international cards accepted.
+      </p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { loadScript } from "@paypal/paypal-js";
-import { useOrdersStore } from "@/store/order.store";
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
 import api from "@/providers/api/axios";
-import { toast } from "vue-sonner";
 
-/**VARIABLES */
 const route = useRoute();
-const router = useRouter();
 const order = ref(null);
-const verifying = ref(false);
+const loading = ref(false);
 
-/**FUNCTIONS */
 onMounted(async () => {
-  /**Fetch the specific order details */
-  try {
-    const res = await api.get(`orders/${route.params.id}`);
-    order.value = res.data;
-  } catch (err) {
-    router.push("/order");
-  }
-
-  /**Load PayPal SDK */
-  const paypal = await loadScript({
-    "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID,
-    currency: "USD",
-  });
-
-  /**Render Buttons */
-  paypal
-    .Buttons({
-      createOrder: async () => {
-        /**Call your NestJS backend to initialize the PayPal transaction */
-        const res = await api.post(`payments/create/${order.value.id}`);
-        return res.data.id; // Returns the PayPal Order ID
-      },
-      onApprove: async (data) => {
-        verifying.value = true;
-        try {
-          /**Call your NestJS backend to capture and verify the money */
-          await api.post(`payments/capture/${data.orderID}`);
-          // alert("Payment Successful!");
-          toast.success("Payment verified! Redirecting to dashboard...");
-          
-          router.push("/dashboard");
-        } catch (err) {
-          // alert("Payment verification failed. Please contact support.");
-          toast.error("Payment verification failed. Please contact support.");
-        } finally {
-          verifying.value = false;
-        }
-      },
-      onError: (err) => {
-        // console.error("PayPal Error:", err);
-        // alert("An error occurred with PayPal. Please try again.");
-        toast.error("An error occurred with PayPal. Please try again.");
-      },
-    })
-    .render("#paypal-button-container");
+  const res = await api.get(`orders/${route.params.id}`);
+  order.value = res.data;
 });
+
+const startPaystackPayment = async () => {
+  try {
+    loading.value = true;
+    // Call our backend to get the Paystack Hosted URL
+    const { data } = await api.post(
+      `payments/paystack/initialize/${order.value.id}`,
+    );
+
+    // REDIRECT the user to Paystack
+    window.location.href = data.authorization_url;
+  } catch (err) {
+    alert("Could not initialize payment. Please try again.");
+    loading.value = false;
+  }
+};
 </script>
