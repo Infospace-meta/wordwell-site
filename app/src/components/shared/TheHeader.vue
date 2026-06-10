@@ -192,7 +192,7 @@
         class="w-full rounded-btn bg-primary-dark px-4 py-4 text-white font-bold"
         @click="navigateMobile('order')"
       >
-        Order Now
+        Request Consultation
       </button>
       <button
         class="w-full rounded-btn border-primary-dark px-4 py-4 text-primary-dark border-2 font-bold"
