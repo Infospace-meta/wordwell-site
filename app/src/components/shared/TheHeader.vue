@@ -84,7 +84,7 @@
           class="hidden lg:block rounded-btn bg-primary-dark px-6 py-2.5 text-white hover:bg-complementary transition-colors cursor-pointer font-medium"
           @click="navigate('order')"
         >
-          Order Now
+          Request Consultation
         </button>
         <button
           class="hidden lg:block rounded-btn border-2 border-primary-dark px-6 py-2.5 text-primary-dark hover:border-complementary hover:text-complementary transition-colors cursor-pointer font-medium"

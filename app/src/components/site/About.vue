@@ -62,10 +62,10 @@
             Academic Support
           </h2>
           <button
-           @click="router.push('/order')"
+            @click="router.push('/order')"
             class="bg-accent hover:bg-complementary text-white font-bold py-4 px-8 rounded-btn transition-colors text-btn tracking-widest"
           >
-            Place an order now!
+            Request Consultation now!
           </button>
         </div>
 
@@ -196,7 +196,7 @@
             </p>
 
             <button
-             @click="router.push('/order')"
+              @click="router.push('/order')"
               class="bg-[#2c4696] hover:bg-blue-900 text-white font-bold py-4 px-10 rounded transition-colors uppercase text-sm tracking-widest shadow-md"
             >
               Get Started Today!
@@ -317,7 +317,7 @@
             <!-- CTA Button -->
             <div class="pt-4">
               <button
-               @click="router.push('/order')"
+                @click="router.push('/order')"
                 class="bg-accent hover:bg-complementary text-btn text-white py-4 px-10 rounded-btn transition-colors tracking-widest"
               >
                 Get a Free Quote
@@ -352,15 +352,14 @@ import {
   Lightbulb,
   Users,
 } from "@lucide/vue";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
 // Navigation function
 const navigate = (path) => {
-  router.push('/' + path); // Ensure absolute pathing
+  router.push("/" + path); // Ensure absolute pathing
 };
-
 
 // import { Goal, Eye, ShieldCheck } from "@lucide/vue";
 

@@ -100,7 +100,7 @@
               @click="router.push('/order')"
                 class="bg-primary-dark hover:bg-primary text-white font-bold py-4 px-12 rounded-lg transition-all uppercase text-sm tracking-widest shadow-md"
               >
-                Order Now
+                Request Consultation
               </button>
             </div>
           </div>
