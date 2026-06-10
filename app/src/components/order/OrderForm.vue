@@ -6,7 +6,7 @@
         <p
           class="mb-3 font-bold text-blue-800 text-xl uppercase tracking-widest"
         >
-          Essay Writing & Assignment Help Experts
+          Custom Content Drafting & Editorial Services Experts
         </p>
         <p class="text-gray-600 text-sm">
           Ace Your Assignments with Real Experts! Skilled writers are standing
