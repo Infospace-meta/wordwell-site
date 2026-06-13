@@ -80,8 +80,7 @@ const loading = ref(false);
 onMounted(async () => {
   try {
     const orderId = route.params.id; // From the URL: /order/:id/pay
-    const { data } = await api.get(`orders/${orderId}`);
-    console.log(data);
+    const { data } = await api.get(`orders/${orderId}`);   
     order.value = data;
   } catch (err) {
     console.error("Order fetch failed", err);
