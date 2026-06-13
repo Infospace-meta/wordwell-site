@@ -99,7 +99,7 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   /**Check if user exists in local db */
-  async function checkUser(email) {
+  async function checkUserOld(email) {
     if (!email || !email.includes("@")) return;
 
     checkingEmail.value = true;
@@ -120,6 +120,43 @@ export const useAuthStore = defineStore("auth", () => {
       if (sbError) throw sbError;
 
       if (data) {
+        userExists.value = true;
+        error.value = null;
+      } else {
+        userExists.value = false;
+        error.value =
+          "We couldn't find any orders associated with this email. Please enter the email address you used when placing your order.";
+      }
+    } catch (err) {
+      // console.error("Supabase check error:", err);
+      userExists.value = false;
+      error.value = "An error occurred while checking your email.";
+    } finally {
+      checkingEmail.value = false;
+    }
+  }
+
+  /**
+   * Check if user exists via the check_user_exists RPC.
+   * Uses a SECURITY DEFINER function so the email check works pre-auth
+   * (anon key) without exposing the Profile table through RLS.
+   */
+  async function checkUser(email) {
+    if (!email || !email.includes("@")) return;
+
+    checkingEmail.value = true;
+    error.value = null;
+    userExists.value = false;
+
+    try {
+      const { data, error: sbError } = await supabase.rpc(
+        "check_user_exists",
+        { p_email: email.toLowerCase() }
+      );
+
+      if (sbError) throw sbError;
+
+      if (data === true) {
         userExists.value = true;
         error.value = null;
       } else {
