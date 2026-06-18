@@ -74,7 +74,7 @@
               to="/order"
               class="bg-[#334a97] hover:bg-orange-600 px-6 py-2 rounded-lg font-semibold text-white transition-colors"
             >
-              Request Consultation!
+              Order Now!
             </router-link>
 
             <!-- Conditional Auth Buttons -->

@@ -84,7 +84,7 @@
           class="hidden lg:block rounded-btn bg-primary-dark px-6 py-2.5 text-white hover:bg-complementary transition-colors cursor-pointer font-medium"
           @click="navigate('order')"
         >
-          Request Consultation
+          Order Now
         </button>
         <button
           class="hidden lg:block rounded-btn border-2 border-primary-dark px-6 py-2.5 text-primary-dark hover:border-complementary hover:text-complementary transition-colors cursor-pointer font-medium"
@@ -192,7 +192,7 @@
         class="w-full rounded-btn bg-primary-dark px-4 py-4 text-white font-bold"
         @click="navigateMobile('order')"
       >
-        Request Consultation
+        Order Now
       </button>
       <button
         class="w-full rounded-btn border-primary-dark px-4 py-4 text-primary-dark border-2 font-bold"
