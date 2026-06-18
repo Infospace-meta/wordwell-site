@@ -65,7 +65,7 @@
             @click="router.push('/order')"
             class="bg-accent hover:bg-complementary text-white font-bold py-4 px-8 rounded-btn transition-colors text-btn tracking-widest"
           >
-            Request Consultation now!
+            Order now!
           </button>
         </div>
 

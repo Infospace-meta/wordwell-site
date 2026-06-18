@@ -62,6 +62,7 @@
                 v-for="sub in link.dropdown"
                 :key="sub.name"
                 :to="sub.path"
+                exact-active-class="bg-surface text-complementary font-semibold"
                 class="block px-4 py-2 text-sm hover:bg-surface hover:text-complementary transition-colors"
               >
                 {{ sub.name }}
@@ -72,6 +73,7 @@
           <router-link
             v-else
             :to="link.path"
+            exact-active-class="text-complementary font-semibold"
             class="hover:text-complementary transition-colors"
           >
             {{ link.name }}
@@ -84,7 +86,7 @@
           class="hidden lg:block rounded-btn bg-primary-dark px-6 py-2.5 text-white hover:bg-complementary transition-colors cursor-pointer font-medium"
           @click="navigate('order')"
         >
-          Request Consultation
+          Order Now
         </button>
         <button
           class="hidden lg:block rounded-btn border-2 border-primary-dark px-6 py-2.5 text-primary-dark hover:border-complementary hover:text-complementary transition-colors cursor-pointer font-medium"
@@ -170,6 +172,7 @@
               :key="sub.name"
               :to="sub.path"
               @click="toggleMenu"
+              exact-active-class="text-complementary font-semibold"
               class="py-3 text-body border-b border-border last:border-0"
             >
               {{ sub.name }}
@@ -181,6 +184,7 @@
           v-else
           :to="link.path"
           @click="toggleMenu"
+          exact-active-class="text-complementary font-semibold"
           class="py-4 text-body font-medium border-b border-border"
         >
           {{ link.name }}
@@ -192,7 +196,7 @@
         class="w-full rounded-btn bg-primary-dark px-4 py-4 text-white font-bold"
         @click="navigateMobile('order')"
       >
-        Request Consultation
+        Order Now
       </button>
       <button
         class="w-full rounded-btn border-primary-dark px-4 py-4 text-primary-dark border-2 font-bold"
