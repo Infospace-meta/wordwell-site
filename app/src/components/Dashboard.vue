@@ -273,7 +273,7 @@
                 <td class="px-6 py-4">
                   <span
                     :class="getStatusClasses(order.order_status)"
-                    class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter"
+                    class="inline-flex items-center justify-center whitespace-nowrap px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter"
                   >
                     {{ order.order_status.replace("_", " ") }}
                   </span>
@@ -309,7 +309,7 @@
 import { onMounted, computed } from "vue";
 import { useOrdersStore, useAuthStore } from "@/store";
 import { supabase } from "@/providers/supabase";
-import {  toast } from "vue-sonner";
+import { toast } from "vue-sonner";
 
 /**VARIABLES */
 const ordersStore = useOrdersStore();
@@ -352,7 +352,7 @@ const getStatusClasses = (status) => {
     PENDING_PAYMENT: "bg-amber-100 text-amber-700",
     PAID: "bg-blue-100 text-blue-700",
     PENDING: "bg-amber-200 text-amber-800",
-    IN_PROGRESS: "bg-blue-600 text-blue-800",
+    IN_PROGRESS: "bg-blue-100 text-blue-800",
     COMPLETED: "bg-emerald-100 text-emerald-700",
     REVISION: "bg-rose-100 text-rose-700",
   };
