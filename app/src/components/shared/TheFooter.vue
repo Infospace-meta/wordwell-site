@@ -42,26 +42,24 @@
             <p class="text-text-muted tracking-tight">
               Serving Clients Worldwide
             </p>
-            <p>
+            <!-- <p>
               <span class="text-text-muted">Phone:</span>
               <a href="tel:+15633433372" class="text-primary ml-1"
                 >+1 (563) 343-3372</a
               >
-            </p>
-            <p>
+            </p> -->
+            <!-- <p>
               <span class="text-text-muted">WhatsApp:</span>
               <a href="#" class="text-primary ml-1">+1 (563) 343-3372</a>
-            </p>
+            </p> -->
             <div class="flex flex-col">
               <span class="text-text-muted">Email:</span>
-              <a href="mailto:support@wordwellinternational.com" class="text-primary"
+              <a
+                href="mailto:support@wordwellinternational.com"
+                class="text-primary"
                 >support@wordwellinternational.com</a
               >
             </div>
-            <p>
-              <span class="text-text-muted">Live Chat:</span>
-              <span class="text-primary ml-1">Available 24/7</span>
-            </p>
           </div>
         </div>
 
