@@ -31,12 +31,12 @@
         <p class="text-sm text-gray-600 mt-2">123 Academic Ave</p>
         <p class="text-sm text-gray-600 mt-2">Des Moines</p>
       </div>
-      <div class="space-y-5">
+      <!-- <div class="space-y-5">
         <p class="text-center text-primary-dark text-h3 font-semibold">
           Phone Number
         </p>
         <p class="text-sm text-gray-600">+1 (704) 749 834</p>
-      </div>
+      </div> -->
       <div class="space-y-5">
         <p class="text-center text-primary-dark text-h3 font-semibold">
           Email Address
